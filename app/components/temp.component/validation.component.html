@@ -1,0 +1,61 @@
+<div class="app-card-container">
+
+    <!--FormBuilder with NgFormControl-->
+    <md-card>
+        <md-card-title>{{ 'NUMBERS' | translate:lang }}</md-card-title>
+        <md-card-content>
+            <form [ngFormModel]="numberForm" (ngSubmit)="onSubmit(numberForm.value)">
+                <div>
+                    <md-input placeholder="{{ 0 | localedecimal:defaultLocale:digits }}" ref-decimal="ngForm" [ngFormControl]="numberForm.controls['decimal']"
+                        [(ngModel)]="value" (keyup)="decimal.control.valid ? parsedValue : parsedValue = null" style="width: 100%"></md-input>
+
+                    <div *ngIf="decimal.control.hasError('format') && value != ''" style="color: #D32F2F;">
+                        {{ 'NUMBER_IS_INVALID' | translate:lang }} {{ 0 | localedecimal:defaultLocale:digits }}
+                    </div>
+                    <div *ngIf="decimal.control.hasError('minValue') && value != ''" style="color: #D32F2F;">
+                        {{ 'MIN_VALUE_ERROR' | translate:lang }} {{ minValue | localedecimal:defaultLocale:digits }}
+                    </div>
+                    <div *ngIf="decimal.control.hasError('maxValue') && value != ''" style="color: #D32F2F;">
+                        {{ 'MAX_VALUE_ERROR' | translate:lang }} {{ maxValue | localedecimal:defaultLocale:digits }}
+                    </div>
+                </div>
+                <br>
+                <button type="submit" [disabled]="!decimal.control.valid" md-raised-button color="primary">{{ 'SUBMIT' | translate:lang }}</button>
+                <br>
+                <br>
+                <p>{{ 'NUMBER_VALUE' | translate:lang }} {{ parsedValue }}</p>
+            </form>
+        </md-card-content>
+    </md-card>
+
+    <!--NgControl-->
+    <!--<md-card>
+        <md-card-title>{{ 'NUMBERS' | translate:lang }}</md-card-title>
+        <md-card-content>
+            <form (ngSubmit)="onSubmit(value)" #numberForm="ngForm">
+                <div>
+
+                    <md-input [validateLocaleNumber]="digits" [minValue]="minValue" [maxValue]="maxValue" placeholder="{{ 0 | localedecimal:defaultLocale:digits }}"
+                        [(ngModel)]="value" ref-decimal="ngForm" ngControl="decimal" style="width: 100%"></md-input>
+
+                    <div [hidden]="(decimal.errors != null && value !='') ? !decimal.errors.hasOwnProperty('format') : true" style="color: #D32F2F;">
+                        {{ 'NUMBER_IS_INVALID' | translate:lang }} {{ 0 | localedecimal:defaultLocale:digits }}
+                    </div>
+                    <div [hidden]="(decimal.errors != null && value !='') ? !decimal.errors.hasOwnProperty('minValue') : true" style="color: #D32F2F;">
+                        {{ 'MIN_VALUE_ERROR' | translate:lang }} {{ minValue | localedecimal:defaultLocale:digits }}
+                    </div>
+                    <div [hidden]="(decimal.errors != null && value !='') ? !decimal.errors.hasOwnProperty('maxValue') : true" style="color: #D32F2F;">
+                        {{ 'MAX_VALUE_ERROR' | translate:lang }} {{ maxValue | localedecimal:defaultLocale:digits }}
+                    </div>
+
+                </div>
+                <br>
+                <button type="submit" [disabled]="!decimal.valid" md-raised-button color="primary">{{ 'SUBMIT' | translate:lang }}</button>
+                <br>
+                <br>
+                <p>{{ 'NUMBER_VALUE' | translate:lang }} {{ parsedValue }}</p>
+            </form>
+        </md-card-content>
+    </md-card>-->
+
+</div>
