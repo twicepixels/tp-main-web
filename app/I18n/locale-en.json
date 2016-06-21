@@ -38,6 +38,14 @@
     "SUBMIT": "Submit",
     "VERSION": "version",
     "ACCOUNT": "Account",
-    "SIGNIN": "Sign in",
-    "REGISTER" : "Register"
+    "SIGN_IN": "Sign in",
+    "REGISTER" : "Register",
+    "SIGNIN_ERROR":"Failed to sign in! Please check your credentials and try again.",
+    "USERNAME":"Username",
+    "PASSWORD":"Password",
+    "REMEMBER_ME":"Remember me",
+    "FORGET_PASSWORD":"Did you forget your password?",
+    "HAVE_ACCOUNT":"You don't have an account yet?",
+    "NEW_ACCOUNT":"Register a new account",
+    "MESSAGE_VALID_INPUT" : "Input required !!"
 }

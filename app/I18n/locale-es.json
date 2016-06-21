@@ -38,7 +38,15 @@
     "SUBMIT": "Enviar",
     "VERSION": "versión",
     "ACCOUNT": "Cuenta",
-    "SIGNIN": "Inicia sesión",
-    "REGISTER" : "Regístrate"
+    "SIGN_IN": "Inicia sesión",
+    "REGISTER" : "Regístrate",
+    "SIGNIN_ERROR":"Error de Autenticación, verifique sus credenciales !",
+    "USERNAME":"Usuario",
+    "PASSWORD":"Contraseña",
+    "REMEMBER_ME":"Recordar acceso",
+    "FORGET_PASSWORD":"Olvidó su contraseña ?",
+    "HAVE_ACCOUNT":"No tiene una cuenta aún ?",
+    "NEW_ACCOUNT":"Regístre una nueva cuenta !",
+    "MESSAGE_VALID_INPUT" : "Valor requerido !!"
 
 }
