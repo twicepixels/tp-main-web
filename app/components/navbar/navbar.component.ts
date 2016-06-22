@@ -15,14 +15,14 @@ import {TranslatePipe} from 'angular2localization/angular2localization';
 
 // Components.
 
-import {HomeComponent} from '../temp.component/home.component';
-import {I18nComponent} from '../temp.component/i18n.component';
-import {ListComponent} from '../temp.component/list.component';
-import {ValidationComponent} from '../temp.component/validation.component';
-import {LoginComponent} from '../login.component/login.component';
+import {HomeComponent} from '../temp/home.component';
+import {I18nComponent} from '../temp/i18n.component';
+import {ListComponent} from '../temp/list.component';
+import {ValidationComponent} from '../temp/validation.component';
+import {LoginComponent} from '../login/login.component';
 
 import {LanguageService} from '../../services/language.service/language.service';
-import {Language} from '../language.component/language';
+import {Language} from '../language/language';
 
 
 

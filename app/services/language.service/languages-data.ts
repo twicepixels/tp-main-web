@@ -1,5 +1,5 @@
 
-import {Language} from "../../components/language.component/language";
+import {Language} from "../../components/language/language";
 
 export const LANGUAGES: Language[] = [
     {id:'es',name:'Español',isoCode:'CR',currency:'CRC'},
