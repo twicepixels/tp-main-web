@@ -1,6 +1,32 @@
+# Directories #
+###################
 $ cat .gitignore
 /node_modules
 /typings
 /.idea
+
+
+
+# Compiled source #
+###################
 *.js
 *.map
+
+
+
+# Logs and databases #
+######################
+*.log
+*.sql
+
+
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
