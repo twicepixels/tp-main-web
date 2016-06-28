@@ -12,6 +12,7 @@ import {
 } from 'angular2localization/angular2localization';
 // Components
 import { NavbarComponent } from '../navbar/navbar.component';
+import { SearchComponent } from '../search/search.component';
 // Services
 import { LanguageService } from '../../service/language/language.service';
 
@@ -21,6 +22,7 @@ import { LanguageService } from '../../service/language/language.service';
 	directives: [
 		MdToolbar,
 		NavbarComponent,
+		SearchComponent,
 		ROUTER_DIRECTIVES,
 		MD_LIST_DIRECTIVES,
 		MD_SIDENAV_DIRECTIVES

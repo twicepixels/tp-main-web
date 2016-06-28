@@ -1,9 +1,10 @@
 import { RouterConfig }          from '@angular/router';
 
+import { LoginComponent } from '../login/login.component';
+
 import { HomeComponent } from '../../../components/temp/home.component';
 import { I18nComponent } from '../../../components/temp/i18n.component';
 import { ListComponent } from '../../../components/temp/list.component';
-import { LoginComponent } from '../../../components/login/login.component';
 import { ValidationComponent } from '../../../components/temp/validation.component';
 
 export const NavbarRoutes: RouterConfig = [

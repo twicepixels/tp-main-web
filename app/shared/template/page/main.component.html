@@ -4,10 +4,16 @@
             <nav-bar></nav-bar>
             <md-toolbar-row>
                 <p>{{ 'SUBTITLE' | translate:lang }}</p>
+                <!--<search-bar></search-bar>-->
             </md-toolbar-row>
         </md-toolbar>
+
         <div class="app-content">
+
+            <search-bar></search-bar>
+
             <router-outlet></router-outlet>
+
         </div>
     </div>
 </md-sidenav-layout>

@@ -1,0 +1,30 @@
+<form #searchForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="container search-panel">
+        <div class="row">
+            <div class="input-group">
+                <input type="hidden" name="type" value="@stype" id="search_param">
+                <input type="text" name="keywords" [(ngModel)]="keywords" class="form-control"
+                       placeholder="{{ 'SEARCHPLACE' | translate:lang }}">
+
+                <div class="input-group-btn search-panel">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <span id="search_concept">{{ selectedCategory.name | translate:lang }}</span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li *ngFor="let category of categories">
+                            <a md-line (click)="selectCategory(category);">
+                                {{ category.name | translate:lang }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+</form>
