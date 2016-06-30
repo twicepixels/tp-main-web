@@ -11,8 +11,8 @@ import { Category, CATEGORIES } from './category-data';
 
 @Component({
 	selector: 'search-bar',
-	templateUrl: 'app/shared/template/search/search.component.html',
-	styleUrls: ['app/shared/template/search/search.component.css'],
+	template: require('./search.component.html'),
+	styles: [require('./search.component.less')],
 	encapsulation: ViewEncapsulation.None,
 	pipes: [TranslatePipe]
 })

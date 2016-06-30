@@ -1,0 +1,46 @@
+@panel-height: 45px;
+@txt-color: #323838;
+@btn-color: #323838;
+@border-color: #95A5A6;
+@background-color: #FFFFFF;
+
+.box-shadow(@style, @c) when (iscolor(@c)) {
+  -webkit-box-shadow: @style @c;
+  -moz-box-shadow: @style @c;
+  box-shadow: @style @c;
+}
+
+.box-shadow(@style, @alpha: 50%) when (isnumber(@alpha)) {
+  .box-shadow(@style, rgba(0, 0, 0, @alpha));
+}
+
+.container.search-panel {
+  margin-bottom: 20px;
+  .box-shadow(2px 2px 3px 0);
+
+  a {
+    cursor: pointer;
+  }
+
+  .form-control {
+    color: @txt-color;
+    height: @panel-height;
+    border: solid 1px @border-color;
+  }
+
+  .btn-default {
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+    color: @btn-color;
+    height: @panel-height;
+    border-color: @border-color;
+    background: @background-color;
+    &:active, &:focus, &:hover {
+      outline: none;
+      background: white;
+      .box-shadow(0 0 0 0);
+      border-color: @border-color;
+    }
+  }
+}
