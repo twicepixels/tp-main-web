@@ -1,0 +1,11 @@
+{
+  "modules": [
+    {
+      "name": "tp-main",
+      "url": "http://localhost:3001",
+      "services": [
+        {"name": "users", "path": "users"}
+      ]
+    }
+  ]
+}

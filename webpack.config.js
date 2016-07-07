@@ -20,6 +20,7 @@ module.exports = {
 	module: {
 		loaders: [
 			{test: /\.html$/, loader: 'raw-loader'},
+			{test: /\.json$/, loader: 'json-loader'},
 			{test: /\.(png|jpg|gif)$/, loader: 'file-loader'},
 			{test: /\.ts/, loaders: ['ts-loader'], exclude: /node_modules/},
 			{test: /\.less$/, loader: 'raw-loader!less-loader', exclude: /node_modules/}
