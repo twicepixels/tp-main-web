@@ -8,12 +8,15 @@ import { APP_ROUTER_PROVIDERS } from "./app.routes";
 // Components
 import { AuthService } from './shared/service/auth/auth.service';
 import { MainComponent } from './shared/template/page/main.component';
+import { disableDeprecatedForms, provideForms } from '@angular/forms';
 
 enableProdMode();
 bootstrap(MainComponent, [
 		AuthService,
 		HTTP_PROVIDERS,
 		APP_ROUTER_PROVIDERS,
+	    disableDeprecatedForms(),
+	    provideForms(),
 		{provide: LocationStrategy, useClass: HashLocationStrategy}
 	]
 ).catch(err => console.error(err));
