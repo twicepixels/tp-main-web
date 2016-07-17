@@ -4,7 +4,8 @@
       "name": "tp-main",
       "url": "http://localhost:3001",
       "services": [
-        {"name": "users", "path": "users"}
+        {"name": "users", "path": "users"},
+        {"name": "login", "path": "auth/login"}
       ]
     }
   ]

@@ -17,11 +17,13 @@ import { MdRadioDispatcher } from '@angular2-material/radio/radio_dispatcher';
 import { MD_CARD_DIRECTIVES } from '@angular2-material/card';
 import { MD_INPUT_DIRECTIVES } from '@angular2-material/input';
 
+import {RestService} from "../../service/rest.service";
+
 @Component({
 	selector: 'login',
 	templateUrl: 'app/shared/template/login/login.component.html',
 	pipes: [TranslatePipe],
-	providers: [MdRadioDispatcher, AuthService],
+	providers: [MdRadioDispatcher, AuthService, RestService],
 	directives: [MD_CARD_DIRECTIVES, MdRadioButton, MD_INPUT_DIRECTIVES, MdButton]
 })
 
@@ -39,18 +41,29 @@ export class LoginComponent extends Locale {
 	constructor(public router: Router,
 	            public auth: AuthService,
 	            public locale: LocaleService,
-	            public localization: LocalizationService) {
+	            public localization: LocalizationService,
+				public rest: RestService
+	) {
 		super(locale, localization);
 	}
 
 	onSubmit() {
-		this.auth.login(this.user.username, this.user.password).subscribe
+		/*this.auth.login(this.user.username, this.user.password).subscribe
 		(
 			(token: any) => {
 				this.router.navigate(['/home']);
 			}, () => {
 				this.error = true;
 			}
+		);*/
+
+		console.log("llego");
+
+		this.rest.post("tp-main","login", {"username":"admin","password":"password" }).then(
+			(result: any)=>console.log(result),
+			(reason: string)=>console.log('REJECTED: '+ reason)
+
 		);
+
 	}
 }

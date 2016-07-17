@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
+import {RestService} from "../rest.service";
+import { Component } from '@angular/core';
 
 //import 'rxjs/add/operator/share';
 //import 'rxjs/add/operator/map';
 
 @Injectable()
+@Component({
+	viewProviders: [RestService],
+})
 export class AuthService {
 	token: string;
 
-	constructor() {
+	constructor( public rest: RestService) {
 		this.token = localStorage.getItem('token');
 	}
 
@@ -37,6 +42,13 @@ export class AuthService {
 
 		//console.log('from authentication:'+username);
 		//console.log(password);
+
+		this.rest.post("tp-main","login", {"username":"admin","password":"password" }).then(
+			(result: any)=>console.log(result),
+			(reason: string)=>console.log('REJECTED: '+ reason)
+
+		);
+
 
 		if (username === 'test' && password === 'test') {
 			this.token = 'token';
