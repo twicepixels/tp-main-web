@@ -57,9 +57,9 @@ export class LoginComponent extends Locale {
 			}
 		);*/
 
-		console.log("llego");
+		//console.log("llego"+this.user.username);
 
-		this.rest.post("tp-main","login", {"username":"admin","password":"password" }).then(
+		this.rest.post("tp-main","login", {"username":this.user.username,"password":this.user.password }).then(
 			(result: any)=>console.log(result),
 			(reason: string)=>console.log('REJECTED: '+ reason)
 
