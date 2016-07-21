@@ -1,3 +1,10 @@
+/**
+ * Created by jquesada on 20/07/16.
+ */
+
+
+
+
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -19,15 +26,28 @@ import { MD_INPUT_DIRECTIVES } from '@angular2-material/input';
 
 import {RestService} from "../../service/rest.service";
 
-@Component({
+import { REACTIVE_FORM_DIRECTIVES, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormCtrlMessage } from '../form/form.ctrl.message.component.ts';
+
+
+
+/*@Component({
 	selector: 'login',
 	templateUrl: 'app/shared/template/login/login.component.html',
 	pipes: [TranslatePipe],
 	providers: [MdRadioDispatcher, AuthService, RestService],
 	directives: [MD_CARD_DIRECTIVES, MdRadioButton, MD_INPUT_DIRECTIVES, MdButton]
-})
+})*/
 
+@Component({
+	template: require('./login.component.html'),
+	pipes : [TranslatePipe],
+	directives: [REACTIVE_FORM_DIRECTIVES, FormCtrlMessage],
+	providers: [AuthService, RestService]
+})
 export class LoginComponent extends Locale {
+
+	loginform: any;
 
 	public model = {
 		search: ""
@@ -42,22 +62,31 @@ export class LoginComponent extends Locale {
 	            public auth: AuthService,
 	            public locale: LocaleService,
 	            public localization: LocalizationService,
+				public formBuilder: FormBuilder,
 				public rest: RestService
 	) {
 		super(locale, localization);
+		this.loginform = this.formBuilder.group(AuthService.getGroupFormBuilder());
 	}
 
 token = localStorage.getItem('token');
 
-	onSubmit() {
-		this.auth.login(this.user.username, this.user.password).subscribe
+	accionButtonLoginForm() {
+
+		if (this.loginform.dirty && this.loginform.valid) {
+			alert(`userName: ${this.loginform.value.userName}\n`+
+				`password: ${this.loginform.value.password}`);
+		}
+
+
+		console.log(this.loginform.value.userName);
+		this.auth.login(   this.loginform.value.userName , this.loginform.value.password).subscribe
 		(
 		(token: any) => {
-
 				this.token = token;
 				this.router.navigate(['/home']);
 			}, () => {
-				console.log('llego a la shit');
+				console.log('dio error');
 				this.error = true;
 			}
 		);
@@ -69,7 +98,7 @@ token = localStorage.getItem('token');
 			(result: any)=>console.log(result),
 			(reason: string)=>console.log('REJECTED: '+ reason)
 
-		);*/
+		); */
 
 	}
 }

@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 import {RestService} from "../rest.service";
+import {Validators} from '@angular/forms';
+
+
 import { Component } from '@angular/core';
 
 //import 'rxjs/add/operator/share';
@@ -11,7 +14,7 @@ import { Component } from '@angular/core';
 export class AuthService  {
 	token: string;
 
-	constructor(public rest: RestService) {
+	constructor(private rest: RestService) {
 		this.token = localStorage.getItem('token');
 	}
 
@@ -36,11 +39,8 @@ export class AuthService  {
 		 for the purpose of this cookbook, we will juste simulate that
 		 */
 
-
 		//console.log('from authentication:'+username);
-		//console.log(password);
-
-
+		console.log('servicio '+password);
 
 		return this.rest.post("tp-main","login", {"username":username,"password":password }).then(
 			(result: any)=> {
@@ -53,19 +53,8 @@ export class AuthService  {
 				console.log('REJECTED: '+ reason);
 				return Observable.throw('authentication failure');
 			}
+
 		);
-
-		/*
-		if(this.token != undefined){
-			console.log("tigre"+this.token);
-			return Observable.of('token');
-		}
-		else{
-			console.log("mamo"+this.token);
-			return Observable.throw('authentication failure');
-
-		}*/
-
 
 
 		/*
@@ -74,9 +63,6 @@ export class AuthService  {
 			localStorage.setItem('token', this.token);
 			return Observable.of('token');
 		}*/
-
-
-
 	}
 
 	logout() {
@@ -99,4 +85,12 @@ export class AuthService  {
 
 		return Observable.of(true);
 	}
+
+	static getGroupFormBuilder():any{
+		return  {			
+			userName: ['xxxx', Validators.required],
+			password: ['xxxx', Validators.required]
+		};
+	}
+	
 }
