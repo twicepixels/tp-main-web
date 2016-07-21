@@ -13,23 +13,23 @@ export class RestService {
 		this.modules = restConfig["modules"];
 	}
 
-	get(module: string, service: string): Promise<any> {
-		let _url = this.url(module, service);
+	get(module: string, service: string, params?: any): Promise<any> {
+		let _url = this.url(module, service, params);
 		return this.request(_url, "GET");
 	}
 
-	post(module: string, service: string, body: any): Promise<any> {
-		let _url = this.url(module, service);
+	post(module: string, service: string, body?: any, params?: any): Promise<any> {
+		let _url = this.url(module, service, params);
 		return this.request(_url, "POST", body);
 	}
 
-	put(module: string, service: string, body: any): Promise<any> {
-		let _url = this.url(module, service);
+	put(module: string, service: string, body?: any, params?: any): Promise<any> {
+		let _url = this.url(module, service, params);
 		return this.request(_url, "PUT", body);
 	}
 
-	del(module: string, service: string): Promise<any> {
-		let _url = this.url(module, service);
+	del(module: string, service: string, params?: any): Promise<any> {
+		let _url = this.url(module, service, params);
 		return this.request(_url, "DELETE");
 	}
 
@@ -57,7 +57,7 @@ export class RestService {
 	}
 
 	//noinspection JSMethodCanBeStatic
-	private url(module: string, service: string): string {
+	private url(module: string, service: string, params?: any): string {
 		let _module = this.modules.find((imodule: any)=> {
 			return imodule["name"] == module;
 		});
