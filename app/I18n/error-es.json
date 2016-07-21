@@ -1,0 +1,7 @@
+{
+  "required": "Requerido",
+  "invalidCreditCard": "Inválido número de tarjet",
+  "invalidEmailAddress": "Inválida dirección de correo electrónico",
+  "invalidPassword": "Inválido Password. Debe ser de al menos 6 caracteres de largo y debe contener al menos un número.",
+  "minlength": "Longitud mínima 10"
+}

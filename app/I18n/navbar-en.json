@@ -6,5 +6,7 @@
   "LIST": "List",
   "VALIDATION": "Validation",
   "SIGN_IN": "Log in",
-  "REGISTER": "Register"
+  "REGISTER": "Register",
+  "FORM" : "Form"
+
 }
