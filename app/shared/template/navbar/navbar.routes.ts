@@ -7,6 +7,7 @@ import { I18nComponent } from '../../../components/temp/i18n.component';
 import { ListComponent } from '../../../components/temp/list.component';
 import { ValidationComponent } from '../../../components/temp/validation.component';
 import { FormComponent } from '../../../components/temp/form.component';
+import { FormCustomerUserComponent } from '../../../components/customer.user/customer.user.component.ts';
 
 export const NavbarRoutes: RouterConfig = [
 	{path: '', component: HomeComponent},
@@ -15,5 +16,6 @@ export const NavbarRoutes: RouterConfig = [
 	{path: 'list', component: ListComponent},
 	{path: 'login', component: LoginComponent},
 	{path: 'validation', component: ValidationComponent},
-	{path: 'form', component: FormComponent}
+	{path: 'form', component: FormComponent},
+	{path: 'user/:id', component: FormCustomerUserComponent}
 ];

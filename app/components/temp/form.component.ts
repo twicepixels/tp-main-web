@@ -43,7 +43,15 @@ export class FormComponent  extends Locale {
       this.userForm = this.formBuilder.group({
          'name': ['', Validators.required],
          'email': ['', [Validators.required, FormValidationService.emailValidator]],
-         'profile': ['', [Validators.required, Validators.minLength(10)]]
+         'profile': ['', [Validators.required, Validators.minLength(10)]],  //temp
+         'firstName': ['', Validators.required],
+         'lastName': ['', Validators.required],
+         'pseudonym': ['', Validators.required],
+         'password': ['', Validators.required],
+         'countryId': ['', Validators.required], //int
+         'accountId': ['', Validators.required], //int
+         'userName': ['', Validators.required],
+         'location': ['', Validators.required]
       });
 
    }

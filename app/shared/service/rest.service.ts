@@ -4,6 +4,7 @@ import { Observable } from "rxjs/Rx";
 const util = require("util");
 var restConfig = require("../config/rest.config.json");
 
+
 @Injectable()
 export class RestService {
 	private modules: any = null;
