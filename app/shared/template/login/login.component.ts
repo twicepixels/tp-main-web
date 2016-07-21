@@ -47,23 +47,29 @@ export class LoginComponent extends Locale {
 		super(locale, localization);
 	}
 
+token = localStorage.getItem('token');
+
 	onSubmit() {
-		/*this.auth.login(this.user.username, this.user.password).subscribe
+		this.auth.login(this.user.username, this.user.password).subscribe
 		(
-			(token: any) => {
+		(token: any) => {
+
+				this.token = token;
 				this.router.navigate(['/home']);
 			}, () => {
+				console.log('llego a la shit');
 				this.error = true;
 			}
-		);*/
+		);
 
 		//console.log("llego"+this.user.username);
 
+		/*
 		this.rest.post("tp-main","login", {"username":this.user.username,"password":this.user.password }).then(
 			(result: any)=>console.log(result),
 			(reason: string)=>console.log('REJECTED: '+ reason)
 
-		);
+		);*/
 
 	}
 }

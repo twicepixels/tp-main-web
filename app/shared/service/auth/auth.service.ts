@@ -8,13 +8,10 @@ import { Component } from '@angular/core';
 //import 'rxjs/add/operator/map';
 
 @Injectable()
-@Component({
-	viewProviders: [RestService],
-})
-export class AuthService {
+export class AuthService  {
 	token: string;
 
-	constructor( public rest: RestService) {
+	constructor(public rest: RestService) {
 		this.token = localStorage.getItem('token');
 	}
 
@@ -43,20 +40,42 @@ export class AuthService {
 		//console.log('from authentication:'+username);
 		//console.log(password);
 
-		this.rest.post("tp-main","login", {"username":"admin","password":"password" }).then(
-			(result: any)=>console.log(result),
-			(reason: string)=>console.log('REJECTED: '+ reason)
 
+
+		return this.rest.post("tp-main","login", {"username":username,"password":password }).then(
+			(result: any)=> {
+				console.log(result);
+				this.token = 'token';
+				localStorage.setItem('token', this.token);
+				return Observable.of('token');
+			},
+			(reason: string)=> {
+				console.log('REJECTED: '+ reason);
+				return Observable.throw('authentication failure');
+			}
 		);
 
+		/*
+		if(this.token != undefined){
+			console.log("tigre"+this.token);
+			return Observable.of('token');
+		}
+		else{
+			console.log("mamo"+this.token);
+			return Observable.throw('authentication failure');
 
+		}*/
+
+
+
+		/*
 		if (username === 'test' && password === 'test') {
 			this.token = 'token';
 			localStorage.setItem('token', this.token);
 			return Observable.of('token');
-		}
+		}*/
 
-		return Observable.throw('authentication failure');
+
 
 	}
 
