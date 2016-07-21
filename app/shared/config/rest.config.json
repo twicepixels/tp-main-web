@@ -5,7 +5,8 @@
       "url": "http://localhost:3001",
       "services": [
         {"name": "users", "path": "users"},
-        {"name": "login", "path": "auth/login"}
+        {"name": "login", "path": "auth/login"},
+        {"name": "login", "path": "auth/logout"}
       ]
     }
   ]

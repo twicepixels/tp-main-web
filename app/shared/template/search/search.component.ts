@@ -8,12 +8,14 @@ import {
 } from 'angular2localization/angular2localization';
 
 import { Category, CATEGORIES } from './category-data';
+import { RestService } from "../../service/rest.service";
 
 @Component({
 	selector: 'search-bar',
 	template: require('./search.component.html'),
 	styles: [require('./search.component.less')],
 	encapsulation: ViewEncapsulation.None,
+	providers: [RestService],
 	pipes: [TranslatePipe]
 })
 
@@ -24,6 +26,7 @@ export class SearchComponent extends Locale {
 	private selectedCategory = {};
 
 	constructor(public router: Router,
+	            public rest: RestService,
 	            public locale: LocaleService,
 	            public localization: LocalizationService) {
 		super(locale, localization);
@@ -43,5 +46,10 @@ export class SearchComponent extends Locale {
 		if (this.keywords) {
 			console.log(this.keywords);
 		}
+
+		this.rest.get("tp-main", "users").then(
+			(result: any)=>console.log(result),
+			(reason: string)=>console.log('REJECTED: ' + reason)
+		);
 	}
 }
