@@ -41,14 +41,16 @@ export class LoginComponent extends Locale {
 			// tipo LoginModel siempre y cuando los
 			// nombres de los atributos sean iguales
 			this.model = this.loginForm.value;
-
+			// invocar el servicio y procesar la respuesta
 			this.auth.login(this.model).then(
-				(jsonResult: any) => {
+				(jsonResult: Object) => {
+					//en lugar de any o Object podría recibir un model Ej: User
+					//no 100% necesario ya que el json puede procesarce igual
 					console.log(jsonResult);
 					alert("LOGIN SUCCESSFUL");
 					this.router.navigate(['/home']);
 
-				}, (reason: string) => {
+				}, (reason: Object) => {
 					this.error = true;
 					console.log(reason);
 					alert("LOGIN FAILED");
