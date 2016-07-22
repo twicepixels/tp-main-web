@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
-import { Http, Headers, RequestOptions, Response } from "@angular/http";
-import { Observable } from "rxjs/Rx";
 const util = require("util");
+import { Observable } from "rxjs/Rx";
+import { Injectable } from "@angular/core";
 var restConfig = require("../config/rest.config.json");
+import { Http, Headers, RequestOptions, Response } from "@angular/http";
 
 
 @Injectable()
@@ -68,6 +68,12 @@ export class RestService {
 			});
 			let _moduleUrl = _module["url"];
 			let _servicePath = _service["path"];
+			if (params) {
+				Object.keys(params).forEach(key => {
+					_servicePath = _servicePath.replace
+					(util.format("{%s}", key), params[key]);
+				});
+			}
 			return util.format("%s/%s", _moduleUrl, _servicePath);
 		}
 		return null;
@@ -89,11 +95,7 @@ export class RestService {
 	}
 
 	private handleError(error: any, reject: any): Promise<any> {
-		let errMsg = (error.message) ? error.message : error.status ?
-			`${error.status} - ${error.statusText}` : 'Server error';
-		return Promise.reject(errMsg).then(
-			(reason: any)=> reject(reason),
-			(reason: any)=> reject(reason)
-		);
+		return Promise.resolve(error.json()).then
+		((reason: any)=> reject(reason));
 	}
 }
