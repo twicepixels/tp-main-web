@@ -9,6 +9,7 @@ import {
 // Services
 import { Language } from '../../service/language/language';
 import { LanguageService } from '../../service/language/language.service';
+import { AuthService } from "../../service/auth/auth.service";
 
 @Component({
 	selector: 'nav-bar',
@@ -17,7 +18,8 @@ import { LanguageService } from '../../service/language/language.service';
 	providers: [
 		LocaleService,
 		LanguageService,
-		LocalizationService
+		LocalizationService,
+		AuthService
 	],
 	pipes: [TranslatePipe]
 })
@@ -27,7 +29,7 @@ export class NavbarComponent extends Locale {
 	public languages: Language[];
 	private langSelected = {};
 
-	constructor(localization: LocalizationService) {
+	constructor(localization: LocalizationService,  public auth: AuthService) {
 		super(null, localization);
 		LanguageService.addScope({
 			prefix: "navbar",
@@ -38,6 +40,8 @@ export class NavbarComponent extends Locale {
 			.then((languages: Language[])=> this.languages = languages);
 		LanguageService.getCurrentLang(this.localization)
 			.then((lang: Language)=> this.selectLocale(lang));
+
+		this.isAuthenticated();
 	}
 
 	getCurrentCountry(): string {
@@ -47,5 +51,20 @@ export class NavbarComponent extends Locale {
 	selectLocale(language: Language) {
 		this.langSelected = language;
 		LanguageService.translate(language);
+	}
+
+	isAuthenticated():boolean{
+		console.log('isAuthenticated / this.auth.isLoggedIn =' + this.auth.isLoggedIn() );
+		return this.auth.isLoggedIn();
+		/*if( this.auth.isLoggedIn()){
+			alert("autenticado");
+		}else{
+			alert("no autenticado");
+		}*/
+	}
+	
+	logout():void{
+		console.log('logout');
+		this.auth.logout();
 	}
 }
