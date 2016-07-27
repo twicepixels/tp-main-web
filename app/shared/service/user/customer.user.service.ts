@@ -16,33 +16,43 @@ export class CustomerUserService {
 
     //get
     get(user:User):User {
-        this.restService.get("tp-main","user").then(data => this.user = data);
+        this.restService.post("tp-main","userByUserName",{"username":user.userName})
+            .then(data => {
+                console.log(data);
+            },(reason:string) => {
+                console.log("Error : " + reason );
+            });
         return this.user;
     }
     //update
     post(user:User):User {
-        this.restService.post("tp-main", "user", user).then(data => this.user = data);
+        this.restService.post("tp-main", "updateUser", user).then(data => this.user = data);
         return this.user;
     }
     //create
-    put(user:User):User {
-        this.restService.put("tp-main","user", user).then(data => this.user = data);
+    put(user:User):any {
+        this.restService.post("tp-main","createUser", user)
+            .then(data => {
+                console.log(data);
+            },(reason:string) => {
+                console.log(reason);
+            });
         return this.user;
     }
     
     static getGroupFormBuilder():any{
         return  {
-                 name: ['xxxxxxxx', Validators.required],
-                 firstName: ['xxxxxxxx', Validators.required],
-                 lastName: ['xxxxxxxx', Validators.required],
-                 userName: ['xxxxxxxx', Validators.required],
-                 email: ['egcabc@gmail.com', [Validators.required, FormValidationService.emailValidator]],
-                 pseudonym: ['xxxxxxxx', Validators.required],
-                 password: ['xxxxxxxx', Validators.required],
-                 password_: ['xxxxxxxx', Validators.required],
-                 //countryId: ['xxxxxxxx', Validators.required], //int
-                 accountId: ['xxxxxxxx', Validators.required], //int
-                 location: ['xxxxxxxx', Validators.required]
+                 id: ['8', Validators.required],
+                 firstName: ['user', Validators.required],
+                 lastName: ['user', Validators.required],
+                 userName: ['user', Validators.required],
+                 email: ['tp11@gmail.com', [Validators.required, FormValidationService.emailValidator]],
+                 pseudonym: ['edu', Validators.required],
+                 password: ['p$2a$10$0WN4nPJbX7DgXd5I3zAdBuiohh/jIs0EVzgAYgLwHuRVzcAvP.5Be', Validators.required],
+                 password_: ['pass_ value', Validators.required],
+                 countryId: ['123', Validators.required], //int
+                 accountId: ['1', [Validators.required, FormValidationService.fieldNumberValidator]], //int
+                 location: ['1', Validators.required]
                 };
     }
 }

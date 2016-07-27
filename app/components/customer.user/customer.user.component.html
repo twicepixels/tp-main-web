@@ -34,6 +34,12 @@
                             <h1>Personal Information</h1>
                         </div>
                         <fieldset class="form-group">
+                            <label for="id">Id</label>
+                            <input formControlName="id" type="text" class="form-control input-lg" id="id" placeholder="Enter id">
+                            <form-ctrl-message [control]="userForm.controls.id"></form-ctrl-message>
+                        </fieldset>
+
+                        <fieldset class="form-group">
                             <label for="firstName">First Name</label>
                             <input formControlName="firstName" type="text" class="form-control input-lg" id="firstName" placeholder="Enter first name">
                             <form-ctrl-message [control]="userForm.controls.firstName"></form-ctrl-message>
@@ -72,11 +78,13 @@
                         <div class="page-header">
                             <h1>Location Information</h1>
                         </div>
+
                         <fieldset class="form-group">
                             <label for="location">Location</label>
                             <input formControlName="location" type="text" class="form-control input-lg" id="location" placeholder="Enter location">
                             <small class="text-muted"><form-ctrl-message [control]="userForm.controls.location"></form-ctrl-message></small>
                         </fieldset>
+
                         <fieldset class="form-group">
                             <label for="countryId">Country</label>
                             <select name="countryId" id="countryId">
@@ -103,11 +111,13 @@
                             <input formControlName="password" type="password" class="form-control input-lg" id="password" placeholder="Enter password">
                             <small class="text-muted"><form-ctrl-message [control]="userForm.controls.password"></form-ctrl-message></small>
                         </fieldset>
+
                         <fieldset class="form-group">
                             <label for="password_">Password again</label>
                             <input formControlName="password_" type="password" class="form-control input-lg" id="password_" placeholder="Enter password">
                             <small class="text-muted"><form-ctrl-message [control]="userForm.controls.password_"></form-ctrl-message></small>
                         </fieldset>
+
                     </div>
                 </div>
             </div>

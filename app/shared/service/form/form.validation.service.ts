@@ -30,4 +30,14 @@ export class FormValidationService {
             return { 'invalidPassword': true };
         }
     }
+
+    static fieldNumberValidator(control:any) {
+        // {6,100}           - Assert password is between 6 and 100 characters
+        // (?=.*[0-9])       - Assert a string has at least one number
+        if (control.value.match(/^[0-9]+$/)) {
+            return null;
+        } else {
+            return { 'invalidFieldNumber': true };
+        }
+    }
 }

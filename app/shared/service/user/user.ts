@@ -2,8 +2,8 @@
  * Created by eduray on 7/16/16.
  */
 export interface User {
+    id:number;
     userName:string;
-    name:string;
     email:string;
     firstName:string;
     lastName:string;
