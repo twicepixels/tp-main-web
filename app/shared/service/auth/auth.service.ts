@@ -1,102 +1,60 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
-import {RestService} from "../rest.service";
-import { Component } from '@angular/core';
+import { Injectable, Directive, EventEmitter, ElementRef, NgZone as zone } from '@angular/core';
+import { RestService } from "../rest.service";
+import { LoginModel } from "./auth.model";
 
-//import 'rxjs/add/operator/share';
-//import 'rxjs/add/operator/map';
+
 
 @Injectable()
-export class AuthService  {
-	token: string;
+export class AuthService {
+	private authenticated: boolean = false;
 
-	constructor(public rest: RestService) {
-		this.token = localStorage.getItem('token');
+	constructor(private rest: RestService ) {
+		this.authenticated = !!localStorage.getItem('token');
 	}
 
-	login(username: String, password: String): any {
-		/*
-		 * If we had a login api, we would have done something like this
+	login(model: LoginModel): Promise<Object> {
+		let _service = this.rest;
+		let thisClass = this;
 
-		 return this.http.post('/auth/login', JSON.stringify({
-		 username: username,
-		 password: password
-		 }), {
-		 headers: new Headers({
-		 'Content-Type': 'application/json'
-		 })
-		 })
-		 .map((res : any) => {
-		 let data = res.json();
-		 this.token = data.token;
-		 localStorage.setItem('token', this.token);
-		 });
+		return new Promise(function (resolve, reject) {
+			// race promise against post
+			_service.post("tp-main", "login", model).then(
+				(jsonResult: any)=> {					
+					console.log("sucess" + thisClass.authenticated);
+					localStorage.setItem('token','user');
+					thisClass.authenticated = true;
+					//Se puede hacer otro procesamiento
+					//En este caso no es necesario
+					resolve(jsonResult);
 
-		 for the purpose of this cookbook, we will juste simulate that
-		 */
+				},
+				(reason: any) => {
+					localStorage.removeItem('token');
+					thisClass.authenticated = false;
+					console.log("error" + thisClass.authenticated);
+					//Se puede hacer otro log
+					//En este caso no es necesario
+					reject(reason);
 
-
-		//console.log('from authentication:'+username);
-		//console.log(password);
-
-
-
-		return this.rest.post("tp-main","login", {"username":username,"password":password }).then(
-			(result: any)=> {
-				console.log(result);
-				this.token = 'token';
-				localStorage.setItem('token', this.token);
-				return Observable.of('token');
-			},
-			(reason: string)=> {
-				console.log('REJECTED: '+ reason);
-				return Observable.throw('authentication failure');
-			}
-		);
-
-		/*
-		if(this.token != undefined){
-			console.log("tigre"+this.token);
-			return Observable.of('token');
-		}
-		else{
-			console.log("mamo"+this.token);
-			return Observable.throw('authentication failure');
-
-		}*/
-
-
-
-		/*
-		if (username === 'test' && password === 'test') {
-			this.token = 'token';
-			localStorage.setItem('token', this.token);
-			return Observable.of('token');
-		}*/
-
-
-
+				}
+			);
+		});
+		// también se puede devolver el promise
+		// sin hacer ningún procesamiento adicional:
+		// return this.rest.post("tp-main", "login", model);
 	}
 
-	logout() {
-		/*
-		 * If we had a login api, we would have done something like this
-
-		 return this.http.get(this.config.serverUrl + '/auth/logout', {
-		 headers: new Headers({
-		 'x-security-token': this.token
-		 })
-		 })
-		 .map((res : any) => {
-		 this.token = undefined;
-		 localStorage.removeItem('token');
-		 });
-		 */
-
-		this.token = undefined;
+	logout(): Promise<any> {
 		localStorage.removeItem('token');
+		this.authenticated = false;
+		return this.rest.post("tp-main", "logout");
+	}
 
-		return Observable.of(true);
+
+	isLoggedIn():boolean {
+		return !!localStorage.getItem('token');
+		//return this.authenticated;
+
 	}
 }

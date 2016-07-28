@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
-import { Http, Headers, RequestOptions, Response } from "@angular/http";
-import { Observable } from "rxjs/Rx";
 const util = require("util");
+import { Observable } from "rxjs/Rx";
+import { Injectable } from "@angular/core";
 var restConfig = require("../config/rest.config.json");
+import { Http, Headers, RequestOptions, Response } from "@angular/http";
 
 
 @Injectable()
@@ -13,23 +13,23 @@ export class RestService {
 		this.modules = restConfig["modules"];
 	}
 
-	get(module: string, service: string): Promise<any> {
-		let _url = this.url(module, service);
+	get(module: string, service: string, params?: any): Promise<any> {
+		let _url = this.url(module, service, params);
 		return this.request(_url, "GET");
 	}
 
-	post(module: string, service: string, body: any): Promise<any> {
-		let _url = this.url(module, service);
+	post(module: string, service: string, body?: any, params?: any): Promise<any> {
+		let _url = this.url(module, service, params);
 		return this.request(_url, "POST", body);
 	}
 
-	put(module: string, service: string, body: any): Promise<any> {
-		let _url = this.url(module, service);
+	put(module: string, service: string, body?: any, params?: any): Promise<any> {
+		let _url = this.url(module, service, params);
 		return this.request(_url, "PUT", body);
 	}
 
-	del(module: string, service: string): Promise<any> {
-		let _url = this.url(module, service);
+	del(module: string, service: string, params?: any): Promise<any> {
+		let _url = this.url(module, service, params);
 		return this.request(_url, "DELETE");
 	}
 
@@ -57,7 +57,7 @@ export class RestService {
 	}
 
 	//noinspection JSMethodCanBeStatic
-	private url(module: string, service: string): string {
+	private url(module: string, service: string, params?: any): string {
 		let _module = this.modules.find((imodule: any)=> {
 			return imodule["name"] == module;
 		});
@@ -68,6 +68,12 @@ export class RestService {
 			});
 			let _moduleUrl = _module["url"];
 			let _servicePath = _service["path"];
+			if (params) {
+				Object.keys(params).forEach(key => {
+					_servicePath = _servicePath.replace
+					(util.format("{%s}", key), params[key]);
+				});
+			}
 			return util.format("%s/%s", _moduleUrl, _servicePath);
 		}
 		return null;
@@ -89,11 +95,7 @@ export class RestService {
 	}
 
 	private handleError(error: any, reject: any): Promise<any> {
-		let errMsg = (error.message) ? error.message : error.status ?
-			`${error.status} - ${error.statusText}` : 'Server error';
-		return Promise.reject(errMsg).then(
-			(reason: any)=> reject(reason),
-			(reason: any)=> reject(reason)
-		);
+		return Promise.resolve(error.json()).then
+		((reason: any)=> reject(reason));
 	}
 }

@@ -6,8 +6,7 @@
       "services": [
         {"name": "users", "path": "users"},
         {"name": "login", "path": "auth/login"},
-        {"name": "userByUserName", "path": "users/user"},
-        {"name": "createUser", "path": "users/create"}
+        {"name": "logout", "path": "auth/logout"}
       ]
     }
   ]

@@ -43,6 +43,7 @@ export class MainComponent extends Locale implements OnInit {
 			prefix: "locale",
 			l10n: this.localization
 		});
+		
 	}
 
 	ngOnInit() {
