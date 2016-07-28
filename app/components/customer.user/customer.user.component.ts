@@ -71,12 +71,12 @@ export class FormCustomerUserComponent  extends Locale  implements OnInit {
         return this.user;
     }
     //update
-    post(user:User):User {
+    put(user:User):User {
         this.user = this.customerUserService.post(user);
         return this.user;
     }
     //create
-    put(user:User, userS:string):void {
-        this.user = this.customerUserService.put(user, userS);
+    post(user:User, userS:string):void {
+        this.user = this.customerUserService.post(user, userS);
     }
 }

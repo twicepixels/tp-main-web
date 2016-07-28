@@ -25,12 +25,12 @@ export class CustomerUserService {
         return this.user;
     }
     //update
-    post(user:User):User {
+    put(user:User):User {
         this.restService.post("tp-main", "updateUser", user).then(data => this.user = data);
         return this.user;
     }
     //create
-    put(user:User):any {
+    post(user:User):any {
         this.restService.post("tp-main","createUser", user)
             .then(data => {
                 console.log(data);
