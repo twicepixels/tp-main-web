@@ -1,38 +1,43 @@
+
 import 'rxjs/Rx';
 import { Injectable, Directive, EventEmitter, ElementRef, NgZone as zone } from '@angular/core';
 import { RestService } from "../rest.service";
 import { LoginModel } from "./auth.model";
+import {User} from '../user/user';
+
+
 
 
 
 @Injectable()
 export class AuthService {
-	private authenticated: boolean = false;
+	//private authenticated: boolean = false;
 
 	constructor(private rest: RestService ) {
-		this.authenticated = !!localStorage.getItem('token');
+		//this.authenticated = !!localStorage.getItem('userName');
 	}
 
 	login(model: LoginModel): Promise<Object> {
 		let _service = this.rest;
-		let thisClass = this;
+		//let thisClass = this;
+		
 
 		return new Promise(function (resolve, reject) {
 			// race promise against post
 			_service.post("tp-main", "login", model).then(
-				(jsonResult: any)=> {					
-					console.log("sucess" + thisClass.authenticated);
-					localStorage.setItem('token','user');
-					thisClass.authenticated = true;
+				(jsonResult: User)=> {
+					console.log("sucess" + jsonResult.userName);
+					localStorage.setItem('userName',jsonResult.firstName + ' ' + jsonResult.lastName);
+					//thisClass.authenticated = true;
 					//Se puede hacer otro procesamiento
 					//En este caso no es necesario
 					resolve(jsonResult);
 
 				},
 				(reason: any) => {
-					localStorage.removeItem('token');
-					thisClass.authenticated = false;
-					console.log("error" + thisClass.authenticated);
+					localStorage.removeItem('userName');
+					//thisClass.authenticated = false;
+
 					//Se puede hacer otro log
 					//En este caso no es necesario
 					reject(reason);
@@ -46,14 +51,14 @@ export class AuthService {
 	}
 
 	logout(): Promise<any> {
-		localStorage.removeItem('token');
-		this.authenticated = false;
+		localStorage.removeItem('userName');
+		//this.authenticated = false;
 		return this.rest.post("tp-main", "logout");
 	}
 
 
 	isLoggedIn():boolean {
-		return !!localStorage.getItem('token');
+		return !!localStorage.getItem('userName');
 		//return this.authenticated;
 
 	}

@@ -77,6 +77,8 @@ export class FormCustomerUserComponent  extends Locale  implements OnInit {
     }
     //create
     post(user:User, userS:string):void {
-        this.user = this.customerUserService.post(user, userS);
+        //jquesa --> se comento linea porque daba error al hacer pull
+        //this.user = this.customerUserService.post(user, userS);
+        this.user = this.customerUserService.post(user);
     }
 }

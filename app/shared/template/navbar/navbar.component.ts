@@ -28,6 +28,7 @@ export class NavbarComponent extends Locale {
 
 	public languages: Language[];
 	private langSelected = {};
+	private username:string;
 
 	constructor(localization: LocalizationService,  public auth: AuthService) {
 		super(null, localization);
@@ -55,6 +56,8 @@ export class NavbarComponent extends Locale {
 
 	isAuthenticated():boolean{
 		console.log('isAuthenticated / this.auth.isLoggedIn =' + this.auth.isLoggedIn() );
+		this.username = localStorage.getItem('userName');
+		
 		return this.auth.isLoggedIn();
 		/*if( this.auth.isLoggedIn()){
 			alert("autenticado");
