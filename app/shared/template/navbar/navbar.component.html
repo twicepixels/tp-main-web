@@ -32,79 +32,23 @@
 
         <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li *ngIf="isAuthenticated()">
-
-                        <span class="hidden-sm">
-                    {{ 'WELCOME' | translate:lang }}  {{ username }}
-                    <!--<button (click)="logout()">Logout</button>-->
-                            </span>
-                </li>
-
-
-                <li>
-                    <a [routerLink]="['/home']">
-                        <span class="glyphicon glyphicon-home"></span>
-                        <span class="hidden-sm">
-                            {{ 'HOME' | translate:lang }}
-                        </span>
+                <li *ngIf="!isAuthenticated()">
+                    <a [routerLink]="['/login']">
+                        <span class="glyphicon glyphicon-log-in"></span>
+                        <span class="hidden-sm">{{ 'SIGN_IN' | translate:lang }}</span>
                     </a>
                 </li>
-                <li>
+                <li *ngIf="isAuthenticated()">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="account-menu">
                         <span class="glyphicon glyphicon-user"></span>
-                        <span class="hidden-sm">
-                            {{ 'ACCOUNT' | translate:lang }}
-                        </span>
+                        <span class="hidden-sm">{{ username }}</span>
                         <b class="caret"></b>
                     </a>
-
                     <ul class="dropdown-menu">
                         <li>
-                            <a [routerLink]="['/home']">
-                                <span class="glyphicon glyphicon-wrench"></span>&#xA0;
-                                <span>{{ 'HOME' | translate:lang }}</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a [routerLink]="['/i18n']">
-                                <span class="glyphicon glyphicon-lock"></span> &#xA0;
-                                <span>{{ 'I18N' | translate:lang }}</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a [routerLink]="['/list']">
-                                <span class="glyphicon glyphicon-cloud"></span> &#xA0;
-                                <span>{{ 'LIST' | translate:lang }}</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a [routerLink]="['/validation']">
+                            <a (click)="logout()">
                                 <span class="glyphicon glyphicon-log-out"></span>&#xA0;
-                                <span>{{ 'VALIDATION' | translate:lang }}</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a [routerLink]="['/login']">
-                                <span class="glyphicon glyphicon-log-in"></span>&#xA0;
-                                <span>
-                                    {{ 'SIGN_IN' | translate:lang }}
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a>
-                                <span class="glyphicon glyphicon-plus-sign"></span>&#xA0;
-                                <span>
-                                    {{ 'REGISTER' | translate:lang }}
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a [routerLink]="['/form']">
-                                <span class="glyphicon glyphicon-log-in"></span>&#xA0;
-                                <span>
-                                    {{ 'FORM' | translate:lang }}
-                                </span>
+                                <span>{{ 'SIGN_OUT' | translate:lang }}</span>
                             </a>
                         </li>
                     </ul>

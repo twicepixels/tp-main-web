@@ -13,7 +13,7 @@ import { AuthService } from "../../service/auth/auth.service";
 
 @Component({
 	selector: 'nav-bar',
-	templateUrl: 'app/shared/template/navbar/navbar.component.html',
+	template: require('./navbar.component.html'),
 	directives: [ROUTER_DIRECTIVES],
 	providers: [
 		LocaleService,
@@ -28,9 +28,9 @@ export class NavbarComponent extends Locale {
 
 	public languages: Language[];
 	private langSelected = {};
-	private username:string;
+	private username: string;
 
-	constructor(localization: LocalizationService,  public auth: AuthService) {
+	constructor(localization: LocalizationService, public auth: AuthService) {
 		super(null, localization);
 		LanguageService.addScope({
 			prefix: "navbar",
@@ -54,20 +54,15 @@ export class NavbarComponent extends Locale {
 		LanguageService.translate(language);
 	}
 
-	isAuthenticated():boolean{
-		console.log('isAuthenticated / this.auth.isLoggedIn =' + this.auth.isLoggedIn() );
-		this.username = localStorage.getItem('userName');
-		
+	isAuthenticated(): boolean {
+		let usr: any = this.auth.getUserInfo();
+		if (usr) {
+			this.username = usr['userName'];
+		}
 		return this.auth.isLoggedIn();
-		/*if( this.auth.isLoggedIn()){
-			alert("autenticado");
-		}else{
-			alert("no autenticado");
-		}*/
 	}
-	
-	logout():void{
-		console.log('logout');
+
+	logout(): void {
 		this.auth.logout();
 	}
 }
