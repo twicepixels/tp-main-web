@@ -13,16 +13,16 @@
                         </div>
 
                         <fieldset class="form-group">
-                            <label for="username">User Name</label>
+                            <label for="username">{{ 'USERNAME' | translate:lang }}</label>
                             <input formControlName="username" type="text" class="form-control input-lg" id="username"
-                                   placeholder="Enter user name">
+                                   placeholder="{{ 'USERNAME' | translate:lang }}">
                             <form-ctrl-message [control]="loginForm.controls.username"></form-ctrl-message>
                         </fieldset>
 
                         <fieldset class="form-group">
-                            <label for="password">Password</label>
+                            <label for="password">{{ 'PASSWORD' | translate:lang }}</label>
                             <input formControlName="password" type="password" class="form-control input-lg"
-                                   id="password" placeholder="Enter password">
+                                   id="password" placeholder="{{ 'PASSWORD' | translate:lang }}">
                             <form-ctrl-message [control]="loginForm.controls.password"></form-ctrl-message>
                         </fieldset>
                     </div>
