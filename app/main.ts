@@ -10,11 +10,13 @@ import { AuthService } from './shared/service/auth/auth.service';
 import { RestService } from './shared/service/rest.service';
 import { MainComponent } from './shared/template/page/main.component';
 import { disableDeprecatedForms, provideForms } from '@angular/forms';
+import {CustomerAccountService} from "./services/customer/account/customer.account.service";
 
 enableProdMode();
 bootstrap(MainComponent, [
 		AuthService,
 	    RestService,
+	    CustomerAccountService,
 		HTTP_PROVIDERS,
 		APP_ROUTER_PROVIDERS,
 	    disableDeprecatedForms(),

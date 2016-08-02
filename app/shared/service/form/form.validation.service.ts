@@ -1,6 +1,13 @@
 /**
  * Created by eduray on 7/5/16.
  */
+import { RestService } from '../../service/rest.service';
+import { ReflectiveInjector} from '@angular/core';
+import { HTTP_PROVIDERS } from '@angular/http';
+import { CustomerAccountService } from '../../../services/customer/account/customer.account.service';
+import { FormValidationResult } from './form.validation.model';
+
+
 export class FormValidationService {
     
     static creditCardValidator(control:any) {
@@ -12,14 +19,36 @@ export class FormValidationService {
         }
     }
 
-    static emailValidator(control:any) {
-        // RFC 2822 compliant regex
+
+    
+    static emailValidator(control:any): Promise<FormValidationResult> {
+        let injector = ReflectiveInjector.resolveAndCreate([HTTP_PROVIDERS, RestService, CustomerAccountService]);
+        let _customerAccountService = injector.get(CustomerAccountService);
+
         if (control.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)) {
-            return null;
+            return new Promise((resolve, reject) => {
+                _customerAccountService.existsEmail({"email":control.value}).then(
+                    (data: any)=> {
+                        if(data === false){
+                            resolve(null);
+                        }else{
+                            resolve({ 'emailAlreadyExist': true });
+                        }
+                    },
+                    (reason: any) => {
+                        reject(reason);
+                    }
+                );
+            });
         } else {
-            return { 'invalidEmailAddress': true };
+            return  new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve ({ 'invalidEmailAddress': true });
+                }, 1000)
+            });
         }
     }
+    
 
     static passwordValidator(control:any) {
         // {6,100}           - Assert password is between 6 and 100 characters

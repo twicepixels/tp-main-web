@@ -13,7 +13,8 @@ import { AuthService } from "../../service/auth/auth.service";
 
 @Component({
 	selector: 'nav-bar',
-	templateUrl: 'app/shared/template/navbar/navbar.component.html',
+	//templateUrl: 'app/shared/template/navbar/navbar.component.html',
+	template: require('./navbar.component.html'),
 	directives: [ROUTER_DIRECTIVES],
 	providers: [
 		LocaleService,

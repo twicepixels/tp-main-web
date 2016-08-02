@@ -2,6 +2,7 @@
   "required": "Required",
   "invalidCreditCard": "Is invalid credit card number",
   "invalidEmailAddress": "Invalid email address",
+  "emailAlreadyExist": "This email already exist !",
   "invalidPassword": "Invalid password. Password must be at least 6 characters long, and contain a number.",
   "minlength": "Minimum length 10",
   "invalidFieldNumber": "Invalid numeric value."

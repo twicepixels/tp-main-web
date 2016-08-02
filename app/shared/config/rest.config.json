@@ -8,7 +8,9 @@
         {"name": "login", "path": "auth/login"},
         {"name": "logout", "path": "auth/logout"},
         {"name": "userByUserName", "path": "users/user"},
-        {"name": "createUser", "path": "users/create"}
+        {"name": "createUser", "path": "users/"},
+        {"name": "userByEmail", "path": "users/getall"},
+        {"name": "createAccount", "path": "accounts/"}
       ]
     }
   ]

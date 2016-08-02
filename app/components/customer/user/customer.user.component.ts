@@ -10,12 +10,14 @@ import {TranslatePipe} from 'angular2localization/angular2localization';
 import {LocaleDatePipe} from 'angular2localization/angular2localization';
 
 // Services.
-import {CustomerUserService} from '../../shared/service/user/customer.user.service';
+import {CustomerUserService} from '../../../services/customer/user/customer.user.service';
 import {Locale, LocaleService, LocalizationService, IntlSupport} from 'angular2localization/angular2localization';
 
 // Beans.
-import {User} from '../../shared/service/user/user';
-import { FormCtrlMessage } from '../../shared/template/form/form.ctrl.message.component.ts';
+import {User} from '../../../services/customer/user/user';
+import {FormCtrlMessage} from '../../../shared/template/form/form.ctrl.message.component.ts';
+
+import { UserForm } from "../../../services/customer/user/customer.user.model";
 
 @Component({
     template: require('./customer.user.component.html'),
@@ -33,8 +35,7 @@ export class FormCustomerUserComponent  extends Locale  implements OnInit {
     ngOnInit() {
         //console.log(this.route.snapshot.params['id']);
     }
-
-
+    
     constructor(public locale: LocaleService,
                 public localization: LocalizationService,
                 public formBuilder: FormBuilder,
@@ -47,10 +48,7 @@ export class FormCustomerUserComponent  extends Locale  implements OnInit {
             && IntlSupport.NumberFormat(this.locale.getDefaultLocale())
             && IntlSupport.Collator(this.locale.getCurrentLanguage());
 
-        this.userForm = this.formBuilder.group(CustomerUserService.getGroupFormBuilder());
-
-
-  
+        this.userForm = this.formBuilder.group(UserForm);
     }
 
     accionButtonUserForm() {
@@ -62,9 +60,7 @@ export class FormCustomerUserComponent  extends Locale  implements OnInit {
         }
         
     }
-
-
-
+    
     //get
     get(user:User):User {
         this.user = this.customerUserService.get(user);
@@ -76,7 +72,7 @@ export class FormCustomerUserComponent  extends Locale  implements OnInit {
         return this.user;
     }
     //create
-    post(user:User, userS:string):void {
-        this.user = this.customerUserService.post(user, userS);
+    post(user:User):void {
+        this.user = this.customerUserService.post(user);
     }
 }

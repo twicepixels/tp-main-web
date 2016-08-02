@@ -40,6 +40,7 @@ export class FormCtrlMessage extends Locale {
         this._errorMessage = null;
         for (let propertyName in this.control.errors) {
             if (this.control.errors.hasOwnProperty(propertyName) && this.control.touched) {
+                console.log("error message :"+propertyName);
                 return this._errorMessage = propertyName;
             }
         }
