@@ -1,42 +1,30 @@
 import 'rxjs/Rx';
-import { Injectable, Directive, EventEmitter, ElementRef, NgZone as zone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { RestService } from "../rest.service";
 import { LoginModel } from "./auth.model";
 
 
-
 @Injectable()
 export class AuthService {
-	private authenticated: boolean = false;
+	private infoKey: string = "userinfo";
 
-	constructor(private rest: RestService ) {
-		this.authenticated = !!localStorage.getItem('token');
+	constructor(private rest: RestService) {
 	}
 
 	login(model: LoginModel): Promise<Object> {
+		let _class = this;
 		let _service = this.rest;
-		let thisClass = this;
-
 		return new Promise(function (resolve, reject) {
 			// race promise against post
 			_service.post("tp-main", "login", model).then(
-				(jsonResult: any)=> {					
-					console.log("sucess" + thisClass.authenticated);
-					localStorage.setItem('token','user');
-					thisClass.authenticated = true;
-					//Se puede hacer otro procesamiento
-					//En este caso no es necesario
+				(jsonResult: any)=> {
+					let jsonStr = JSON.stringify(jsonResult);
+					localStorage.setItem(_class.infoKey, jsonStr);
 					resolve(jsonResult);
-
 				},
 				(reason: any) => {
-					localStorage.removeItem('token');
-					thisClass.authenticated = false;
-					console.log("error" + thisClass.authenticated);
-					//Se puede hacer otro log
-					//En este caso no es necesario
+					localStorage.removeItem(_class.infoKey);
 					reject(reason);
-
 				}
 			);
 		});
@@ -46,15 +34,16 @@ export class AuthService {
 	}
 
 	logout(): Promise<any> {
-		localStorage.removeItem('token');
-		this.authenticated = false;
+		localStorage.removeItem(this.infoKey);
 		return this.rest.post("tp-main", "logout");
 	}
 
+	getUserInfo(): Object {
+		let str: string = localStorage.getItem(this.infoKey);
+		return JSON.parse(str);
+	}
 
-	isLoggedIn():boolean {
-		return !!localStorage.getItem('token');
-		//return this.authenticated;
-
+	isLoggedIn(): boolean {
+		return !!localStorage.getItem(this.infoKey);
 	}
 }

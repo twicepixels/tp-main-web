@@ -25,6 +25,7 @@ export class LoginComponent extends Locale {
 
 	error: boolean = false;
 
+
 	constructor(public router: Router,
 	            public auth: AuthService,
 	            public locale: LocaleService,
@@ -48,12 +49,12 @@ export class LoginComponent extends Locale {
 					//no 100% necesario ya que el json puede procesarce igual
 					console.log(jsonResult);
 					alert("LOGIN SUCCESSFUL");
-					this.router.navigate(['/home'],'?id:1' );
+					this.router.navigate(['/home']);
 				}, (reason: Object) => {
 					this.error = true;
 					console.log(reason);
 					alert("LOGIN FAILED");
-					this.router.navigate(['/home'],'?id:1' );
+
 				}
 			);
 		}
