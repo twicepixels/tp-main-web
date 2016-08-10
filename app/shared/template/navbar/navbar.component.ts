@@ -8,12 +8,13 @@ import {
 } from 'angular2localization/angular2localization';
 // Services
 import { Language } from '../../service/language/language';
-import { LanguageService } from '../../service/language/language.service';
 import { AuthService } from "../../service/auth/auth.service";
+import { LanguageService } from '../../service/language/language.service';
 
 @Component({
 	selector: 'nav-bar',
 	template: require('./navbar.component.html'),
+	styles: [require('./navbar.component.less')],
 	directives: [ROUTER_DIRECTIVES],
 	providers: [
 		LocaleService,
@@ -30,10 +31,12 @@ export class NavbarComponent extends Locale {
 	private langSelected = {};
 	private username: string;
 
-	constructor(localization: LocalizationService, public auth: AuthService) {
-		super(null, localization);
+	constructor(public auth: AuthService,
+	            public locale: LocaleService,
+	            localization: LocalizationService) {
+		super(locale, localization);
 		LanguageService.addScope({
-			prefix: "navbar",
+			prefix: "locale",
 			l10n: this.localization
 		});
 		// After all load languages

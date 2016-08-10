@@ -18,7 +18,7 @@ import { LanguageService } from '../../service/language/language.service';
 
 @Component({
 	selector: 'main-application',
-	templateUrl: 'app/shared/template/page/main.component.html',
+	template: require('./main.component.html'),
 	directives: [
 		MdToolbar,
 		NavbarComponent,
@@ -37,16 +37,15 @@ import { LanguageService } from '../../service/language/language.service';
 
 export class MainComponent extends Locale implements OnInit {
 
-	constructor(localization: LocalizationService) {
-		super(null, localization);
+	constructor(locale: LocaleService,
+	            localization: LocalizationService) {
+		super(locale, localization);
+	}
+
+	ngOnInit() {
 		LanguageService.addScope({
 			prefix: "locale",
 			l10n: this.localization
 		});
-		
-	}
-
-	ngOnInit() {
-		// this.router.navigate(['/home']);
 	}
 }

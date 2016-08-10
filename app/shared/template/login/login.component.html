@@ -1,36 +1,25 @@
-<div class="container">
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <div class="row">
-
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Login</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="col-lg-3">
-                        <div class="page-header">
-                            <h1>Login</h1>
-                        </div>
-
-                        <fieldset class="form-group">
-                            <label for="username">{{ 'USERNAME' | translate:lang }}</label>
-                            <input formControlName="username" type="text" class="form-control input-lg" id="username"
-                                   placeholder="{{ 'USERNAME' | translate:lang }}">
-                            <form-ctrl-message [control]="loginForm.controls.username"></form-ctrl-message>
-                        </fieldset>
-
-                        <fieldset class="form-group">
-                            <label for="password">{{ 'PASSWORD' | translate:lang }}</label>
-                            <input formControlName="password" type="password" class="form-control input-lg"
-                                   id="password" placeholder="{{ 'PASSWORD' | translate:lang }}">
-                            <form-ctrl-message [control]="loginForm.controls.password"></form-ctrl-message>
-                        </fieldset>
-                    </div>
-                </div>
-            </div>
+<div class="container" style="max-width: 400px;">
+    <h2>Home Page</h2>
+    <form accept-charset="UTF-8" role="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="username">{{ 'USERNAME' | translate:lang }}</label>
+            <input formControlName="username" type="text" class="form-control input-lg"
+                   id="username" placeholder="{{ 'USERNAME' | translate:lang }}" autofocus/>
+            <!--<form-ctrl-message [control]="loginForm.controls.username"></form-ctrl-message>-->
         </div>
-
-        <button type="submit" class="btn btn-lg btn-primary" [disabled]="!loginForm.valid">Submit</button>
-
+        <div class="form-group">
+            <label for="password">{{ 'PASSWORD' | translate:lang }}</label>
+            <input formControlName="password" type="password" class="form-control input-lg"
+                   id="password" placeholder="{{ 'PASSWORD' | translate:lang }}"/>
+            <!--<form-ctrl-message [control]="loginForm.controls.password"></form-ctrl-message>-->
+        </div>
+        <button type="submit" class="btn btn-lg btn-primary btn-block" [disabled]="!loginForm.valid">
+            {{ 'SIGN_IN' | translate:lang }}
+        </button>
     </form>
+    <hr>
+    <p class="text-center">
+        <a [routerLink]="['/account']">sign up here</a> or
+        <a href="/forgot">forgot password?</a>
+    </p>
 </div>

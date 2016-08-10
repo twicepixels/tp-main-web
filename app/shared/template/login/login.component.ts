@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { Router, ROUTER_DIRECTIVES } from '@angular/router';
 import { Component } from '@angular/core';
 // Services.
 import {
@@ -14,7 +14,7 @@ import { FormCtrlMessage } from '../form/form.ctrl.message.component.ts';
 
 @Component({
 	template: require('./login.component.html'),
-	directives: [REACTIVE_FORM_DIRECTIVES, FormCtrlMessage],
+	directives: [ROUTER_DIRECTIVES, REACTIVE_FORM_DIRECTIVES, FormCtrlMessage],
 	providers: [AuthService],
 	pipes: [TranslatePipe]
 })
