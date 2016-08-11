@@ -1,7 +1,10 @@
 import { Language } from "./language";
 import { Injectable } from '@angular/core';
 import { LANGUAGES } from './languages-data';
-import { LocalizationService } from 'angular2localization/angular2localization';
+import {
+	LocaleService,
+	LocalizationService
+} from 'angular2localization/angular2localization';
 
 export interface TranslateScope {
 	prefix: string,
@@ -10,6 +13,9 @@ export interface TranslateScope {
 
 @Injectable()
 export class LanguageService {
+	constructor(public locale: LocaleService,
+	            public localization: LocalizationService) {
+	}
 
 	private static scopes: TranslateScope[] = [];
 

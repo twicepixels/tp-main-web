@@ -1,38 +1,33 @@
-import { Router, ROUTER_DIRECTIVES } from '@angular/router';
-import { Component } from '@angular/core';
-// Services.
-import {
-	Locale,
-	TranslatePipe,
-	LocaleService,
-	LocalizationService
-} from 'angular2localization/angular2localization';
-import { AuthService } from "../../service/auth/auth.service";
+import { Component, Injector } from '@angular/core';
+import { ROUTER_DIRECTIVES } from '@angular/router';
+import { REACTIVE_FORM_DIRECTIVES } from '@angular/forms';
+import { TranslatePipe } from 'angular2localization/angular2localization';
+
+import { BaseComponent, baseProvider } from "../../base.component";
+import { LanguageService } from "../../service/language/language.service";
 import { LoginForm, LoginModel } from "../../service/auth/auth.model";
-import { REACTIVE_FORM_DIRECTIVES, FormBuilder } from '@angular/forms';
 import { FormCtrlMessage } from '../form/form.ctrl.message.component.ts';
 
 @Component({
+	selector: 'sign-in-account',
 	template: require('./login.component.html'),
-	directives: [ROUTER_DIRECTIVES, REACTIVE_FORM_DIRECTIVES, FormCtrlMessage],
-	providers: [AuthService],
+	directives: [
+		ROUTER_DIRECTIVES,
+		REACTIVE_FORM_DIRECTIVES,
+		FormCtrlMessage
+	],
+	providers: [baseProvider],
 	pipes: [TranslatePipe]
 })
-export class LoginComponent extends Locale {
+export class LoginComponent extends BaseComponent {
 
 	loginForm: any;
+	error: boolean = false;
 	private model: LoginModel;
 
-	error: boolean = false;
-
-
-	constructor(public router: Router,
-	            public auth: AuthService,
-	            public locale: LocaleService,
-	            public localization: LocalizationService,
-	            public formBuilder: FormBuilder) {
-		super(locale, localization);
-
+	constructor(public injector: Injector,
+	            public langService: LanguageService) {
+		super(injector, langService);
 		this.loginForm = this.formBuilder.group(LoginForm);
 	}
 
@@ -44,17 +39,10 @@ export class LoginComponent extends Locale {
 			this.model = this.loginForm.value;
 			// invocar el servicio y procesar la respuesta
 			this.auth.login(this.model).then(
-				(jsonResult: Object) => {
-					//en lugar de any o Object podría recibir un model Ej: User
-					//no 100% necesario ya que el json puede procesarce igual
-					console.log(jsonResult);
-					alert("LOGIN SUCCESSFUL");
-					this.router.navigate(['/home']);
-				}, (reason: Object) => {
+				(jsonResult: any) => this.router.navigate(['/home']),
+				(error: any) => {
 					this.error = true;
-					console.log(reason);
-					alert("LOGIN FAILED");
-
+					alert(error.message);
 				}
 			);
 		}
