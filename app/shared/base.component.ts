@@ -1,5 +1,5 @@
 import { Router } from "@angular/router";
-import { Injector } from "@angular/core";
+import { Injector, OnInit, Injectable, Inject } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 import {
 	Locale,
@@ -9,15 +9,22 @@ import {
 import { AuthService } from "./service/auth/auth.service";
 import { LanguageService } from "./service/language/language.service";
 
-
+@Injectable()
+export class BootstrapService {
+	constructor(public injector: Injector,
+	            public locale: LocaleService,
+	            public localization: LocalizationService) {
+	}
+}
 export let baseProvider =
 {
-	useFactory: (locale: LocaleService,
+	useFactory: (injector: Injector, locale: LocaleService,
 	             localization: LocalizationService) => {
-		return new LanguageService(locale, localization);
+		return new BootstrapService(injector, locale, localization);
 	},
-	provide: LanguageService,
+	provide: BootstrapService,
 	deps: [
+		Injector,
 		LocaleService,
 		LocalizationService,
 		Router,
@@ -26,17 +33,30 @@ export let baseProvider =
 	]
 };
 
-export class BaseComponent extends Locale {
-	router: Router = this.injector.get(Router);
-	auth: AuthService = this.injector.get(AuthService);
-	formBuilder: FormBuilder = this.injector.get(FormBuilder);
+export class BaseComponent extends Locale implements OnInit {
+	public injector: Injector;
 
-	constructor(public injector: Injector,
-	            public langService: LanguageService) {
-		super(langService.locale, langService.localization);
+	router: Router = this.boot.injector.get(Router);
+	auth: AuthService = this.boot.injector.get(AuthService);
+	formBuilder: FormBuilder = this.boot.injector.get(FormBuilder);
+
+	constructor(@Inject(BootstrapService) private boot: BootstrapService) {
+		super(boot.locale, boot.localization);
+		this.injector = boot.injector;
+	}
+
+	addTranslationScope(scopePrefix: string): void {
+		LanguageService.addScope({
+			prefix: scopePrefix,
+			l10n: this.boot.localization
+		});
 	}
 
 	isLoggedIn(): boolean {
 		return this.auth.isLoggedIn();
+	}
+
+	ngOnInit(): any {
+		return undefined;
 	}
 }

@@ -1,12 +1,10 @@
-import { Component, Injector } from '@angular/core';
+import { baseProvider, BaseComponent, BootstrapService } from "../../base.component";
+import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { REACTIVE_FORM_DIRECTIVES } from '@angular/forms';
-import { TranslatePipe } from 'angular2localization/angular2localization';
-
-import { BaseComponent, baseProvider } from "../../base.component";
-import { LanguageService } from "../../service/language/language.service";
 import { LoginForm, LoginModel } from "../../service/auth/auth.model";
 import { FormCtrlMessage } from '../form/form.ctrl.message.component.ts';
+import { TranslatePipe } from 'angular2localization/angular2localization';
 
 @Component({
 	selector: 'sign-in-account',
@@ -25,9 +23,8 @@ export class LoginComponent extends BaseComponent {
 	error: boolean = false;
 	private model: LoginModel;
 
-	constructor(public injector: Injector,
-	            public langService: LanguageService) {
-		super(injector, langService);
+	constructor(boot: BootstrapService) {
+		super(boot);
 		this.loginForm = this.formBuilder.group(LoginForm);
 	}
 
