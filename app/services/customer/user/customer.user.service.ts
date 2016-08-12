@@ -37,4 +37,14 @@ export class CustomerUserService {
             });
         return this.user;
     }
+
+    postChangePass(user:User):any {
+        this.restService.post("tp-main","changePassword", user)
+            .then(data => {
+                console.log(data);
+            },(reason:string) => {
+                console.log(reason);
+            });
+        return this.user;
+    }
 }
