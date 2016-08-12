@@ -1,50 +1,35 @@
-/**
- * Created by eduray on 7/11/16.
- */
+import { baseProvider, BaseComponent, BootstrapService } from "../../base.component";
+import { FormControl } from '@angular/forms';
 import { Component, Input } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-
-// Traslation
-import { Locale,
-         TranslatePipe,
-         LocaleService,
-         LocalizationService } from 'angular2localization/angular2localization';
-
-// Services
-import { LanguageService } from '../../service/language/language.service';
-
-
+import {
+	TranslatePipe,
+	LocalizationService
+} from 'angular2localization/angular2localization';
 
 @Component({
-    selector: 'form-ctrl-message',
-    template: require('./form.ctrl.message.component.html'),
-    providers: [ LocaleService, LanguageService, LocalizationService],
-    pipes: [TranslatePipe]
+	selector: 'form-ctrl-message',
+	template: require('./form.ctrl.message.component.html'),
+	providers: [baseProvider, LocalizationService],
+	pipes: [TranslatePipe]
 })
-export class FormCtrlMessage extends Locale {
+export class FormCtrlMessage extends BaseComponent {
 
-    public _errorMessage: string;
-    @Input() control: FormControl;
+	public _errorMessage: string;
+	@Input() control: FormControl;
 
+	constructor(boot: BootstrapService) {
+		super(boot);
+		this.addTranslationScope("error");
+	}
 
-
-    constructor(localization: LocalizationService) {
-        super(null, localization);
-        LanguageService.addScope({
-            prefix: "error",
-            l10n: this.localization
-        });
-    }
-    
-    get errorMessage():string {
-        this._errorMessage = null;
-        for (let propertyName in this.control.errors) {
-            if (this.control.errors.hasOwnProperty(propertyName) && this.control.touched) {
-                console.log("error message :"+propertyName);
-                return this._errorMessage = propertyName;
-            }
-        }
-
-        return this._errorMessage;
-    }
+	get errorMessage(): string {
+		this._errorMessage = null;
+		for (let propertyName in this.control.errors) {
+			if (this.control.errors.hasOwnProperty(propertyName) && this.control.touched) {
+				console.log("error message :" + propertyName);
+				return this._errorMessage = propertyName;
+			}
+		}
+		return this._errorMessage;
+	}
 }

@@ -28,6 +28,17 @@ a:hover, .hand {
     padding-bottom: 6px !important;
 }
 
+.btn-primary {
+    background-color: #9b59b6;
+    border-color: #9b59b6;
+}
+
+.btn-primary:hover, .btn-primary:focus,
+.btn-primary:active, .btn-primary.active {
+    background-color: #8f4bab !important;
+    border-color: #804399;
+}
+
 md-sidenav-layout {
     min-height: 100%;
 }

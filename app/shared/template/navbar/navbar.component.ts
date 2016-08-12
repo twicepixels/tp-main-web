@@ -1,14 +1,9 @@
+import { baseProvider, BaseComponent, BootstrapService } from "../../base.component";
 import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
-import {
-	Locale,
-	TranslatePipe,
-	LocaleService,
-	LocalizationService
-} from 'angular2localization/angular2localization';
+import { TranslatePipe } from 'angular2localization/angular2localization';
 // Services
 import { Language } from '../../service/language/language';
-import { AuthService } from "../../service/auth/auth.service";
 import { LanguageService } from '../../service/language/language.service';
 
 @Component({
@@ -16,35 +11,24 @@ import { LanguageService } from '../../service/language/language.service';
 	template: require('./navbar.component.html'),
 	styles: [require('./navbar.component.less')],
 	directives: [ROUTER_DIRECTIVES],
-	providers: [
-		LocaleService,
-		LanguageService,
-		LocalizationService,
-		AuthService
-	],
+	providers: [baseProvider],
 	pipes: [TranslatePipe]
 })
-
-export class NavbarComponent extends Locale {
-
+export class NavbarComponent extends BaseComponent {
 	public languages: Language[];
 	private langSelected = {};
 	private username: string;
 
-	constructor(public auth: AuthService,
-	            public locale: LocaleService,
-	            localization: LocalizationService) {
-		super(locale, localization);
-		LanguageService.addScope({
-			prefix: "locale",
-			l10n: this.localization
-		});
+	constructor(boot: BootstrapService) {
+		super(boot);
+		this.addTranslationScope("locale");
 		// After all load languages
 		LanguageService.getLanguages()
-			.then((languages: Language[])=> this.languages = languages);
+			.then((languages: Language[])=> this.languages
+				= languages);
 		LanguageService.getCurrentLang(this.localization)
-			.then((lang: Language)=> this.selectLocale(lang));
-
+			.then((lang: Language)=>
+				this.selectLocale(lang));
 		this.isAuthenticated();
 	}
 
@@ -67,5 +51,6 @@ export class NavbarComponent extends Locale {
 
 	logout(): void {
 		this.auth.logout();
+
 	}
 }

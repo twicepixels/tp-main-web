@@ -1,36 +1,27 @@
-import { Router } from '@angular/router';
-import { Component, ViewEncapsulation } from '@angular/core';
-import {
-	Locale,
-	TranslatePipe,
-	LocaleService,
-	LocalizationService
-} from 'angular2localization/angular2localization';
-
+import { baseProvider, BaseComponent, BootstrapService } from "../../base.component";
 import { Category, CATEGORIES } from './category-data';
 import { RestService } from "../../service/rest.service";
+import { Component, ViewEncapsulation } from '@angular/core';
+import { TranslatePipe } from 'angular2localization/angular2localization';
 
 @Component({
 	selector: 'search-bar',
 	template: require('./search.component.html'),
 	styles: [require('./search.component.less')],
 	encapsulation: ViewEncapsulation.None,
-	providers: [RestService],
+	providers: [baseProvider, RestService],
 	pipes: [TranslatePipe]
 })
 
-export class SearchComponent extends Locale {
+export class SearchComponent extends BaseComponent {
 
 	keywords: string = "";
 	categories: Category[];
 	private selectedCategory = {};
 
-	constructor(public router: Router,
-	            public rest: RestService,
-	            public locale: LocaleService,
-	            public localization: LocalizationService) {
-		super(locale, localization);
-
+	constructor(private rest: RestService,
+	            boot: BootstrapService) {
+		super(boot);
 		Promise.resolve(CATEGORIES).then((categories: Category[])=> {
 			this.categories = categories;
 			this.selectedCategory = categories[0];
@@ -47,9 +38,9 @@ export class SearchComponent extends Locale {
 			console.log(this.keywords);
 		}
 
-		this.rest.get("tp-main", "users").then(
+		this.rest.post("tp-main", "users").then(
 			(result: any)=>console.log(result),
-			(reason: string)=>console.log('REJECTED: ' + reason)
+			(error: any)=>console.log(error)
 		);
 	}
 }
