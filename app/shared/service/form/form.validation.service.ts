@@ -6,9 +6,28 @@ import { ReflectiveInjector} from '@angular/core';
 import { HTTP_PROVIDERS } from '@angular/http';
 import { CustomerAccountService } from '../../../services/customer/account/customer.account.service';
 import { FormValidationResult } from './form.validation.model';
+import { FormGroup, FormControl} from '@angular/forms';
 
 
 export class FormValidationService {
+
+
+
+    static fillFormGroup(object:Object, formGroup:FormGroup):void {
+        for (let i = 0; i < Object.keys(object).length; i++) {
+            let id = Object.keys(object)[i];
+            try {
+                let fromGroup_:any  = formGroup.find(id);
+                if (fromGroup_ != null) {  //(<FormControl>formGroup.find(id))
+                    console.log(Object.keys(object)[i]);
+                    console.log(Object.values(object)[i]);
+                    (<FormControl>formGroup.find(Object.keys(object)[i])).updateValue(Object.values(object)[i], {onlySelf: true});
+                } else {
+                    console.log('Object not found into form group !!: ' + id);
+                }
+            }catch(error){console.log("error")}
+        }
+    }
     
     static creditCardValidator(control:any) {
         // Visa, MasterCard, American Express, Diners Club, Discover, JCB
@@ -46,6 +65,14 @@ export class FormValidationService {
                     resolve ({ 'invalidEmailAddress': true });
                 }, 1000)
             });
+        }
+    }
+
+    static emailStructureValidator(control:any): any {
+        if (control.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)) {
+           return null;
+        } else {
+            return  { 'invalidEmailAddress': true };
         }
     }
     

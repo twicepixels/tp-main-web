@@ -13,19 +13,32 @@ export class CustomerUserService {
     }
 
     //get
-    get(user:User):User {
-        this.restService.post("tp-main","userByUserName",{"username":user.userName})
-            .then(data => {
-                console.log(data);
-            },(reason:string) => {
-                console.log("Error : " + reason );
-            });
-        return this.user;
+    get(user:User):Promise<User> {
+        let _service = this.restService;
+        return new Promise(function (resolve, reject) {
+            _service.get("tp-main","userByUserId",{"id":user.id}).then(
+                (data: any)=> {
+                    resolve(data);
+                },
+                (reason: any) => {
+                    reject( reason );
+                }
+            );
+        });
     }
     //update
-    put(user:User):User {
-        this.restService.post("tp-main", "updateUser", user).then(data => this.user = data);
-        return this.user;
+    put(user:User):Promise<User>  {
+        let _service = this.restService;
+        return new Promise(function (resolve, reject) {
+            _service.put("tp-main", "updateUserById", user, {"id":user.id}).then(
+                (data: any)=> {
+                    resolve(data);
+                },
+                (reason: any) => {
+                    reject( reason );
+                }
+            );
+        });
     }
     //create
     post(user:User):any {
