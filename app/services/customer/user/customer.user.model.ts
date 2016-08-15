@@ -10,10 +10,11 @@ export const UserForm: any = {
         firstName: ['', Validators.required],
          lastName: ['', Validators.required],
          userName: ['', Validators.required],
-            email: ['', [Validators.required, FormValidationService.emailValidator]], pseudonym: ['', Validators.required],
-         password: ['', Validators.required], 
-        password_: ['', Validators.required],
-        countryId: ['', Validators.required], //int
-        accountId: ['', [Validators.required, FormValidationService.fieldNumberValidator]], //int
+            email: ['', [Validators.required, FormValidationService.emailStructureValidator]],
+        pseudonym: [''],
+        //password: ['', Validators.required],
+        //password_: ['', Validators.required],
+        countryId: [''], //int
+        //accountId: ['', Validators.required], //int
          location: ['', Validators.required]
 };

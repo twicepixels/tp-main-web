@@ -68,10 +68,10 @@ export class RestService {
 			});
 			let _moduleUrl = _module["url"];
 			let _servicePath = _service["path"];
+			console.log(_servicePath);
 			if (params) {
 				Object.keys(params).forEach(key => {
-					_servicePath = _servicePath.replace
-					(util.format("{%s}", key), params[key]);
+					_servicePath = (_servicePath + util.format("{%s}", key)).replace(util.format("{%s}", key), params[key]);
 				});
 			}
 			return util.format("%s/%s", _moduleUrl, _servicePath);

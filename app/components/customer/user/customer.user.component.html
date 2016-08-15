@@ -1,5 +1,5 @@
 <div class="container">
-    <form [formGroup]="userForm" (submit)="accionButtonUserForm()">
+    <form [formGroup]="userForm" (submit)="SubmitButtonAction()">
         <div class="row">
 
             <div class="panel panel-primary">
@@ -9,9 +9,9 @@
                 <div class="panel-body">
                     <div class="col-lg-3">
                         <div class="page-header">
-                            <h1>Personal Information</h1>
+                            <h3>Personal Information</h3>
                         </div>
-                        <fieldset class="form-group">
+                        <fieldset class="form-group" hidden="true">
                             <label for="id">Id</label>
                             <input formControlName="id" type="text" class="form-control input-lg" id="id" placeholder="Enter id">
                             <form-ctrl-message [control]="userForm.controls.id"></form-ctrl-message>
@@ -45,7 +45,7 @@
 
                     <div class="col-lg-4">
                         <div class="page-header">
-                            <h1>Contact Information</h1>
+                            <h3>Contact Information</h3>
                         </div>
                         <fieldset class="form-group">
                             <label for="email">Email</label>
@@ -54,7 +54,7 @@
                         </fieldset>
 
                         <div class="page-header">
-                            <h1>Location Information</h1>
+                            <h3>Location Information</h3>
                         </div>
 
                         <fieldset class="form-group">
@@ -77,30 +77,24 @@
 
                     <div class="col-lg-3">
                         <div class="page-header">
-                            <h1>Access Information</h1>
+                            <h3>Access Information</h3>
                         </div>
-                        <fieldset class="form-group">
-                            <label for="accountId">Account Id</label>
-                            <input formControlName="accountId" type="password" class="form-control input-lg" id="accountId" placeholder="Enter password">
-                            <small class="text-muted"><form-ctrl-message [control]="userForm.controls.accountId"></form-ctrl-message></small>
-                        </fieldset>
-                        <fieldset class="form-group">
-                            <label for="password">Password</label>
-                            <input formControlName="password" type="password" class="form-control input-lg" id="password" placeholder="Enter password">
-                            <small class="text-muted"><form-ctrl-message [control]="userForm.controls.password"></form-ctrl-message></small>
-                        </fieldset>
 
-                        <fieldset class="form-group">
-                            <label for="password_">Password again</label>
-                            <input formControlName="password_" type="password" class="form-control input-lg" id="password_" placeholder="Enter password">
-                            <small class="text-muted"><form-ctrl-message [control]="userForm.controls.password_"></form-ctrl-message></small>
-                        </fieldset>
 
                     </div>
                 </div>
             </div>
         </div>
-
+        <fieldset class="form-group">
+            <small *ngIf="errorMessage !== null" class="text-muted">
+                {{ errorMessage }}
+            </small>
+        </fieldset>
+        <fieldset class="form-group">
+            <small *ngIf="infoMessage !== null" class="text-muted">
+                {{ infoMessage }}
+            </small>
+        </fieldset>
         <button type="submit" class="btn btn-lg btn-primary"  [disabled]="!userForm.valid">Submit</button>
 
     </form>
