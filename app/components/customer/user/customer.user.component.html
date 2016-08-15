@@ -63,14 +63,16 @@
                             <small class="text-muted"><form-ctrl-message [control]="userForm.controls.location"></form-ctrl-message></small>
                         </fieldset>
 
-                        <fieldset class="form-group">
+                        <fieldset  class="form-group">
                             <label for="countryId">Country</label>
-                            <select name="countryId" id="countryId">
-                                <option value="US">UniteState</option>
-                                <option value="CR">CostaRica</option>
-                                <option value="PA">Panama</option>
-                                <option value="MX">Mexico</option>
+                            <select id="countryId" formControlName="countryId" class="form-control input-lg"  (change)="onSelectCountries($event.target.value)">
+                                <option *ngFor="let country of countries" value= {{country.id}}>
+                                    {{country.description}}
+                                </option>
                             </select>
+                            <small class="text-muted"><form-ctrl-message [control]="userForm.controls.countryId"></form-ctrl-message></small>
+                            <!--<dropdown-select  [dropdownElements]="countries" [(dropDownElementSelected)]="countrySelected"  (select)="userUpdated($event)"></dropdown-select>-->
+
                         </fieldset>
 
                     </div>

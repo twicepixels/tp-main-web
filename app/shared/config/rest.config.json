@@ -11,7 +11,8 @@
         {"name": "createUser", "path": "users/"},
         {"name": "userByEmail", "path": "users/getall"},
         {"name": "createAccount", "path": "accounts/"},
-        {"name": "updateUserById", "path": "users/"}
+        {"name": "updateUserById", "path": "users/"},
+        {"name": "getAllCountries", "path": "countries/getAll"}
       ]
     }
   ]
