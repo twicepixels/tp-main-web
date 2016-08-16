@@ -10,6 +10,8 @@
   "SIGN_OUT": "Cerrar sesión",
   "USERNAME": "Usuario",
   "PASSWORD": "Contraseña",
+  "PASSWORD_AGAIN": "Validacion de Contraseña",
+  "OLD_PASSWORD": "Contraseña anterior",
   "REMEMBER_ME": "Recordar acceso",
   "FORGET_PASSWORD": "Olvidó su contraseña ?",
   "HAVE_ACCOUNT": "No tiene una cuenta aún ?",

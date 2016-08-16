@@ -10,6 +10,8 @@
   "SIGN_OUT": "Singout",
   "USERNAME": "Username",
   "PASSWORD": "Password",
+  "PASSWORD_AGAIN": "Password again",
+  "OLD_PASSWORD": "Old Password",
   "REMEMBER_ME": "Remember me",
   "FORGET_PASSWORD": "Did you forget your password?",
   "HAVE_ACCOUNT": "You don't have an account yet?",
