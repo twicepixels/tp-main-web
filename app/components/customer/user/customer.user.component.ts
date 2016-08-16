@@ -1,6 +1,3 @@
-/**
- * Created by eduray on 7/5/16.
- */
 import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { REACTIVE_FORM_DIRECTIVES, FormBuilder, FormGroup} from '@angular/forms';
@@ -11,22 +8,25 @@ import {LocaleDatePipe} from 'angular2localization/angular2localization';
 
 // Services.
 import {CustomerUserService} from '../../../services/customer/user/customer.user.service';
+import {GeneralCountryService} from '../../../services/general/country/general.country.service';
 import {Locale, LocaleService, LocalizationService, IntlSupport} from 'angular2localization/angular2localization';
 import { AuthService } from "../../../shared/service/auth/auth.service";
 
 // Beans.
 import {User} from '../../../services/customer/user/user';
-import {FormCtrlMessage} from '../../../shared/template/form/form.ctrl.message.component.ts';
+import {FormCtrlMessage} from '../../../shared/template/form/form.ctrl.message.component';
+import {Country} from '../../../services/general/country/country';
 
 import { UserForm } from "../../../services/customer/user/customer.user.model";
-//import { UserFormClass } from "../../../services/customer/user/customer.user.model";
 import {FormValidationService} from '../../../shared/service/form/form.validation.service';
+
+import {DropDownSelect} from '../../../shared/template/dropdown/dropdown.component';
 
 @Component({
     template: require('./customer.user.component.html'),
     pipes : [TranslatePipe, LocaleDatePipe],
-    directives: [REACTIVE_FORM_DIRECTIVES, FormCtrlMessage],
-    providers: [CustomerUserService, AuthService]
+    directives: [REACTIVE_FORM_DIRECTIVES, FormCtrlMessage, DropDownSelect],
+    providers: [CustomerUserService, AuthService, GeneralCountryService]
 })
 
 export class FormCustomerUserComponent  extends Locale  implements OnInit {
@@ -36,9 +36,11 @@ export class FormCustomerUserComponent  extends Locale  implements OnInit {
     user:User;
     infoMessage:string;
     errorMessage:string;
+    countries:Object[];
+    countrySelected:Object;
 
     ngOnInit() {
-        //console.log(this.route.snapshot.params['id']);
+
     }
     
     constructor(public locale: LocaleService,
@@ -46,7 +48,8 @@ export class FormCustomerUserComponent  extends Locale  implements OnInit {
                 public formBuilder: FormBuilder,
                 public route: ActivatedRoute,
                 public customerUserService:CustomerUserService,
-                public auth:AuthService) {
+                public auth:AuthService,
+                public generalCountryService:GeneralCountryService) {
         super(locale, localization);
 
 
@@ -58,9 +61,11 @@ export class FormCustomerUserComponent  extends Locale  implements OnInit {
         this.infoMessage = null;
         this.errorMessage = null;
 
+
         this.isAuthenticated()
         {
-          this.get(this.user);
+            this.getAllCountries();
+            this.get(this.user);
         }
     }
 
@@ -71,6 +76,14 @@ export class FormCustomerUserComponent  extends Locale  implements OnInit {
         }
         
     }
+    
+    onSelectCountries(countryId:number){
+        this.user.countryId = countryId;
+    }
+
+    /*userUpdated(object:any){
+        console.log(object);
+    }*/
 
     isAuthenticated(): boolean {
         this.user = <User>this.auth.getUserInfo();
@@ -82,6 +95,15 @@ export class FormCustomerUserComponent  extends Locale  implements OnInit {
         this.customerUserService.get(user).then((data:any) => {
             this.user = data;
             FormValidationService.fillFormGroup(this.user, this.userForm);
+        },(reason:string) => {
+            console.log(reason);
+        });
+    }
+
+    //get
+    getAllCountries():void {
+        this.generalCountryService.get().then((data:any) => {
+            this.countries = data;
         },(reason:string) => {
             console.log(reason);
         });

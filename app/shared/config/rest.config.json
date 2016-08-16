@@ -11,8 +11,7 @@
         {"name": "createUser", "path": "users/"},
         {"name": "userByEmail", "path": "users/getall"},
         {"name": "createAccount", "path": "accounts/"},
-        {"name": "updateUserById", "path": "users/"},
-        {"name": "changePassword", "path": "users/changePassword/"}
+        {"name": "updateUserById", "path": "users/"}
       ]
     }
   ]
