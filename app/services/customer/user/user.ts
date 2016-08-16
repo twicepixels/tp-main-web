@@ -13,3 +13,9 @@ export interface User {
     accountId:number;
     location:string;
 }
+
+export interface UserPass {
+    oldpassword:string;
+    newpassword:string;
+    passwordValidation:string;
+}

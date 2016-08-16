@@ -2,7 +2,7 @@
  * Created by eduray on 7/16/16.
  */
 import {Injectable, Inject} from '@angular/core';
-import {User} from './user';
+import {User, UserPass} from './user';
 import {RestService} from '../../../shared/service/rest.service';
 
 @Injectable()
@@ -51,7 +51,7 @@ export class CustomerUserService {
         return this.user;
     }
 
-    postChangePass(user:User):any {
+    postChangePass(user:UserPass):any {
         this.restService.post("tp-main","changePassword", user)
             .then(data => {
                 console.log(data);

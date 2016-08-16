@@ -11,6 +11,9 @@ import { HomeComponent } from '../../../components/home.component';
 import { FormCustomerUserComponent } from '../../../components/customer/user/customer.user.component';
 import { FormCustomerAccountComponent } from '../../../components/customer/account/customer.account.component';
 
+
+import { FormChangePasswordComponent } from '../../../components/customer/user/change/password.change.component';
+
 export const NavbarRoutes: RouterConfig = [
 	{path: '', component: HomeComponent},
 	{path: 'home', component: HomeComponent},
@@ -20,5 +23,6 @@ export const NavbarRoutes: RouterConfig = [
 	// {path: 'validation', component: ValidationComponent},
 	// {path: 'form', component: FormComponent},
 	{path: 'user', component: FormCustomerUserComponent},
-	{path: 'account', component: FormCustomerAccountComponent}
+	{path: 'account', component: FormCustomerAccountComponent},
+	{path: 'changePassword', component: FormChangePasswordComponent}
 ];

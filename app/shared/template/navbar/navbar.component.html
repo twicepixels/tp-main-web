@@ -52,6 +52,10 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
+                            <a [routerLink]="['/changePassword']">
+                                <span class="glyphicon glyphicon-log-in"></span>
+                                <span class="hidden-sm">{{ 'CHANGEPASSWORD' | translate:lang }}</span>
+                            </a>
                             <a (click)="logout()">
                                 <span class="glyphicon glyphicon-log-out"></span>&#xA0;
                                 <span>{{ 'SIGN_OUT' | translate:lang }}</span>
