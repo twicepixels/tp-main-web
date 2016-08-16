@@ -12,6 +12,7 @@
         {"name": "userByEmail", "path": "users/getall"},
         {"name": "createAccount", "path": "accounts/"},
         {"name": "updateUserById", "path": "users/"},
+        {"name": "getAllCountries", "path": "countries/getAll"},
         {"name": "changePassword", "path": "users/changePassword/"}
       ]
     }
