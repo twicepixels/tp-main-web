@@ -12,3 +12,9 @@ export const UserForm: any = {
         countryId: [''],
          location: ['', Validators.required]
 };
+
+export const ChangePassForm: any = {
+    oldpassword: ['', Validators.required],
+    newpassword: ['', Validators.required],
+    passwordValidation: ['', Validators.required]
+};
