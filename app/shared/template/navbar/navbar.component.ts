@@ -50,7 +50,9 @@ export class NavbarComponent extends BaseComponent {
 	}
 
 	logout(): void {
-		this.auth.logout();
-
+		this.auth.logout().then(
+			(jsonResult: any) => this.router.navigate(['/home']),
+			(error: any) => alert(error.message)
+		);
 	}
 }
