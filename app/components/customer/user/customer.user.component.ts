@@ -20,12 +20,12 @@ import {Country} from '../../../services/general/country/country';
 import { UserForm } from "../../../services/customer/user/customer.user.model";
 import {FormValidationService} from '../../../shared/service/form/form.validation.service';
 
-import {DropDownSelect} from '../../../shared/template/dropdown/dropdown.component';
+//import {DropDownSelect} from '../../../shared/template/dropdown/dropdown.component';
 
 @Component({
     template: require('./customer.user.component.html'),
     pipes : [TranslatePipe, LocaleDatePipe],
-    directives: [REACTIVE_FORM_DIRECTIVES, FormCtrlMessage, DropDownSelect],
+    directives: [REACTIVE_FORM_DIRECTIVES, FormCtrlMessage], //DropDownSelect],
     providers: [CustomerUserService, AuthService, GeneralCountryService]
 })
 
