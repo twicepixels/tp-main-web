@@ -15,7 +15,7 @@ export interface User {
 }
 
 export interface UserPass {
-    oldpassword:string;
-    newpassword:string;
+    oldPassword:string;
+    newPassword:string;
     passwordValidation:string;
 }

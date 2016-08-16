@@ -14,7 +14,7 @@ export const UserForm: any = {
 };
 
 export const ChangePassForm: any = {
-    oldpassword: ['', Validators.required],
-    newpassword: ['', Validators.required],
+    oldPassword: ['', Validators.required],
+    newPassword: ['', Validators.required],
     passwordValidation: ['', Validators.required]
 };
