@@ -56,6 +56,14 @@
                                 <span class="glyphicon glyphicon-log-in"></span>
                                 <span class="hidden-sm">{{ 'CHANGEPASSWORD' | translate:lang }}</span>
                             </a>
+                        </li>
+                        <li>
+                            <a [routerLink]="['/user']">
+                                <span class="glyphicon glyphicon-user"></span>
+                                <span class="hidden-sm">{{ 'USER_PROFILE' | translate:lang }}</span>
+                            </a>
+                        </li>
+                        <li>
                             <a (click)="logout()">
                                 <span class="glyphicon glyphicon-log-out"></span>&#xA0;
                                 <span>{{ 'SIGN_OUT' | translate:lang }}</span>
