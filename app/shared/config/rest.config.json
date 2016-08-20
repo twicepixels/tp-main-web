@@ -9,7 +9,7 @@
         {"name": "logout", "path": "auth/logout"},
         {"name": "userByUserId", "path": "users/"},
         {"name": "createUser", "path": "users/"},
-        {"name": "userByEmail", "path": "users/getall"},
+        {"name": "userByEmail", "path": "users/getByEmail/"},
         {"name": "createAccount", "path": "accounts/"},
         {"name": "updateUserById", "path": "users/"},
         {"name": "getAllCountries", "path": "countries/getAll"},

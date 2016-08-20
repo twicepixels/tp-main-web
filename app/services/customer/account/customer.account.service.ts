@@ -12,43 +12,21 @@ export class CustomerAccountService {
     constructor(private restService:RestService){
     }
 
-    //get
+    //userByEmail
     existsEmail(account:Account):Promise<boolean> {
         let _service = this.restService;
         return new Promise(function (resolve, reject) {
-            _service.post("tp-main","userByEmail",{"email":account.email}).then(
+            _service.get("tp-main","userByEmail",{"email":account.email}).then(
                 (data: any)=> {
-                    if(data.length === 0){
-                        resolve(false);
-                    }else{
-                        resolve(true);
-                    }//
+                    resolve( !(data.length === 0) );
                 },
                 (reason: any) => {
                     reject( reason );
                 }
             );
         });
+    }
 
-    }
-    
-    //get
-    get(account:Account):any {
-        this.restService.post("tp-main","userByEmail",{"email":account.email})
-            .then(data => {
-                return data;
-            },(reason:string) => {
-                console.log("Error : " + reason );
-            });
-        return this.account;
-    }
-    
-    //update
-    put(account:Account):Account {
-        return null;
-    }
-    
-    
     //create
     post(account:Account):Promise<any> {
         let _service = this.restService;

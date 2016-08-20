@@ -14,18 +14,12 @@ export class CustomerUserService {
 
 	//get
 	get(user: User): Promise<User> {
-		return this.restService.get("tp-main", "userByUserId",
-			{"id": user.id}
-		);
+		return this.restService.get("tp-main", "userByUserId", {"id": user.id} );
 	}
 
 	//update
 	put(user: User): Promise<User> {
-		return this.restService.put("tp-main",
-			"updateUserById", user, {
-				"id": user.id
-			}
-		);
+		return this.restService.put("tp-main", "updateUserById", user, { "id": user.id });
 	}
 
 	postChangePass(user: UserPass): Promise<any> {
