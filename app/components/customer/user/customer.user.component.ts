@@ -1,146 +1,115 @@
-import {Component, OnInit} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { REACTIVE_FORM_DIRECTIVES, FormBuilder, FormGroup} from '@angular/forms';
-
+import { baseProvider, BaseComponent, BootstrapService } from "../../../shared/base.component";
+import { Component } from '@angular/core';
+import { REACTIVE_FORM_DIRECTIVES, FormGroup } from '@angular/forms';
 // Pipes.
-import {TranslatePipe} from 'angular2localization/angular2localization';
-import {LocaleDatePipe} from 'angular2localization/angular2localization';
-
+import { TranslatePipe } from 'angular2localization/angular2localization';
 // Services.
-import {CustomerUserService} from '../../../services/customer/user/customer.user.service';
-import {GeneralCountryService} from '../../../services/general/country/general.country.service';
-import {Locale, LocaleService, LocalizationService, IntlSupport} from 'angular2localization/angular2localization';
-import { AuthService } from "../../../shared/service/auth/auth.service";
-
+import { CustomerUserService } from '../../../services/customer/user/customer.user.service';
+import { GeneralCountryService } from '../../../services/general/country/general.country.service';
 // Beans.
-import {User} from '../../../services/customer/user/user';
-import {FormCtrlMessage} from '../../../shared/template/form/form.ctrl.message.component';
-import {Country} from '../../../services/general/country/country';
-
+import { User } from '../../../services/customer/user/user';
 import { UserForm } from "../../../services/customer/user/customer.user.model";
-import {FormValidationService} from '../../../shared/service/form/form.validation.service';
-
-//import {DropDownSelect} from '../../../shared/template/dropdown/dropdown.component';
+import { FormCtrlMessage } from '../../../shared/template/form/form.ctrl.message.component';
+import { FormValidationService } from '../../../shared/service/form/form.validation.service';
 
 @Component({
-    template: require('./customer.user.component.html'),
-    pipes : [TranslatePipe, LocaleDatePipe],
-    directives: [REACTIVE_FORM_DIRECTIVES, FormCtrlMessage/*, DropDownSelect*/],
-    providers: [CustomerUserService, AuthService, GeneralCountryService]
+	template: require('./customer.user.component.html'),
+	pipes: [TranslatePipe],
+	directives: [
+		REACTIVE_FORM_DIRECTIVES,
+		FormCtrlMessage
+	],
+	providers: [
+		baseProvider,
+		CustomerUserService,
+		GeneralCountryService
+	]
 })
 
-export class FormCustomerUserComponent  extends Locale  implements OnInit {
+export class FormCustomerUserComponent extends BaseComponent {
 
-    intlSupport: boolean;
-    userForm: FormGroup;
-    user:User;
-    infoMessage:string;
-    errorMessage:string;
-    countries:Object[];
-    countrySelected:Object;
+	user: User;
+	userForm: FormGroup;
+	infoMessage: string;
+	errorMessage: string;
+	countries: Object[];
 
-    ngOnInit() {
+	constructor(boot: BootstrapService,
+	            public customerUserService: CustomerUserService,
+	            public generalCountryService: GeneralCountryService) {
+		super(boot);
+		this.infoMessage = null;
+		this.errorMessage = null;
+		this.userForm = this.formBuilder.group(UserForm);
+		if (this.auth.isLoggedIn()) {
+			this.user = <User>this.auth.getUserInfo();
+			this.getAllCountries();
+			this.get(this.user);
+		}
+	}
 
-    }
-    
-    constructor(public locale: LocaleService,
-                public localization: LocalizationService,
-                public formBuilder: FormBuilder,
-                public route: ActivatedRoute,
-                public customerUserService:CustomerUserService,
-                public auth:AuthService,
-                public generalCountryService:GeneralCountryService) {
-        super(locale, localization);
+	SubmitButtonAction(): any {
+		if (this.userForm.dirty && this.userForm.valid) {
+			this.user = this.userForm.value;
+			this.put(this.user);
+		}
+	}
 
+	onSelectCountries(countryId: number) {
+		this.user.countryId = countryId;
+	}
 
-        this.intlSupport = IntlSupport.DateTimeFormat(this.locale.getDefaultLocale())
-            && IntlSupport.NumberFormat(this.locale.getDefaultLocale())
-            && IntlSupport.Collator(this.locale.getCurrentLanguage());
-        this.userForm = this.formBuilder.group(UserForm);
+	//get
+	get(user: User): void {
+		this.customerUserService.get(user).then(
+			(data: any) => {
+				this.user = data;
+				FormValidationService.fillFormGroup(this.user, this.userForm);
+			}, (reason: string) => {
+				console.log(reason);
+			}
+		);
+	}
 
-        this.infoMessage = null;
-        this.errorMessage = null;
+	//get
+	getAllCountries(): void {
+		this.generalCountryService.get().then((data: any) => {
+			this.countries = data;
+		}, (reason: string) => {
+			console.log(reason);
+		});
+	}
 
+	//update
+	put(user: User): void {
+		this.customerUserService.put(user).then((data: any) => {
+			console.log("user updated : " + data);
+			this.updateMessages("Change accepted !!", null);
+		}, (reason: string) => {
+			console.log(reason);
+			this.updateMessages(null, "Error updated !!");
+		});
+	}
 
-        this.isAuthenticated()
-        {
-            this.getAllCountries();
-            this.get(this.user);
-        }
-    }
+	//create
+	post(user: User): void {
+		this.user = this.customerUserService.post(user);
+	}
 
-    SubmitButtonAction():any {
-        if (this.userForm.dirty && this.userForm.valid) {
-            this.user = this.userForm.value;
-            this.put(this.user);
-        }
-        
-    }
-    
-    onSelectCountries(countryId:number){
-        this.user.countryId = countryId;
-    }
-
-    /*userUpdated(object:any){
-        console.log(object);
-    }*/
-
-    isAuthenticated(): boolean {
-        this.user = <User>this.auth.getUserInfo();
-        return this.auth.isLoggedIn();
-    }
-
-    //get
-    get(user:User):void {
-        this.customerUserService.get(user).then((data:any) => {
-            this.user = data;
-            FormValidationService.fillFormGroup(this.user, this.userForm);
-        },(reason:string) => {
-            console.log(reason);
-        });
-    }
-
-    //get
-    getAllCountries():void {
-        this.generalCountryService.get().then((data:any) => {
-            this.countries = data;
-        },(reason:string) => {
-            console.log(reason);
-        });
-    }
-
-    //update
-    put(user:User):void {
-        this.customerUserService.put(user).then((data:any) => {
-            console.log("user updated : "+ data);
-            this.updateMessages("Change accepted !!", null);
-        },(reason:string) => {
-            console.log(reason);
-            this.updateMessages(null, "Error updated !!");
-        });
-    }
-    //create
-    post(user:User):void {
-        this.user = this.customerUserService.post(user);
-    }
-
-    updateMessages(infoMessage:string, errorMessage:string){
-        this.infoMessage = null;
-        this.errorMessage = null;
-        if(infoMessage != null){
-            this.infoMessage = infoMessage;
-        }
-        if(errorMessage != null){
-            this.errorMessage = errorMessage;
-        }
-        let promise = new Promise(resolve => {
-            setTimeout(() => {
-                this.infoMessage = null;
-                this.errorMessage = null;
-            }, 5000);
-
-        });
-    }
-
-
+	updateMessages(infoMessage: string, errorMessage: string) {
+		this.infoMessage = null;
+		this.errorMessage = null;
+		if (infoMessage != null) {
+			this.infoMessage = infoMessage;
+		}
+		if (errorMessage != null) {
+			this.errorMessage = errorMessage;
+		}
+		new Promise(() => {
+			setTimeout(() => {
+				this.infoMessage = null;
+				this.errorMessage = null;
+			}, 5000);
+		});
+	}
 }
