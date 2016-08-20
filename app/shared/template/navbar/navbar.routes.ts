@@ -12,7 +12,7 @@ import { FormCustomerUserComponent } from '../../../components/customer/user/cus
 import { FormCustomerAccountComponent } from '../../../components/customer/account/customer.account.component';
 
 
-import { FormChangePasswordComponent } from '../../../components/customer/user/change/password.change.component';
+import { FormChangePasswordComponent } from '../../../components/customer/user/password.change.component';
 
 export const NavbarRoutes: RouterConfig = [
 	{path: '', component: HomeComponent},

@@ -1,22 +1,15 @@
 /**
  * Created by eduray on 7/5/16.
  */
-import { Router } from '@angular/router';
+import { baseProvider, BaseComponent, BootstrapService } from "../../../shared/base.component";
 import { Component } from '@angular/core';
 import { REACTIVE_FORM_DIRECTIVES, FormBuilder } from '@angular/forms';
-import {
-	Locale,
-	LocaleService,
-	TranslatePipe,
-	LocaleDatePipe,
-	LocalizationService
-} from 'angular2localization/angular2localization';
+import {TranslatePipe, LocaleDatePipe} from 'angular2localization/angular2localization';
 // Beans.
 import { Account } from '../../../services/customer/account/account';
 import { AccountForm } from '../../../services/customer/account/customer.account.model';
 import { FormCtrlMessage } from '../../../shared/template/form/form.ctrl.message.component';
 // Services.
-import { AuthService } from '../../../shared/service/auth/auth.service';
 import { CustomerAccountService } from '../../../services/customer/account/customer.account.service';
 
 @Component({
@@ -24,21 +17,17 @@ import { CustomerAccountService } from '../../../services/customer/account/custo
 	template: require('./customer.account.component.html'),
 	pipes: [TranslatePipe, LocaleDatePipe],
 	directives: [REACTIVE_FORM_DIRECTIVES, FormCtrlMessage],
-	providers: [CustomerAccountService]
+	providers: [baseProvider, CustomerAccountService]
 })
 
-export class FormCustomerAccountComponent extends Locale {
+export class FormCustomerAccountComponent extends BaseComponent {
 	accountForm: any;
 	account: Account;
 	errorMessage: string;
 
-	constructor(public locale: LocaleService,
-	            public localization: LocalizationService,
-	            public formBuilder: FormBuilder,
-	            public authService: AuthService,
-	            public customerAccountService: CustomerAccountService,
-	            public router: Router) {
-		super(locale, localization);
+	constructor(boot: BootstrapService,
+	            public customerAccountService: CustomerAccountService) {
+		super(boot);
 		//put forms elements into form builder group
 		this.accountForm = this.formBuilder.group(AccountForm);
 	}
@@ -58,18 +47,11 @@ export class FormCustomerAccountComponent extends Locale {
 		return this.account;
 	}
 
-	//update
-	updateAccount(account: Account): Account {
-		//this.account = this.customerAccountService.post(account);
-		//return this.account;
-		return null;
-	}
-
 	//create
 	createAccount(account: Account): void {
 		let _service = this;
 		_service.customerAccountService.post(account).then((data: any) => {
-			_service.authService.login({
+			_service.auth.login({
 				username: account.email,
 				password: account.password
 			}).then((result: any)=> {

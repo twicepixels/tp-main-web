@@ -1,16 +1,16 @@
-import { baseProvider, BaseComponent, BootstrapService } from "../../../../shared/base.component";
+import { baseProvider, BaseComponent, BootstrapService } from "../../../shared/base.component";
 import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { REACTIVE_FORM_DIRECTIVES, FormGroup } from '@angular/forms';
 // Pipes.
 import { TranslatePipe } from 'angular2localization/angular2localization';
 // Services.
-import { CustomerUserService } from '../../../../services/customer/user/customer.user.service';
-import { FormValidationService } from "../../../../shared/service/form/form.validation.service";
+import { CustomerUserService } from '../../../services/customer/user/customer.user.service';
+import { FormValidationService } from "../../../shared/service/form/form.validation.service";
 // Beans.
-import { UserPass } from '../../../../services/customer/user/user';
-import { ChangePassForm } from "../../../../services/customer/user/customer.user.model.ts";
-import { FormCtrlMessage } from '../../../../shared/template/form/form.ctrl.message.component.ts';
+import { UserPass } from '../../../services/customer/user/user';
+import { ChangePassForm } from "../../../services/customer/user/customer.user.model.ts";
+import { FormCtrlMessage } from '../../../shared/template/form/form.ctrl.message.component.ts';
 
 @Component({
 	template: require('./password.change.component.html'),
@@ -36,11 +36,6 @@ export class FormChangePasswordComponent extends BaseComponent {
 		this.changePasswordForm = this.formBuilder.group(ChangePassForm);
 		this.infoMessage = null;
 		this.errorMessage = null;
-		// if (this.isLoggedIn()) {
-		// 	let userInfo = this.auth.getUserInfo();
-		// 	FormValidationService.fillFormGroup
-		// 	(userInfo, this.changePasswordForm);
-		// }
 	}
 
 	SubmitButtonAction(): any {
@@ -57,7 +52,6 @@ export class FormChangePasswordComponent extends BaseComponent {
 			} else {
 				this.updateMessages(null, "Validation Pass Error");
 			}
-			console.log("Hi");
 		}
 	}
 
