@@ -42,16 +42,21 @@ export class FormCustomerUserComponent extends BaseComponent {
 		this.errorMessage = null;
 		this.userForm = this.formBuilder.group(UserForm);
 		if (this.auth.isLoggedIn()) {
-			this.user = <User>this.auth.getUserInfo();
+			this.fillUserInfo();
 			this.getAllCountries();
-			this.get(this.user);
 		}
 	}
 
 	SubmitButtonAction(): any {
 		if (this.userForm.dirty && this.userForm.valid) {
 			this.user = this.userForm.value;
-			this.put(this.user);
+			this.customerUserService.put(this.user).then((data: any) => {
+				console.log("user updated : " + data);
+				this.updateMessages("Change accepted !!", null);
+			}, (reason: string) => {
+				console.log(reason);
+				this.updateMessages(null, "Error updated !!");
+			});
 		}
 	}
 
@@ -60,11 +65,13 @@ export class FormCustomerUserComponent extends BaseComponent {
 	}
 
 	//get
-	get(user: User): void {
-		this.customerUserService.get(user).then(
+	fillUserInfo(): void {
+		let info = <User>this.auth.getUserInfo();
+		this.customerUserService.get(info).then(
 			(data: any) => {
 				this.user = data;
-				FormValidationService.fillFormGroup(this.user, this.userForm);
+				FormValidationService.fillFormGroup
+				(this.user, this.userForm);
 			}, (reason: string) => {
 				console.log(reason);
 			}
@@ -78,22 +85,6 @@ export class FormCustomerUserComponent extends BaseComponent {
 		}, (reason: string) => {
 			console.log(reason);
 		});
-	}
-
-	//update
-	put(user: User): void {
-		this.customerUserService.put(user).then((data: any) => {
-			console.log("user updated : " + data);
-			this.updateMessages("Change accepted !!", null);
-		}, (reason: string) => {
-			console.log(reason);
-			this.updateMessages(null, "Error updated !!");
-		});
-	}
-
-	//create
-	post(user: User): void {
-		this.user = this.customerUserService.post(user);
 	}
 
 	updateMessages(infoMessage: string, errorMessage: string) {

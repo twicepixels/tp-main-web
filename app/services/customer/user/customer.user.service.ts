@@ -14,43 +14,18 @@ export class CustomerUserService {
 
 	//get
 	get(user: User): Promise<User> {
-		let _service = this.restService;
-		return new Promise(function (resolve, reject) {
-			_service.get("tp-main", "userByUserId", {"id": user.id}).then(
-				(data: any)=> {
-					resolve(data);
-				},
-				(reason: any) => {
-					reject(reason);
-				}
-			);
-		});
+		return this.restService.get("tp-main", "userByUserId",
+			{"id": user.id}
+		);
 	}
 
 	//update
 	put(user: User): Promise<User> {
-		let _service = this.restService;
-		return new Promise(function (resolve, reject) {
-			_service.put("tp-main", "updateUserById", user, {"id": user.id}).then(
-				(data: any)=> {
-					resolve(data);
-				},
-				(reason: any) => {
-					reject(reason);
-				}
-			);
-		});
-	}
-
-	//create
-	post(user: User): any {
-		this.restService.post("tp-main", "createUser", user)
-			.then(data => {
-				console.log(data);
-			}, (reason: string) => {
-				console.log(reason);
-			});
-		return this.user;
+		return this.restService.put("tp-main",
+			"updateUserById", user, {
+				"id": user.id
+			}
+		);
 	}
 
 	postChangePass(user: UserPass): Promise<any> {
