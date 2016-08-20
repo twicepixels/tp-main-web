@@ -3,7 +3,7 @@
  */
 import { baseProvider, BaseComponent, BootstrapService } from "../../../shared/base.component";
 import { Component } from '@angular/core';
-import { REACTIVE_FORM_DIRECTIVES, FormBuilder } from '@angular/forms';
+import { REACTIVE_FORM_DIRECTIVES } from '@angular/forms';
 import {TranslatePipe, LocaleDatePipe} from 'angular2localization/angular2localization';
 // Beans.
 import { Account } from '../../../services/customer/account/account';
