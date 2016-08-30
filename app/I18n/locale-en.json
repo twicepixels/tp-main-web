@@ -22,5 +22,20 @@
   "VECTORS": "Vectors",
   "ILUSTRATIONS": "Ilustrations",
   "FORM": "Formulario",
-  "CHANGEPASSWORD": "Change Password"
+  "CHANGEPASSWORD": "Change Password",
+
+  "CUSTOMER_USER_INFORMATION":"Customer User Information",
+  "PERSONAL_INFORMATION":"Personal Information",
+  "LOCATION_INFORMATION":"Location Information",
+  "ACCESS_INFORMATION":"Access Information",
+  "CONTACT_INFORMATION":"Contact Information",
+  "USER_ID":"Id",
+  "FIRST_NAME":"First Name",
+  "LAST_NAME":"Last Name",
+  "USER_NAME":"User Name",
+  "PSEUDONYM":"Pseudonym",
+  "EMAIL":"Email",
+  "LOCATION":"Location",
+  "COUNTRY":"Country"
+
 }

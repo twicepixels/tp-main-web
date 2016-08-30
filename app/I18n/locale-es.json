@@ -22,5 +22,19 @@
   "VECTORS": "Vectores",
   "ILUSTRATIONS": "Ilustraciones",
   "FORM": "Form",
-  "CHANGEPASSWORD": "Cambio Contraseña"
+  "CHANGEPASSWORD": "Cambio Contraseña",
+
+  "CUSTOMER_USER_INFORMATION":"Información de Usuario",
+  "PERSONAL_INFORMATION":"Información Personal",
+  "LOCATION_INFORMATION":"Información de Localización",
+  "ACCESS_INFORMATION":"Información del Acceso",
+  "CONTACT_INFORMATION":"Información de Contacto",
+  "USER_ID":"Id",
+  "FIRST_NAME":"Nombre",
+  "LAST_NAME":"Apellidos",
+  "USER_NAME":"Nombre de Usuario",
+  "PSEUDONYM":"Pseudónimo",
+  "EMAIL":"Correo Electrónico",
+  "LOCATION":"Localización",
+  "COUNTRY":"Pais"
 }
