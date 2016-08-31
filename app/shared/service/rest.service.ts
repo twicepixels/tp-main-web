@@ -1,9 +1,8 @@
-const util = require("util");
-import { Observable } from "rxjs/Rx";
+import { Http, Headers, Response } from "@angular/http";
 import { Injectable } from "@angular/core";
-var restConfig = require("../config/rest.config.json");
-import { Http, Headers, RequestOptions, Response } from "@angular/http";
-
+import { Observable } from "rxjs/Rx";
+const util = require("util");
+let restConfig = require("../config/rest.config.json");
 
 @Injectable()
 export class RestService {
@@ -35,24 +34,30 @@ export class RestService {
 
 	private request(url: string, verb: string, body?: any): Promise<any> {
 		let _request: Observable<Response> = null;
-		let _service = this;
-		let _options = _service.defaultOptions();
+		let _bodyStr = JSON.stringify(body);
+		let _options = {
+			body: _bodyStr || "",
+			withCredentials: true,
+			headers: new Headers({
+				'Content-Type': 'application/json'
+			})
+		};
 		if (verb == "GET") {
-			_request = _service.http.get(url, _options);
+			_request = this.http.get(url, _options);
 		} else if (verb == "POST") {
-			let _bodyStr = JSON.stringify(body);
-			_request = _service.http.post(url, _bodyStr, _options);
+			_request = this.http.post(url, _bodyStr, _options);
 		} else if (verb == "PUT") {
-			let _bodyStr = JSON.stringify(body);
-			_request = _service.http.put(url, _bodyStr, _options);
+			_request = this.http.put(url, _bodyStr, _options);
 		} else if (verb == "DELETE") {
-			_request = _service.http.delete(url, _options);
+			_request = this.http.delete(url, _options);
 		}
 		return new Promise(function (resolve, reject) {
 			// race promise against post
-			_request.toPromise()
-				.then((res: Response) => _service.extractData(res, resolve))
-				.catch((error: any) => _service.handleError(error, reject));
+			_request.toPromise().then((res: Response) => {
+				resolve(res.json());
+			}).catch((error: any) => {
+				reject(error);
+			});
 		});
 	}
 
@@ -71,31 +76,12 @@ export class RestService {
 			console.log(_servicePath);
 			if (params) {
 				Object.keys(params).forEach(key => {
-					_servicePath = (_servicePath + util.format("{%s}", key)).replace(util.format("{%s}", key), params[key]);
+					_servicePath = (_servicePath + util.format("{%s}", key))
+						.replace(util.format("{%s}", key), params[key]);
 				});
 			}
 			return util.format("%s/%s", _moduleUrl, _servicePath);
 		}
 		return null;
-	}
-
-	//noinspection JSMethodCanBeStatic
-	private defaultOptions(): RequestOptions {
-		return new RequestOptions({
-			withCredentials: true,
-			headers: new Headers({
-				'Content-Type': 'application/json'
-			})
-		});
-	}
-
-	private extractData(res: Response, resolve: any): Promise<any> {
-		return Promise.resolve(res.json()).then
-		((result: any)=> resolve(result));
-	}
-
-	private handleError(error: any, reject: any): Promise<any> {
-		return Promise.resolve(error.json()).then
-		((reason: any)=> reject(reason));
 	}
 }

@@ -5,7 +5,7 @@ import { REACTIVE_FORM_DIRECTIVES, FormGroup } from '@angular/forms';
 import { TranslatePipe } from 'angular2localization/angular2localization';
 // Services.
 import { CustomerUserService } from '../../../services/customer/user/customer.user.service';
-import { GeneralCountryService } from '../../../services/general/country/general.country.service';
+import { UtilService } from '../../../services/general/util.service';
 // Beans.
 import { User } from '../../../services/customer/user/user';
 import { UserForm } from "../../../services/customer/user/customer.user.model";
@@ -21,70 +21,59 @@ import { FormValidationService } from '../../../shared/service/form/form.validat
 	],
 	providers: [
 		baseProvider,
+		UtilService,
 		CustomerUserService,
-		GeneralCountryService
 	]
 })
 
 export class FormCustomerUserComponent extends BaseComponent {
 
-	user: User;
 	userForm: FormGroup;
 	infoMessage: string;
 	errorMessage: string;
 	countries: Object[];
 
 	constructor(boot: BootstrapService,
-	            public customerUserService: CustomerUserService,
-	            public generalCountryService: GeneralCountryService) {
+	            public utilService: UtilService,
+	            public customerUserService: CustomerUserService) {
 		super(boot);
 		this.infoMessage = null;
 		this.errorMessage = null;
 		this.userForm = this.formBuilder.group(UserForm);
 		if (this.auth.isLoggedIn()) {
-			this.fillUserInfo();
-			this.getAllCountries();
-		}
-	}
-
-	SubmitButtonAction(): any {
-		if (this.userForm.dirty && this.userForm.valid) {
-			this.user = this.userForm.value;
-			this.customerUserService.put(this.user).then((data: any) => {
-				console.log("user updated : " + data);
-				this.updateMessages("Change accepted !!", null);
+			this.utilService.getAllCountries().then((data: any) => {
+				this.countries = data;
+				this.fillUserInfo();
 			}, (reason: string) => {
 				console.log(reason);
-				this.updateMessages(null, "Error updated !!");
 			});
 		}
 	}
 
-	onSelectCountries(countryId: number) {
-		this.user.countryId = countryId;
-	}
-
-	//get
 	fillUserInfo(): void {
-		let info = <User>this.auth.getUserInfo();
-		this.customerUserService.get(info).then(
+		this.customerUserService.meInfo().then(
 			(data: any) => {
-				this.user = data;
-				FormValidationService.fillFormGroup
-				(this.user, this.userForm);
+				FormValidationService.fillFormGroup(data, this.userForm);
 			}, (reason: string) => {
 				console.log(reason);
 			}
 		);
 	}
 
-	//get
-	getAllCountries(): void {
-		this.generalCountryService.get().then((data: any) => {
-			this.countries = data;
-		}, (reason: string) => {
-			console.log(reason);
-		});
+	SubmitButtonAction(): any {
+		if (this.userForm.dirty && this.userForm.valid) {
+			// this.user = this.userForm.value;
+			let user: User = this.userForm.value;
+			this.customerUserService.updateUser(user).then(
+				(data: any) => {
+					console.log("user updated : " + data);
+					this.updateMessages("Change accepted !!", null);
+				}, (reason: string) => {
+					console.log(reason);
+					this.updateMessages(null, "Error updated !!");
+				}
+			);
+		}
 	}
 
 	updateMessages(infoMessage: string, errorMessage: string) {

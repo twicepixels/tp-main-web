@@ -11,33 +11,38 @@
                         <div class="page-header">
                             <h3>{{ 'PERSONAL_INFORMATION' | translate:lang }}</h3>
                         </div>
-                        <fieldset class="form-group" hidden="true">
-                            <label for="id">{{ 'ID' | translate:lang }}</label>
-                            <input formControlName="id" type="text" class="form-control input-lg" id="id" placeholder="Enter id">
-                            <form-ctrl-message [control]="userForm.controls.id"></form-ctrl-message>
-                        </fieldset>
+                        <!--<fieldset class="form-group" hidden="true">-->
+                        <!--<label for="id">{{ 'ID' | translate:lang }}</label>-->
+                        <!--<input formControlName="id" type="text" class="form-control input-lg" id="id"-->
+                        <!--placeholder="Enter id">-->
+                        <!--<form-ctrl-message [control]="userForm.controls.id"></form-ctrl-message>-->
+                        <!--</fieldset>-->
 
                         <fieldset class="form-group">
                             <label for="firstName">{{ 'FIRST_NAME' | translate:lang }}</label>
-                            <input formControlName="firstName" type="text" class="form-control input-lg" id="firstName" placeholder="Enter first name">
+                            <input formControlName="firstName" type="text" class="form-control input-lg" id="firstName"
+                                   placeholder="Enter first name">
                             <form-ctrl-message [control]="userForm.controls.firstName"></form-ctrl-message>
                         </fieldset>
 
                         <fieldset class="form-group">
                             <label for="lastName">{{ 'LAST_NAME' | translate:lang }}</label>
-                            <input formControlName="lastName" type="text" class="form-control input-lg" id="lastName" placeholder="Enter last name">
+                            <input formControlName="lastName" type="text" class="form-control input-lg" id="lastName"
+                                   placeholder="Enter last name">
                             <form-ctrl-message [control]="userForm.controls.lastName"></form-ctrl-message>
                         </fieldset>
 
                         <fieldset class="form-group">
                             <label for="userName">{{ 'USER_NAME' | translate:lang }}</label>
-                            <input formControlName="userName" type="text" class="form-control input-lg" id="userName" placeholder="Enter user name">
+                            <input formControlName="userName" type="text" class="form-control input-lg" id="userName"
+                                   placeholder="Enter user name">
                             <form-ctrl-message [control]="userForm.controls.userName"></form-ctrl-message>
                         </fieldset>
 
                         <fieldset class="form-group">
                             <label for="pseudonym">{{ 'PSEUDONYM' | translate:lang }}</label>
-                            <input formControlName="pseudonym" type="text" class="form-control input-lg" id="pseudonym" placeholder="Enter pseudonym">
+                            <input formControlName="pseudonym" type="text" class="form-control input-lg" id="pseudonym"
+                                   placeholder="Enter pseudonym">
                             <form-ctrl-message [control]="userForm.controls.pseudonym"></form-ctrl-message>
                         </fieldset>
 
@@ -49,8 +54,11 @@
                         </div>
                         <fieldset class="form-group">
                             <label for="email">{{ 'EMAIL' | translate:lang }}</label>
-                            <input formControlName="email" type="text" class="form-control input-lg" id="email" placeholder="Enter email">
-                            <small class="text-muted"><form-ctrl-message [control]="userForm.controls.email"></form-ctrl-message></small>
+                            <input formControlName="email" type="text" class="form-control input-lg" id="email"
+                                   placeholder="Enter email">
+                            <small class="text-muted">
+                                <form-ctrl-message [control]="userForm.controls.email"></form-ctrl-message>
+                            </small>
                         </fieldset>
 
                         <div class="page-header">
@@ -59,30 +67,29 @@
 
                         <fieldset class="form-group">
                             <label for="location">{{ 'LOCATION' | translate:lang }}</label>
-                            <input formControlName="location" type="text" class="form-control input-lg" id="location" placeholder="Enter location">
-                            <small class="text-muted"><form-ctrl-message [control]="userForm.controls.location"></form-ctrl-message></small>
+                            <input formControlName="location" type="text" class="form-control input-lg" id="location"
+                                   placeholder="Enter location">
+                            <small class="text-muted">
+                                <form-ctrl-message [control]="userForm.controls.location"></form-ctrl-message>
+                            </small>
                         </fieldset>
 
-                        <fieldset  class="form-group">
+                        <fieldset class="form-group">
                             <label for="countryId">{{ 'COUNTRY' | translate:lang }}</label>
-                            <select id="countryId" formControlName="countryId" class="form-control input-lg"  (change)="onSelectCountries($event.target.value)">
-                                <option *ngFor="let country of countries" value= {{country.id}}>
+                            <select id="countryId" formControlName="countryId" class="form-control input-lg">
+                                <option *ngFor="let country of countries" value={{country.id}}>
                                     {{country.description}}
                                 </option>
                             </select>
-                            <small class="text-muted"><form-ctrl-message [control]="userForm.controls.countryId"></form-ctrl-message></small>
-                            <!--<dropdown-select  [dropdownElements]="countries" [(dropDownElementSelected)]="countrySelected"  (select)="userUpdated($event)"></dropdown-select>-->
-
+                            <small class="text-muted">
+                                <form-ctrl-message [control]="userForm.controls.countryId"></form-ctrl-message>
+                            </small>
                         </fieldset>
-
                     </div>
-
                     <div class="col-lg-3">
                         <div class="page-header">
                             <h3>{{ 'ACCESS_INFORMATION' | translate:lang }}</h3>
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -97,7 +104,9 @@
                 {{ infoMessage }}
             </small>
         </fieldset>
-        <button type="submit" class="btn btn-lg btn-primary"  [disabled]="!userForm.valid">{{ 'SUBMIT' | translate:lang }}</button>
+        <button type="submit" class="btn btn-lg btn-primary" [disabled]="!userForm.valid">
+            {{ 'SUBMIT' | translate:lang }}
+        </button>
 
     </form>
 </div>

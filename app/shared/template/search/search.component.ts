@@ -22,10 +22,8 @@ export class SearchComponent extends BaseComponent {
 	constructor(private rest: RestService,
 	            boot: BootstrapService) {
 		super(boot);
-		Promise.resolve(CATEGORIES).then((categories: Category[])=> {
-			this.categories = categories;
-			this.selectedCategory = categories[0];
-		});
+		this.categories = CATEGORIES;
+		this.selectedCategory = CATEGORIES[0];
 	}
 
 	selectCategory(category: Category) {

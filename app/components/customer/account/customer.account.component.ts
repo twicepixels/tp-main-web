@@ -4,7 +4,7 @@
 import { baseProvider, BaseComponent, BootstrapService } from "../../../shared/base.component";
 import { Component } from '@angular/core';
 import { REACTIVE_FORM_DIRECTIVES } from '@angular/forms';
-import {TranslatePipe, LocaleDatePipe} from 'angular2localization/angular2localization';
+import { TranslatePipe } from 'angular2localization/angular2localization';
 // Beans.
 import { Account } from '../../../services/customer/account/account';
 import { AccountForm } from '../../../services/customer/account/customer.account.model';
@@ -15,14 +15,20 @@ import { CustomerAccountService } from '../../../services/customer/account/custo
 @Component({
 	selector: 'sign-up-account',
 	template: require('./customer.account.component.html'),
-	pipes: [TranslatePipe, LocaleDatePipe],
-	directives: [REACTIVE_FORM_DIRECTIVES, FormCtrlMessage],
-	providers: [baseProvider, CustomerAccountService]
+	pipes: [TranslatePipe],
+	directives: [
+		REACTIVE_FORM_DIRECTIVES,
+		FormCtrlMessage
+	],
+	providers: [
+		baseProvider,
+		CustomerAccountService
+	]
 })
 
 export class FormCustomerAccountComponent extends BaseComponent {
-	accountForm: any;
 	account: Account;
+	accountForm: any;
 	errorMessage: string;
 
 	constructor(boot: BootstrapService,
@@ -41,28 +47,18 @@ export class FormCustomerAccountComponent extends BaseComponent {
 		}
 	}
 
-	//get
-	getAccount(account: Account): Account {
-		this.account = this.customerAccountService.get(account);
-		return this.account;
-	}
-
 	//create
 	createAccount(account: Account): void {
 		let _service = this;
-		_service.customerAccountService.post(account).then((data: any) => {
+		_service.customerAccountService.post(account).then(() => {
 			_service.auth.login({
 				username: account.email,
 				password: account.password
-			}).then((result: any)=> {
-					_service.router.navigate(['/home'], '?id:' + account.id);
-				},
+			}).then(
+				()=> _service.router.navigate(['/home'], '?id:' + account.id),
 				(reason: string)=> {
-					throw new Error(reason);
-				}
-			);
-		}, (reason: any) => {
-			this.errorMessage = "Error creando cuenta !!";
-		});
+					throw new Error(reason)
+				});
+		}, () => this.errorMessage = "Error creando cuenta !!");
 	}
 }
