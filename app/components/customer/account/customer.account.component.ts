@@ -42,10 +42,10 @@ export class FormCustomerAccountComponent extends BaseComponent {
 	}
 
 	//get
-	getAccount(account: Account): Account {
+	/*getAccount(account: Account): Account {
 		this.account = this.customerAccountService.get(account);
 		return this.account;
-	}
+	}*/
 
 	//create
 	createAccount(account: Account): void {
