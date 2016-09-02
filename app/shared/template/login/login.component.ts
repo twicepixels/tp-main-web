@@ -1,21 +1,10 @@
-import { baseProvider, BaseComponent, BootstrapService } from "../../base.component";
+import { BaseComponent, BootstrapService } from "../../base.component";
 import { Component } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
-import { REACTIVE_FORM_DIRECTIVES } from '@angular/forms';
 import { LoginForm, LoginModel } from "../../service/auth/auth.model";
-import { FormCtrlMessage } from '../form/form.ctrl.message.component.ts';
-import { TranslatePipe } from 'angular2localization/angular2localization';
 
 @Component({
 	selector: 'sign-in-account',
-	template: require('./login.component.html'),
-	directives: [
-		ROUTER_DIRECTIVES,
-		REACTIVE_FORM_DIRECTIVES,
-		FormCtrlMessage
-	],
-	providers: [baseProvider],
-	pipes: [TranslatePipe]
+	template: require('./login.component.html')
 })
 export class LoginComponent extends BaseComponent {
 

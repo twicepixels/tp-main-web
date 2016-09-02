@@ -1,7 +1,5 @@
-import { baseProvider, BaseComponent, BootstrapService } from "../../base.component";
+import { BaseComponent, BootstrapService } from "../../base.component";
 import { Component } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
-import { TranslatePipe } from 'angular2localization/angular2localization';
 // Services
 import { Language } from '../../service/language/language';
 import { LanguageService } from '../../service/language/language.service';
@@ -9,10 +7,7 @@ import { LanguageService } from '../../service/language/language.service';
 @Component({
 	selector: 'nav-bar',
 	template: require('./navbar.component.html'),
-	styles: [require('./navbar.component.less')],
-	directives: [ROUTER_DIRECTIVES],
-	providers: [baseProvider],
-	pipes: [TranslatePipe]
+	styles: [require('./navbar.component.less')]
 })
 export class NavbarComponent extends BaseComponent {
 	public languages: Language[];

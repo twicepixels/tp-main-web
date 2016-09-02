@@ -1,6 +1,6 @@
 import { Router } from "@angular/router";
 import { Injector, OnInit, Injectable, Inject } from "@angular/core";
-import { FormBuilder } from "@angular/forms";
+import { FormBuilder, FormGroup, AbstractControl } from "@angular/forms";
 import {
 	Locale,
 	LocaleService,
@@ -54,6 +54,19 @@ export class BaseComponent extends Locale implements OnInit {
 
 	isLoggedIn(): boolean {
 		return this.auth.isLoggedIn();
+	}
+
+	fillFormGroup(object: Object, formGroup: FormGroup): void {
+		Object.keys(object).forEach(function (property) {
+			try {
+				let control: AbstractControl = formGroup.controls[property];
+				if (control != null) {
+					control.setValue((<any>object)[property], {onlySelf: true});
+				}
+			} catch (error) {
+				console.log("error")
+			}
+		});
 	}
 
 	ngOnInit(): any {

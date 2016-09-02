@@ -63,21 +63,20 @@ export class RestService {
 
 	//noinspection JSMethodCanBeStatic
 	private url(module: string, service: string, params?: any): string {
-		let _module = this.modules.find((imodule: any)=> {
-			return imodule["name"] == module;
+		let _module = this.modules.find((iModule: any)=> {
+			return iModule["name"] == module;
 		});
 		if (_module) {
 			let _services = _module["services"];
-			let _service = _services.find((iservice: any)=> {
-				return iservice["name"] == service
+			let _service = _services.find((iService: any)=> {
+				return iService["name"] == service
 			});
 			let _moduleUrl = _module["url"];
 			let _servicePath = _service["path"];
-			console.log(_servicePath);
 			if (params) {
 				Object.keys(params).forEach(key => {
-					_servicePath = (_servicePath + util.format("{%s}", key))
-						.replace(util.format("{%s}", key), params[key]);
+					_servicePath = _servicePath.replace(util
+						.format(":%s", key), params[key]);
 				});
 			}
 			return util.format("%s/%s", _moduleUrl, _servicePath);

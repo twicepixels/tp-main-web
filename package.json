@@ -5,8 +5,8 @@
   "main": "",
   "scripts": {
     "postinstall": "typings install",
-    "build": "webpack",
-    "start": "webpack-dev-server"
+    "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail",
+    "start": "webpack-dev-server --inline --progress --port 3000"
   },
   "keywords": [
     "Angular2",

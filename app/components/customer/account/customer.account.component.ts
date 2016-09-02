@@ -1,29 +1,15 @@
-/**
- * Created by eduray on 7/5/16.
- */
-import { baseProvider, BaseComponent, BootstrapService } from "../../../shared/base.component";
+import { BaseComponent, BootstrapService } from "../../../shared/base.component";
 import { Component } from '@angular/core';
-import { REACTIVE_FORM_DIRECTIVES } from '@angular/forms';
-import { TranslatePipe } from 'angular2localization/angular2localization';
 // Beans.
 import { Account } from '../../../services/customer/account/account';
 import { AccountForm } from '../../../services/customer/account/customer.account.model';
-import { FormCtrlMessage } from '../../../shared/template/form/form.ctrl.message.component';
 // Services.
 import { CustomerAccountService } from '../../../services/customer/account/customer.account.service';
 
 @Component({
 	selector: 'sign-up-account',
 	template: require('./customer.account.component.html'),
-	pipes: [TranslatePipe],
-	directives: [
-		REACTIVE_FORM_DIRECTIVES,
-		FormCtrlMessage
-	],
-	providers: [
-		baseProvider,
-		CustomerAccountService
-	]
+	providers: [CustomerAccountService]
 })
 
 export class FormCustomerAccountComponent extends BaseComponent {
@@ -50,7 +36,7 @@ export class FormCustomerAccountComponent extends BaseComponent {
 	//create
 	createAccount(account: Account): void {
 		let _service = this;
-		_service.customerAccountService.post(account).then(() => {
+		_service.customerAccountService.create(account).then(() => {
 			_service.auth.login({
 				username: account.email,
 				password: account.password

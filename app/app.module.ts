@@ -1,38 +1,47 @@
-import { NgModule } from '@angular/core';
 import {
 	LocationStrategy,
 	HashLocationStrategy
 } from '@angular/common';
+import {
+	TranslatePipe,
+	LocaleService,
+	LocalizationService
+} from "angular2localization/angular2localization";
+import {
+	FormsModule,
+	ReactiveFormsModule
+}    from '@angular/forms';
+import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { FormsModule, ReactiveFormsModule }    from '@angular/forms';
 import { BrowserModule }  from '@angular/platform-browser';
-
 import { routing, appRoutingProviders } from "./app.routes";
-import { BootstrapService } from "./shared/base.component";
+import { baseProvider } from "./shared/base.component";
 import { RestService } from './shared/service/rest.service';
 import { AuthService } from './shared/service/auth/auth.service';
 import { MainComponent } from './shared/template/page/main.component';
 import { LanguageService } from "./shared/service/language/language.service";
-import { LocalizationService, LocaleService } from "angular2localization/angular2localization";
+import { FormCtrlMessage } from "./shared/template/form/form.ctrl.message.component";
 
 @NgModule({
 	imports: [
 		BrowserModule,
-		FormsModule,
-		ReactiveFormsModule,
+		routing,
 		HttpModule,
-		routing
+		FormsModule,
+		ReactiveFormsModule
 	],
 	declarations: [
+		TranslatePipe,
 		MainComponent,
+		FormCtrlMessage,
 		appRoutingProviders
 	],
 	providers: [
-		AuthService,
+		baseProvider,
 		RestService,
+		AuthService,
 		LocaleService,
 		LanguageService,
-		BootstrapService,
 		LocalizationService,
 		{
 			provide: LocationStrategy,

@@ -1,3 +1,3 @@
-export interface FormValidationResult{
-    [key:string]:boolean;
+export interface FormValidationResult {
+	[key: string]: boolean;
 }

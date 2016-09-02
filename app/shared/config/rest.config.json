@@ -5,15 +5,13 @@
       "url": "http://localhost:3001",
       "services": [
         {"name": "me", "path": "users/me"},
-        {"name": "users", "path": "users"},
         {"name": "login", "path": "auth/login"},
         {"name": "logout", "path": "auth/logout"},
-        {"name": "createUser", "path": "users/"},
-        {"name": "userByEmail", "path": "users/getByEmail/"},
-        {"name": "createAccount", "path": "accounts/"},
-        {"name": "updateUserById", "path": "users/"},
-        {"name": "getAllCountries", "path": "countries/getAll"},
-        {"name": "changePassword", "path": "users/changePassword/"}
+        {"name": "userUpdate", "path": "users/:id"},
+        {"name": "userByEmail", "path": "users/getByEmail/:email"},
+        {"name": "userPassword", "path": "users/changePassword"},
+        {"name": "accountCreate", "path": "accounts/"},
+        {"name": "countryGetAll", "path": "countries/getAll"}
       ]
     }
   ]

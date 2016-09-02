@@ -1,22 +1,21 @@
-import 'rxjs/Rx';
+import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { RestService } from "../rest.service";
 import { LoginModel } from "./auth.model";
 
 
 @Injectable()
-export class AuthService {
-	private infoKey: string = "userinfo";
+export class AuthService extends RestService {
+	private infoKey: string = "userInfo";
 
-	constructor(private rest: RestService) {
+	constructor(http: Http) {
+		super(http);
 	}
 
 	login(model: LoginModel): Promise<Object> {
 		let _class = this;
-		let _service = this.rest;
 		return new Promise(function (resolve, reject) {
-			// race promise against post
-			_service.post("tp-main", "login", model).then(
+			_class.post("tp-main", "login", model).then(
 				(jsonResult: any)=> {
 					let jsonStr = JSON.stringify(jsonResult);
 					localStorage.setItem(_class.infoKey, jsonStr);
@@ -28,14 +27,11 @@ export class AuthService {
 				}
 			);
 		});
-		// también se puede devolver el promise
-		// sin hacer ningún procesamiento adicional:
-		// return this.rest.post("tp-main", "login", model);
 	}
 
 	logout(): Promise<any> {
 		localStorage.removeItem(this.infoKey);
-		return this.rest.post("tp-main", "logout");
+		return this.post("tp-main", "logout");
 	}
 
 	getUserInfo(): Object {

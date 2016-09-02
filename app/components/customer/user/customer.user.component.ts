@@ -1,29 +1,17 @@
-import { baseProvider, BaseComponent, BootstrapService } from "../../../shared/base.component";
+import { BaseComponent, BootstrapService } from "../../../shared/base.component";
 import { Component } from '@angular/core';
-import { REACTIVE_FORM_DIRECTIVES, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 // Pipes.
-import { TranslatePipe } from 'angular2localization/angular2localization';
 // Services.
 import { CustomerUserService } from '../../../services/customer/user/customer.user.service';
 import { UtilService } from '../../../services/general/util.service';
 // Beans.
 import { User } from '../../../services/customer/user/user';
 import { UserForm } from "../../../services/customer/user/customer.user.model";
-import { FormCtrlMessage } from '../../../shared/template/form/form.ctrl.message.component';
-import { FormValidationService } from '../../../shared/service/form/form.validation.service';
 
 @Component({
 	template: require('./customer.user.component.html'),
-	pipes: [TranslatePipe],
-	directives: [
-		REACTIVE_FORM_DIRECTIVES,
-		FormCtrlMessage
-	],
-	providers: [
-		baseProvider,
-		UtilService,
-		CustomerUserService,
-	]
+	providers: [UtilService, CustomerUserService]
 })
 
 export class FormCustomerUserComponent extends BaseComponent {
@@ -53,7 +41,7 @@ export class FormCustomerUserComponent extends BaseComponent {
 	fillUserInfo(): void {
 		this.customerUserService.meInfo().then(
 			(data: any) => {
-				FormValidationService.fillFormGroup(data, this.userForm);
+				this.fillFormGroup(data, this.userForm);
 			}, (reason: string) => {
 				console.log(reason);
 			}
