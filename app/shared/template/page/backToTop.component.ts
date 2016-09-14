@@ -2,11 +2,8 @@ import { Component, Renderer, ElementRef, ViewChild } from "@angular/core";
 @Component({
 	selector: "back-to-top",
 	template: `
-		<div id="backToTop" #backToTop>
-    		<button>
-    			<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
-        		Top
-    		</button>
+		<div id="backToTop" #backToTop>    		
+    		<a href="javascript:;"><span></span></a>    		
 		</div>
 	`,
 	styles: [require('./backToTop.component.less')]
@@ -49,7 +46,7 @@ export class BackToTop {
 
 		window.addEventListener('scroll', function () {
 			renderer.setElementClass(this.backToTop,
-				'show', (window.pageYOffset > 0));
+				'show', (window.pageYOffset > 100));
 		});
 	}
 }
