@@ -12,15 +12,13 @@ import { Component, Renderer, ElementRef, ViewChild } from "@angular/core";
 	styles: [require('./backToTop.component.less')]
 })
 export class BackToTop {
+	private speed: number = 10;
 	@ViewChild('backToTop') backToTop: ElementRef;
-	private speed: number = 1000;
 
 	constructor(el: ElementRef, renderer: Renderer) {
 		renderer.listen(el.nativeElement, 'click', () => {
-			// Do something with 'event'
-			console.log("click rise");
 			let stopY: number = 0;
-			var startY: number = pageXOffset || 0;
+			let startY: number = pageXOffset || 0;
 			if (document.documentElement && document.documentElement.scrollTop) {
 				startY = document.documentElement.scrollTop;
 			} else if (document.body.scrollTop) {
@@ -31,27 +29,24 @@ export class BackToTop {
 				scrollTo(0, stopY);
 				return;
 			}
-			let speed: number = Math.round(this.speed / 100);
-			let step: number = Math.round(distance / 25);
-			let leapY: number = stopY > startY ? startY + step : startY - step;
-			let timer: number = 0;
-			if (stopY > startY) {
-				for (let i = startY; i < stopY; i += step) {
-					setTimeout("window.scrollTo(0, " + leapY + ")", timer * speed);
-					leapY += step;
-					if (leapY > stopY) leapY = stopY;
-					timer++;
+			let step = Math.round(distance / 25);
+			let leapY = stopY > startY ? startY + step : startY - step;
+			let _func = (_step: number, _reverse: boolean)=> {
+				leapY = _reverse ? (leapY - step) : (leapY + step);
+				let newStep = _reverse ? (_step - step) : (_step + step);
+				if (_reverse ? (leapY < stopY) : (leapY > stopY)) {
+					leapY = stopY
 				}
-				return;
-			}
-			for (let j = startY; j > stopY; j -= step) {
-				setTimeout("window.scrollTo(0, " + leapY + ")", timer * speed);
-				leapY -= step;
-				if (leapY < stopY) leapY = stopY;
-				timer++;
-			}
+				if (_reverse ? (_step > stopY) : (_step < stopY)) {
+					setTimeout(()=> {
+						window.scrollTo(0, leapY);
+						_func(newStep, _reverse);
+					}, this.speed);
+				}
+			};
+			_func(startY, (stopY < startY));
 		});
-		
+
 		window.addEventListener('scroll', function () {
 			renderer.setElementClass(this.backToTop,
 				'show', (window.pageYOffset > 0));
