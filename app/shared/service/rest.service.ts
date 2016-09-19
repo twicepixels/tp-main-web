@@ -62,7 +62,7 @@ export class RestService {
 	}
 
 	//noinspection JSMethodCanBeStatic
-	private url(module: string, service: string, params?: any): string {
+	protected url(module: string, service: string, params?: any): string {
 		let _module = this.modules.find((iModule: any)=> {
 			return iModule["name"] == module;
 		});

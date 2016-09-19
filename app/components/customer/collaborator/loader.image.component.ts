@@ -7,7 +7,6 @@ import {REACTIVE_FORM_DIRECTIVES, FormGroup} from "@angular/forms";
 import {TranslatePipe} from "angular2localization/angular2localization";
 import {LoadImageService} from "../../../services/customer/collaborator/load.image.user.service";
 import {UtilService} from "../../../services/general/util.service";
-import {UploadService} from "../../../shared/service/unload.service";
 import {LoaderImageForm} from "../../../services/customer/collaborator/loader.image.model";
 import {FormCtrlMessage} from "../../../shared/template/form/form.ctrl.message.component";
 // Pipes.
@@ -29,7 +28,6 @@ import path = require('path');
         baseProvider,
         UtilService,
         LoadImageService,
-        UploadService,
     ]
 })
 
@@ -43,7 +41,6 @@ export class FormLoaderImageComponent extends BaseComponent {
 
     constructor(boot:BootstrapService,
                 public utilService:UtilService,
-                public uploadService:UploadService,
                 public loadImageService:LoadImageService,
                 private renderer:Renderer) {
         super(boot);
@@ -53,49 +50,47 @@ export class FormLoaderImageComponent extends BaseComponent {
     }
 
     SubmitButtonAction($event:any):any {
-        /*let inputValue = $event.target;
-         var formData = new FormData();
-         formData.append("name", "Name");
-         formData.append("file", inputValue.files[0]);
-         this.loadImageService.saveImage(formData);*/
     }
 
     showImageBrowseDlg() {
         let event = new MouseEvent('click', {bubbles: true});
         event.stopPropagation();
-        // let ctrl = this.loadImageForm.controls["files"];
         this.renderer.invokeElementMethod(this.files.nativeElement, 'dispatchEvent', [event]);
     }
 
     changeFiles($event:any) {
         console.log('onChange');
         let inputValue = $event.target;
-        console.log(inputValue);
-        /*this.uploadService.makeFileRequest('http://localhost:3001/upload', [], inputValue).subscribe(() => {
-         console.log('sent');
-         });*/
-        this.makeFileRequest("http://localhost:3000/upload", [], inputValue).then((result) => {
+        this.makeFileRequest([], inputValue.files).then((result) => {
             console.log(result);
         }, (error) => {
             console.error(error);
         });
-        var formData = new FormData();
-        formData.append("name", inputValue.files[0].name);
-        formData.append("file", inputValue.files[0]);
-        this.loadImageService.saveImage(formData);
     }
 
-    makeFileRequest(url:string, params:Array<string>, files:Array<File>) {
+    makeFileRequest(params:Array<string>, files:Array<File>) {
         return new Promise((resolve, reject) => {
             var formData:any = new FormData();
             var xhr = new XMLHttpRequest();
+            let cons = this;
+            console.log("archivos:" + files);
             for (var i = 0; i < files.length; i++) {
                 formData.append("uploads[]", files[i], files[i].name);
-                this.vProgress = (i + 1) / files.length * 100;
-                console.log(this.vProgress);
-                // this.loadImageForm.controls["progressBar"].setValue((i + 1) / files.length * 100);
+                console.log("archivo:" + files[i].name); //TODO quitar
             }
-            /*xhr.onreadystatechange = function () {
+            xhr.upload.addEventListener('progress', function(evt:any) {
+                if (evt.lengthComputable) {
+                    // calculate the percentage of upload completed
+                    let percentComplete:number = evt.loaded / evt.total;
+                    percentComplete = percentComplete * 100;
+
+                    // update the Bootstrap progress bar with the new percentage
+                    cons.vProgress = percentComplete;
+                    console.log(cons.vProgress);
+                }
+            }, false);
+
+            xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4) {
                     if (xhr.status == 200) {
                         resolve(JSON.parse(xhr.response));
@@ -104,8 +99,7 @@ export class FormLoaderImageComponent extends BaseComponent {
                     }
                 }
             };
-            xhr.open("POST", url, true);
-            xhr.send(formData);*/
+            this.loadImageService.saveImage(xhr, formData);
         });
     }
 }
