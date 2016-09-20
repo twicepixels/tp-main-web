@@ -17,6 +17,7 @@ export class LoadImageService extends RestService{
         let _url = this.url("tp-main", "upload", formData);
         console.log("entrando a " + _url);
         xhr.open("POST", _url, true);
+        //xhr.setRequestHeader("Content-Type", "multipart/form-data");
         console.log("Enviando ");
         xhr.send(formData);
     }

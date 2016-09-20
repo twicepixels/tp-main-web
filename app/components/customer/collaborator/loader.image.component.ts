@@ -76,7 +76,7 @@ export class FormLoaderImageComponent extends BaseComponent {
             console.log("archivos:" + files);
             for (var i = 0; i < files.length; i++) {
                 formData.append("uploads[]", files[i], files[i].name);
-                console.log("archivo:" + files[i].name); //TODO quitar
+                //console.log("archivo:" + files[i].name); //TODO quitar
             }
             xhr.upload.addEventListener('progress', function(evt:any) {
                 if (evt.lengthComputable) {
@@ -86,7 +86,7 @@ export class FormLoaderImageComponent extends BaseComponent {
 
                     // update the Bootstrap progress bar with the new percentage
                     cons.vProgress = percentComplete;
-                    console.log(cons.vProgress);
+                    //console.log(cons.vProgress);
                 }
             }, false);
 
