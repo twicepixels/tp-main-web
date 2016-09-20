@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<div class="container">
+    <form [formGroup]="loadImageForm" (submit)="SubmitButtonAction($event)">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <span class="glyphicon glyphicon-cloud-upload"></span>
+                        <h2>File Uploader</h2>
+                        <!--<div class="progress">
+                            <div class="progress-bar" role="progressbar"></div>
+                        </div>-->
+                        <div class="progress">
+                            <progress value="{{vProgress}}" max="100" id="progressBar" class="progressBar"></progress>
+                        </div>
+                        <button class="btn btn-lg upload-btn" id="imgFile" type="button" (click)="showImageBrowseDlg()">Upload File</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input #files id="files" type="file" name="uploads[]" multiple="multiple" (change)="changeFiles($event)">
+        <fieldset class="form-group">
+            <small *ngIf="errorMessage !== null" class="text-muted">
+                {{ errorMessage }}
+            </small>
+        </fieldset>
+        <fieldset class="form-group">
+            <small *ngIf="infoMessage !== null" class="text-muted">
+                {{ infoMessage }}
+            </small>
+        </fieldset>
+    </form>
+</div>
+
