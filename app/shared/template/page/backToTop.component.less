@@ -1,0 +1,49 @@
+#backToTop {
+  opacity: 0;
+  right: 30px;
+  bottom: 30px;
+  position: fixed;
+  transition: all .3s ease-out;
+  &.full-width {
+    background: white;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+  a {
+    color: #bbb;
+    text-decoration: none;
+  }
+  a span {
+    width: 42px;
+    height: 42px;
+    display: block;
+    position: relative;
+    background: #f2353c;
+    -webkit-border-radius: 620px;
+    -moz-border-radius: 620px;
+    border-radius: 620px;
+    -webkit-transition: all .3s ease-out;
+    -moz-transition: all .3s ease-out;
+    -o-transition: all .3s ease-out;
+    transition: all .3s ease-out;
+    &:hover {
+      background: #3c3c3c;
+
+    }
+  }
+  a span:after {
+    display: block;
+    content: "\f106";
+    color: #fff;
+    font-family: FontAwesome, sans-serif;
+    font-size: 40px;
+    line-height: 37px;
+    font-weight: bold;
+    text-align: center;
+  }
+}
+
+.show {
+  opacity: 1 !important;
+}
