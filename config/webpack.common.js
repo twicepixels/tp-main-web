@@ -17,16 +17,33 @@ module.exports = {
 		loaders: [
 			{test: /\.html$/, loader: 'html'},
 			{test: /\.json$/, loader: 'json-loader'},
-			{test: /\.ts$/, loaders: ['ts', 'angular2-template-loader']},
-			{test: /\.less$/, loader: 'raw-loader!less-loader', exclude: /node_modules/},
+			{
+				test: /\.ts$/,
+				// exclude: /node_modules/,
+				loaders: [
+					// 'ts',
+					'awesome-typescript-loader',
+					'angular2-template-loader'
+				]
+			},
+			{
+				test: /\.less$/,
+				exclude: /node_modules/,
+				loader: 'raw-loader!less-loader'
+			},
 			{
 				test: /\.(png|jpe?g|gif|ico)$/,
 				loader: 'file?name=assets/[name].[hash].[ext]'
 			},
 			{
 				test: /\.css$/,
-				// loader: 'style!css?sourceMap'
+				exclude: helpers.root('src', 'app'),
 				loader: ExtractTextPlugin.extract('style', 'css?sourceMap')
+			},
+			{
+				test: /\.css$/,
+				include: helpers.root('src', 'app'),
+				loader: 'raw'
 			},
 			{
 				test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,

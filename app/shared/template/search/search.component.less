@@ -1,4 +1,4 @@
-@panel-height: 45px;
+@panel-height: 55px;
 @txt-color: #323838;
 @btn-color: #323838;
 @border-color: #95A5A6;
@@ -14,10 +14,11 @@
   .box-shadow(@style, rgba(0, 0, 0, @alpha));
 }
 
-.container.search-panel {
-  margin-bottom: 20px;
+.container .search-panel {
+  padding: 0;
+  float: none;
+  margin: auto;
   .box-shadow(2px 2px 3px 0);
-
   a {
     cursor: pointer;
   }

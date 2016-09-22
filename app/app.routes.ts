@@ -13,7 +13,7 @@ const SystemRoutes: Routes = [
 	{path: 'user', component: FormCustomerUserComponent},
 	{path: 'account', component: FormCustomerAccountComponent},
 	{path: 'changePassword', component: FormChangePasswordComponent},
-	{path: 'loaderImage', component: FormLoaderImageComponent}
+	{path: 'loadImage', component: FormLoaderImageComponent}
 ];
 
 export const appRoutingProviders: any[] = [
@@ -25,4 +25,4 @@ export const appRoutingProviders: any[] = [
 	FormLoaderImageComponent
 ];
 
-export const routing = RouterModule.forRoot(SystemRoutes);
+export const AppRouterModule = RouterModule.forRoot(SystemRoutes);

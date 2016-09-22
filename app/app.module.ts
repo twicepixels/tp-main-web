@@ -1,48 +1,47 @@
-import {
-	LocationStrategy,
-	HashLocationStrategy
-} from '@angular/common';
-import {
-	TranslatePipe,
-	LocaleService,
-	LocalizationService
-} from "angular2localization/angular2localization";
-import {
-	FormsModule,
-	ReactiveFormsModule
-}    from '@angular/forms';
+import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate/ng2-translate';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { FormsModule, ReactiveFormsModule }    from '@angular/forms';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http } from '@angular/http';
 import { BrowserModule }  from '@angular/platform-browser';
-import { routing, appRoutingProviders } from "./app.routes";
-import { baseProvider } from "./shared/base.component";
-import { RestService } from './shared/service/rest.service';
-import { AuthService } from './shared/service/auth/auth.service';
-import { MainComponent } from './shared/template/page/main.component';
-import { LanguageService } from "./shared/service/language/language.service";
-import { FormCtrlMessage } from "./shared/template/form/form.ctrl.message.component";
-
+import { AppRouterModule, appRoutingProviders } from "./app.routes";
+import {
+	baseProvider,
+	SearchComponent,
+	NavbarComponent,
+	BackToTop,
+	MainComponent,
+	FormCtrlMessage,
+	RestService,
+	AuthService,
+	LanguageService
+} from "./shared/";
 @NgModule({
 	imports: [
-		BrowserModule,
-		routing,
 		HttpModule,
 		FormsModule,
-		ReactiveFormsModule
+		BrowserModule,
+		AppRouterModule,
+		ReactiveFormsModule,
+		TranslateModule.forRoot({
+			useFactory: (http: Http) => new TranslateStaticLoader(http, '/app/I18n', '.json'),
+			provide: TranslateLoader,
+			deps: [Http]
+		})
 	],
 	declarations: [
-		TranslatePipe,
 		MainComponent,
+		BackToTop,
 		FormCtrlMessage,
+		NavbarComponent,
+		SearchComponent,
 		appRoutingProviders
 	],
 	providers: [
 		baseProvider,
 		RestService,
 		AuthService,
-		LocaleService,
 		LanguageService,
-		LocalizationService,
 		{
 			provide: LocationStrategy,
 			useClass: HashLocationStrategy

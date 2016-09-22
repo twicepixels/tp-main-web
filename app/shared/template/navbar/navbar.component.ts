@@ -1,9 +1,6 @@
 import { BaseComponent, BootstrapService } from "../../base.component";
 import { Component } from '@angular/core';
-// Services
 import { Language } from '../../service/language/language';
-import { LanguageService } from '../../service/language/language.service';
-
 @Component({
 	selector: 'nav-bar',
 	template: require('./navbar.component.html'),
@@ -16,24 +13,16 @@ export class NavbarComponent extends BaseComponent {
 
 	constructor(boot: BootstrapService) {
 		super(boot);
-		this.addTranslationScope("locale");
-		// After all load languages
-		LanguageService.getLanguages()
-			.then((languages: Language[])=> this.languages
-				= languages);
-		LanguageService.getCurrentLang(this.localization)
-			.then((lang: Language)=>
-				this.selectLocale(lang));
+		this.languages = boot.lang.languages;
+		boot.lang.getCurrentLang().then(
+			(lang: Language)=> this.selectLocale(lang)
+		);
 		this.isAuthenticated();
-	}
-
-	getCurrentCountry(): string {
-		return this.locale.getCurrentCountry();
 	}
 
 	selectLocale(language: Language) {
 		this.langSelected = language;
-		LanguageService.translate(language);
+		this.boot.lang.translate(language);
 	}
 
 	isAuthenticated(): boolean {

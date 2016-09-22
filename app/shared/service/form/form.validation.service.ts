@@ -1,4 +1,4 @@
-import { HTTP_PROVIDERS } from '@angular/http';
+import { HttpModule } from '@angular/http';
 import { ReflectiveInjector } from '@angular/core';
 import { RestService } from '../../service/rest.service';
 import { FormValidationResult } from './form.validation.model';
@@ -17,7 +17,7 @@ export class FormValidationService {
 
 	static emailValidator(control: any): Promise<FormValidationResult> {
 		//noinspection JSDeprecatedSymbols
-		let injector = ReflectiveInjector.resolveAndCreate([HTTP_PROVIDERS, RestService]);
+		let injector = ReflectiveInjector.resolveAndCreate([HttpModule, RestService]);
 		let _service = injector.get(RestService);
 		if (control.value.match(regex.email)) {
 			return new Promise((resolve, reject) => {

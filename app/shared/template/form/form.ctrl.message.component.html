@@ -1,1 +1,3 @@
-<small class="text-muted"><div *ngIf="errorMessage !== null"> {{ errorMessage  | translate:lang }}  </div></small>
+<small class="text-muted">
+    <div *ngIf="errorMessage !== null"> {{ 'ERRORS.'+errorMessage | translate:lang }}</div>
+</small>
