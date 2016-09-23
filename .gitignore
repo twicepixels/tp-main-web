@@ -4,6 +4,7 @@ $ cat .gitignore
 /node_modules
 /typings
 /.idea
+/dist
 
 
 
