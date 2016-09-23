@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var webpackMerge = require('webpack-merge');
+var CopyPlugin = require('copy-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var helpers = require('./helpers');
 var commonConfig = require('./webpack.common.js');
@@ -35,6 +36,11 @@ module.exports = webpackMerge(commonConfig, {
 			'process.env': {
 				'ENV': JSON.stringify(ENV)
 			}
-		})
+		}),
+		new CopyPlugin([
+			{from: helpers.root('app/i18n'), to: 'app/i18n'},
+			{from: helpers.root('app/content'), to: 'app/content'},
+			{from: helpers.root('favicon.ico'), to: 'favicon.ico'}
+		])
 	]
 });
