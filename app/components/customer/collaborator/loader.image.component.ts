@@ -50,7 +50,6 @@ export class FormLoaderImageComponent extends BaseComponent {
 			var formData: any = new FormData();
 			var xhr = new XMLHttpRequest();
 			let cons = this;
-			console.log("archivos:" + files);
 			for (var i = 0; i < files.length; i++) {
 				formData.append("uploads[]", files[i], files[i].name);
 				//console.log("archivo:" + files[i].name); //TODO quitar
@@ -76,7 +75,7 @@ export class FormLoaderImageComponent extends BaseComponent {
 					}
 				}
 			};
-			this.loadImageService.saveImage(xhr, formData);
+			this.loadImageService.uploadImage(xhr, formData);
 		});
 	}
 }

@@ -12,8 +12,8 @@ export class LoadImageService extends RestService{
         super(http);
     }
 
-    saveImage(xhr:XMLHttpRequest, formData:FormData):void/*Promise<any>*/{
-        console.log("save image;" + formData);
+    uploadImage(xhr:XMLHttpRequest, formData:FormData):void/*Promise<any>*/{
+        //console.log("save image;" + formData);
         let _url = this.url("tp-main", "upload", formData);
         console.log("entrando a " + _url);
         xhr.open("POST", _url, true);
