@@ -43,5 +43,16 @@
     "invalidPassword": "Invalid password. Password must be at least 6 characters long, and contain a number.",
     "minlength": "Minimum length 10",
     "invalidFieldNumber": "Invalid numeric value."
-  }
+  },
+  "CUSTOMER_COLLABORATOR_INFORMATION": "Customer Collaborator Information",
+  "IDENTITY_CARD": "Identity Card",
+  "ADDRESS1": "Address 1",
+  "ADDRESS2": "Address 2",
+  "PHONE_NUMBER": "Phone Number",
+  "POSTAL_CODE": "postalCode",
+  "RATING": "rating",
+  "CITY": "city",
+  "PICTURE": "Picture",
+  "DESCRIPTION": "Description"
+
 }

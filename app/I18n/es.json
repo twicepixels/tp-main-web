@@ -43,5 +43,15 @@
     "invalidPassword": "Inválido Password. Debe ser de al menos 6 caracteres de largo y debe contener al menos un número.",
     "minlength": "Longitud mínima 10",
     "invalidFieldNumber": "Número inválido."
-  }
+  },
+  "CUSTOMER_COLLABORATOR_INFORMATION": "Información del Colaborador",
+  "IDENTITY_CARD": "Número de Identificación",
+  "ADDRESS1": "Dirección 1",
+  "ADDRESS2": "Dirección 2",
+  "PHONE_NUMBER": "Número de Teléfono",
+  "POSTAL_CODE": "Código Postal",
+  "RATING": "Valoración",
+  "CITY": "Ciudad",
+  "PICTURE": "Picture",
+  "DESCRIPTION": "Description"
 }

@@ -1,0 +1,101 @@
+<div class="container">
+    <form [formGroup]="userForm" (submit)="SubmitButtonAction()">
+        <div class="row">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ 'CUSTOMER_COLLABORATOR_INFORMATION' | translate:lang }}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="col-lg-3">
+                        <div class="page-header">
+                            <h3>{{ 'PERSONAL_INFORMATION' | translate:lang }}</h3>
+                        </div>
+
+                        <fieldset class="form-group">
+                            <label for="identityCard">{{ 'IDENTITY_CARD' | translate:lang }}</label>
+                            <input formControlName="identityCard" type="text" class="form-control input-lg" id="identityCard"
+                                   placeholder="Enter Identity Card">
+                            <form-ctrl-message [control]="collaboratorForm.controls.identityCard"></form-ctrl-message>
+                        </fieldset>
+
+                        <fieldset class="form-group">
+                            <label for="address1">{{ 'ADDRESS1' | translate:lang }}</label>
+                            <input formControlName="address1" type="text" class="form-control input-lg" id="address1"
+                                   placeholder="Enter address 1">
+                            <form-ctrl-message [control]="collaboratorForm.controls.address1"></form-ctrl-message>
+                        </fieldset>
+
+                        <fieldset class="form-group">
+                            <label for="address2">{{ 'ADDRESS2' | translate:lang }}</label>
+                            <input formControlName="address1" type="text" class="form-control input-lg" id="address2"
+                                   placeholder="Enter address 2">
+                            <form-ctrl-message [control]="collaboratorForm.controls.address2"></form-ctrl-message>
+                        </fieldset>
+
+                        <fieldset class="form-group">
+                            <label for="phoneNumber">{{ 'PHONE_NUMBER' | translate:lang }}</label>
+                            <input formControlName="phoneNumber" type="text" class="form-control input-lg" id="phoneNumber"
+                                   placeholder="Enter phone Number">
+                            <form-ctrl-message [control]="collaboratorForm.controls.phoneNumber"></form-ctrl-message>
+                        </fieldset>
+
+                        <fieldset class="form-group">
+                            <label for="postalCode">{{ 'POSTAL_CODE' | translate:lang }}</label>
+                            <input formControlName="postalCode" type="text" class="form-control input-lg" id="postalCode"
+                                   placeholder="Enter postal Code">
+                            <form-ctrl-message [control]="collaboratorForm.controls.postalCode"></form-ctrl-message>
+                        </fieldset>
+
+                        <fieldset class="form-group">
+                            <label for="rating">{{ 'RATING' | translate:lang }}</label>
+                            <input formControlName="rating" type="range"  class="form-control input-lg" id="rating"
+                                   placeholder="Enter rating">
+                            <form-ctrl-message [control]="collaboratorForm.controls.rating"></form-ctrl-message>
+                        </fieldset>
+
+                        <fieldset class="form-group">
+                            <label for="city">{{ 'CITY' | translate:lang }}</label>
+                            <input formControlName="city" type="text" class="form-control input-lg" id="city"
+                                   placeholder="Enter city">
+                            <form-ctrl-message [control]="collaboratorForm.controls.city"></form-ctrl-message>
+                        </fieldset>
+
+                        <fieldset class="form-group">
+                            <label for="picture">{{ 'PICTURE' | translate:lang }}</label>
+                            <input formControlName="picture" type="image" class="form-control input-lg" id="picture"
+                                   placeholder="Enter picture">
+                            <form-ctrl-message [control]="collaboratorForm.controls.picture"></form-ctrl-message>
+                        </fieldset>
+
+                        <fieldset class="form-group">
+                            <label for="description">{{ 'DESCRIPTION' | translate:lang }}</label>
+                            <input formControlName="description" type="text" class="form-control input-lg" id="description"
+                                   placeholder="Enter description">
+                            <form-ctrl-message [control]="collaboratorForm.controls.description"></form-ctrl-message>
+                        </fieldset>
+
+
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <fieldset class="form-group">
+            <small *ngIf="errorMessage !== null" class="text-muted">
+                {{ errorMessage }}
+            </small>
+        </fieldset>
+        <fieldset class="form-group">
+            <small *ngIf="infoMessage !== null" class="text-muted">
+                {{ infoMessage }}
+            </small>
+        </fieldset>
+        <button type="submit" class="btn btn-lg btn-primary" [disabled]="!collaboratorForm.valid">
+            {{ 'SUBMIT' | translate:lang }}
+        </button>
+
+    </form>
+</div>

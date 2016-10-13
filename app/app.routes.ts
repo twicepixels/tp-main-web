@@ -5,6 +5,7 @@ import { FormCustomerUserComponent } from "./components/customer/user/customer.u
 import { FormChangePasswordComponent } from "./components/customer/user/password.change.component";
 import { FormCustomerAccountComponent } from "./components/customer/account/customer.account.component";
 import { FormLoaderImageComponent } from "./components/customer/collaborator/loader.image.component";
+import { FormCustomerCollaboratorComponent } from "./components/customer/collaborator/customer.collaborator.component";
 // Routes
 const SystemRoutes: Routes = [
 	{path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -13,7 +14,8 @@ const SystemRoutes: Routes = [
 	{path: 'user', component: FormCustomerUserComponent},
 	{path: 'account', component: FormCustomerAccountComponent},
 	{path: 'changePassword', component: FormChangePasswordComponent},
-	{path: 'loadImage', component: FormLoaderImageComponent}
+	{path: 'loadImage', component: FormLoaderImageComponent},
+	{path: 'collaborator', component: FormCustomerCollaboratorComponent},
 ];
 
 export const appRoutingProviders: any[] = [
@@ -22,7 +24,8 @@ export const appRoutingProviders: any[] = [
 	FormCustomerUserComponent,
 	FormChangePasswordComponent,
 	FormCustomerAccountComponent,
-	FormLoaderImageComponent
+	FormLoaderImageComponent,
+	FormCustomerCollaboratorComponent
 ];
 
 export const AppRouterModule = RouterModule.forRoot(SystemRoutes);

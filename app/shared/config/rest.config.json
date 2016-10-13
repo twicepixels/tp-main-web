@@ -12,7 +12,13 @@
         {"name": "userPassword", "path": "users/changePassword"},
         {"name": "accountCreate", "path": "accounts/"},
         {"name": "countryGetAll", "path": "util/getCountries"},
-        {"name": "upload", "path": "collaborator/image/upload"}
+        {"name": "upload", "path": "collaborator/image/upload"},
+        {"name": "collaboratorCreate", "path": "collaborator/"},
+        {"name": "collaboratorUpdate", "path": "collaborator/:id"},
+        {"name": "collaboratorDelete", "path": "collaborator/:id"},
+        {"name": "collaboratorGetById", "path": "collaborator/:id"}
+
+
       ]
     }
   ]
