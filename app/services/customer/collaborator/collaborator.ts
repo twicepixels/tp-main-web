@@ -14,6 +14,7 @@ export interface Collaborator {
     picture:any;
     authorized:boolean;
     accountId:number;
+    countryId:number;
     description:string;
 }
 

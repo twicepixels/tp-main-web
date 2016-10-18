@@ -5,7 +5,7 @@ import {Validators} from '@angular/forms';
 import {FormValidationService} from '../../../shared/service/form/form.validation.service';
 
 export const CollaboratorForm: any = {
-    id: ['', Validators.required],
+    //id: ['', Validators.required],
     identityCard: ['', Validators.required],
     address1: ['', Validators.required],
     address2: [''],
@@ -13,8 +13,9 @@ export const CollaboratorForm: any = {
     postalCode: ['', Validators.required],
     rating: [''],
     city: [''],
+    countryId: [''],
     picture: [''],
-    authorized: ['', Validators.required],
-    accountId: ['', Validators.required],
+    //authorized: ['', Validators.required],
+    //accountId: ['', Validators.required],
     description: ['', Validators.required]
 };

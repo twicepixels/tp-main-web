@@ -25,41 +25,50 @@ import { CollaboratorForm } from "../../../services/customer/collaborator/custom
 
 
 export class FormCustomerCollaboratorComponent extends BaseComponent {
-
+    collaborator: Collaborator;
     collaboratorForm: FormGroup;
     infoMessage: string;
     errorMessage: string;
-    countries: Object[];
 
     constructor(boot: BootstrapService,
-                public utilService: UtilService,
                 public customerCollaboratorService: CustomerCollaboratorService) {
         super(boot);
-        this.infoMessage = null;
-        this.errorMessage = null;
+        //put forms elements into form builder group
         this.collaboratorForm = this.formBuilder.group(CollaboratorForm);
-        if (this.auth.isLoggedIn()) {
-            console.log('entro');
-            this.utilService.getAllCountries().then((data: any) => {
-                this.countries = data;
-               // this.fillUserInfo();
-            }, (reason: string) => {
-                console.log(reason);
-            });
+    }
+
+
+    SubmitButtonAction() {
+        if (this.collaboratorForm.dirty && this.collaboratorForm.valid) {
+            console.log('SubmitButtonAction');
+            this.collaborator = this.collaboratorForm.value;
+            this.collaborator.accountId = 1;
+            this.collaborator.picture = 'foto';
+            this.collaborator.authorized = false;
+            this.collaborator.rating = 3;
+            this.collaborator.countryId = 1;
+            this.errorMessage = null;
+            this.createCollaborator(this.collaborator);
         }
     }
 
- /*   fillUserInfo(): void {
-        this.customerCollaboratorService.meInfo().then(
+    //create
+    createCollaborator(collaborator: Collaborator): void {
+        console.log('createCollaborator');
+        //let _service = this;
+        this.customerCollaboratorService.create(collaborator).then(
             (data: any) => {
-                this.fillFormGroup(data, this.collaboratorForm);
+                console.log("colalaborator create : " + data);
+                this.updateMessages("Change accepted !!", null);
             }, (reason: string) => {
                 console.log(reason);
+                this.updateMessages(null, "Error updated !!");
             }
         );
-    }*/
+    }
 
-    SubmitButtonAction(): any {
+
+    /*SubmitButtonAction(): any {
         if (this.collaboratorForm.dirty && this.collaboratorForm.valid) {
             // this.user = this.userForm.value;
             let collaborator: Collaborator = this.collaboratorForm.value;
@@ -73,7 +82,7 @@ export class FormCustomerCollaboratorComponent extends BaseComponent {
                 }
             );
         }
-    }
+    }*/
 
     updateMessages(infoMessage: string, errorMessage: string) {
         this.infoMessage = null;

@@ -1,5 +1,5 @@
 <div class="container">
-    <form [formGroup]="userForm" (submit)="SubmitButtonAction()">
+    <form [formGroup]="collaboratorForm" (submit)="SubmitButtonAction()">
         <div class="row">
 
             <div class="panel panel-primary">
@@ -28,7 +28,7 @@
 
                         <fieldset class="form-group">
                             <label for="address2">{{ 'ADDRESS2' | translate:lang }}</label>
-                            <input formControlName="address1" type="text" class="form-control input-lg" id="address2"
+                            <input formControlName="address2" type="text" class="form-control input-lg" id="address2"
                                    placeholder="Enter address 2">
                             <form-ctrl-message [control]="collaboratorForm.controls.address2"></form-ctrl-message>
                         </fieldset>
@@ -38,6 +38,13 @@
                             <input formControlName="phoneNumber" type="text" class="form-control input-lg" id="phoneNumber"
                                    placeholder="Enter phone Number">
                             <form-ctrl-message [control]="collaboratorForm.controls.phoneNumber"></form-ctrl-message>
+                        </fieldset>
+
+                        <fieldset class="form-group">
+                            <label for="countryId">{{ 'COUNTRY' | translate:lang }}</label>
+                            <input formControlName="countryId" type="text" class="form-control input-lg" id="countryId"
+                                   placeholder="Enter country">
+                            <form-ctrl-message [control]="collaboratorForm.controls.countryId"></form-ctrl-message>
                         </fieldset>
 
                         <fieldset class="form-group">
