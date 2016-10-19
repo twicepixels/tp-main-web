@@ -42,9 +42,14 @@
 
                         <fieldset class="form-group">
                             <label for="countryId">{{ 'COUNTRY' | translate:lang }}</label>
-                            <input formControlName="countryId" type="text" class="form-control input-lg" id="countryId"
-                                   placeholder="Enter country">
-                            <form-ctrl-message [control]="collaboratorForm.controls.countryId"></form-ctrl-message>
+                            <select id="countryId" formControlName="countryId" class="form-control input-lg">
+                                <option *ngFor="let country of countries" value={{country.id}}>
+                                    {{country.description}}
+                                </option>
+                            </select>
+                            <small class="text-muted">
+                                <form-ctrl-message [control]="collaboratorForm.controls.countryId"></form-ctrl-message>
+                            </small>
                         </fieldset>
 
                         <fieldset class="form-group">

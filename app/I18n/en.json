@@ -53,7 +53,6 @@
   "RATING": "rating",
   "CITY": "city",
   "PICTURE": "Picture",
-  "DESCRIPTION": "Description",
-  "COUNTRY": "Country"
+  "DESCRIPTION": "Description"
 
 }

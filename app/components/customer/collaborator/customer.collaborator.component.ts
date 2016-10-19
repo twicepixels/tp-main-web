@@ -27,15 +27,37 @@ import { CollaboratorForm } from "../../../services/customer/collaborator/custom
 export class FormCustomerCollaboratorComponent extends BaseComponent {
     collaborator: Collaborator;
     collaboratorForm: FormGroup;
+    countries: Object[];
     infoMessage: string;
     errorMessage: string;
 
     constructor(boot: BootstrapService,
+                public utilService: UtilService,
                 public customerCollaboratorService: CustomerCollaboratorService) {
         super(boot);
         //put forms elements into form builder group
         this.collaboratorForm = this.formBuilder.group(CollaboratorForm);
+
+        if (this.auth.isLoggedIn()) {
+            this.utilService.getAllCountries().then((data: any) => {
+                this.countries = data;
+               // this.fillUserInfo();
+            }, (reason: string) => {
+                console.log(reason);
+            });
+        }
+
     }
+
+   /* fillUserInfo(): void {
+        this.customerUserService.meInfo().then(
+            (data: any) => {
+                this.fillFormGroup(data, this.userForm);
+            }, (reason: string) => {
+                console.log(reason);
+            }
+        );
+    }*/
 
 
     SubmitButtonAction() {

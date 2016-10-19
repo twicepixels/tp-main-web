@@ -11,7 +11,7 @@
         {"name": "userByEmail", "path": "users/getByEmail/:email"},
         {"name": "userPassword", "path": "users/changePassword"},
         {"name": "accountCreate", "path": "accounts/"},
-        {"name": "countryGetAll", "path": "util/getCountries"},
+        {"name": "countryGetAll", "path": "utils/countries"},
         {"name": "upload", "path": "collaborator/image/upload"},
         {"name": "collaboratorCreate", "path": "collaborator/"},
         {"name": "collaboratorUpdate", "path": "collaborator/:id"},

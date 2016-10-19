@@ -9,4 +9,6 @@ export class UtilService {
 	getAllCountries(): Promise<any> {
 		return this.rest.post("tp-main", "countryGetAll");
 	}
+
+	
 }
