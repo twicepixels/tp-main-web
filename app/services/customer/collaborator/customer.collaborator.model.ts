@@ -13,7 +13,7 @@ export const CollaboratorForm: any = {
     postalCode: ['', Validators.required],
     rating: [''],
     city: [''],
-    countryId: [''],
+    countryId: ['', Validators.required],
     picture: [''],
     //authorized: ['', Validators.required],
     //accountId: ['', Validators.required],

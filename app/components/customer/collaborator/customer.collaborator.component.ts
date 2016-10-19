@@ -40,24 +40,13 @@ export class FormCustomerCollaboratorComponent extends BaseComponent {
 
         if (this.auth.isLoggedIn()) {
             this.utilService.getAllCountries().then((data: any) => {
-                this.countries = data;
-               // this.fillUserInfo();
+                this.countries = data;               
             }, (reason: string) => {
                 console.log(reason);
             });
         }
 
     }
-
-   /* fillUserInfo(): void {
-        this.customerUserService.meInfo().then(
-            (data: any) => {
-                this.fillFormGroup(data, this.userForm);
-            }, (reason: string) => {
-                console.log(reason);
-            }
-        );
-    }*/
 
 
     SubmitButtonAction() {
@@ -66,9 +55,8 @@ export class FormCustomerCollaboratorComponent extends BaseComponent {
             this.collaborator = this.collaboratorForm.value;
             this.collaborator.accountId = 1;
             this.collaborator.picture = 'foto';
-            this.collaborator.authorized = false;
+            this.collaborator.authorized = false; // SE CREA COMO NO AUTORIZADO HASTA QUE SEA REVISADO
             this.collaborator.rating = 3;
-            this.collaborator.countryId = 1;
             this.errorMessage = null;
             this.createCollaborator(this.collaborator);
         }
