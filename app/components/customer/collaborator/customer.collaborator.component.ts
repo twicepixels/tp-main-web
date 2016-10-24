@@ -45,19 +45,36 @@ export class FormCustomerCollaboratorComponent extends BaseComponent {
                 console.log(reason);
             });
         }
-
+        else{
+            //this.updateMessages("You must first authenticate!!", null);
+            alert("You must first authenticate!!");
+            this.router.navigate(['/login'])
+        }
     }
 
 
     SubmitButtonAction() {
         if (this.collaboratorForm.dirty && this.collaboratorForm.valid) {
-            console.log('SubmitButtonAction');
+            
             this.collaborator = this.collaboratorForm.value;
             this.collaborator.accountId = 1;
             this.collaborator.picture = 'foto';
             this.collaborator.authorized = false; // SE CREA COMO NO AUTORIZADO HASTA QUE SEA REVISADO
             this.collaborator.rating = 3;
-            this.errorMessage = null;
+            this.errorMessage = null
+
+
+            let usr: any = this.auth.getUserInfo();
+
+            if (usr) {
+                this.collaborator.accountId = usr['accountId'];
+            }
+
+            console.log(usr);
+            console.log(usr['accountId']);
+            console.log(usr['email']);
+            console.log('cuenta-user: '+usr['userName']);
+            console.log('cuenta'+this.collaborator.accountId);
             this.createCollaborator(this.collaborator);
         }
     }
