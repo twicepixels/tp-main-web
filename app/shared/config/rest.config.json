@@ -16,8 +16,8 @@
         {"name": "collaboratorCreate", "path": "collaborator/"},
         {"name": "collaboratorUpdate", "path": "collaborator/:id"},
         {"name": "collaboratorDelete", "path": "collaborator/:id"},
-        {"name": "collaboratorGetById", "path": "collaborator/:id"}
-
+        {"name": "collaboratorGetById", "path": "collaborator/:id"},
+        {"name": "collaboratorGetAll", "path": "collaborator/getAll"}
 
       ]
     }

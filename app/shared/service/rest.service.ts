@@ -19,6 +19,7 @@ export class RestService {
 
 	post(module: string, service: string, body?: any, params?: any): Promise<any> {
 		let _url = this.url(module, service, params);
+
 		return this.request(_url, "POST", body);
 	}
 
@@ -34,6 +35,7 @@ export class RestService {
 
 	private request(url: string, verb: string, body?: any): Promise<any> {
 		let _request: Observable<Response> = null;
+        console.log(body);
 		let _bodyStr = JSON.stringify(body);
 		let _options = {
 			body: _bodyStr || "",

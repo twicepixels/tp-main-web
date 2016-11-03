@@ -30,6 +30,7 @@ export class FormCustomerCollaboratorComponent extends BaseComponent {
     countries: Object[];
     infoMessage: string;
     errorMessage: string;
+    usr: any;
 
     constructor(boot: BootstrapService,
                 public utilService: UtilService,
@@ -40,7 +41,14 @@ export class FormCustomerCollaboratorComponent extends BaseComponent {
 
         if (this.auth.isLoggedIn()) {
             this.utilService.getAllCountries().then((data: any) => {
-                this.countries = data;               
+                this.countries = data;
+
+                this.usr = this.auth.getUserInfo();
+                if (this.usr) {
+
+                    this.fillCollaboratorInfo(this.usr['accountId']);
+                }
+
             }, (reason: string) => {
                 console.log(reason);
             });
@@ -57,31 +65,25 @@ export class FormCustomerCollaboratorComponent extends BaseComponent {
         if (this.collaboratorForm.dirty && this.collaboratorForm.valid) {
             
             this.collaborator = this.collaboratorForm.value;
-            this.collaborator.accountId = 1;
             this.collaborator.picture = 'foto';
             this.collaborator.authorized = false; // SE CREA COMO NO AUTORIZADO HASTA QUE SEA REVISADO
             this.collaborator.rating = 3;
             this.errorMessage = null
 
 
-            let usr: any = this.auth.getUserInfo();
-
-            if (usr) {
-                this.collaborator.accountId = usr['accountId'];
+           // let usr: any = this.auth.getUserInfo();
+            if (this.usr) {
+                this.collaborator.accountId = this.usr['accountId'];
             }
 
-            console.log(usr);
-            console.log(usr['accountId']);
-            console.log(usr['email']);
-            console.log('cuenta-user: '+usr['userName']);
-            console.log('cuenta'+this.collaborator.accountId);
+
             this.createCollaborator(this.collaborator);
         }
     }
 
     //create
     createCollaborator(collaborator: Collaborator): void {
-        console.log('createCollaborator');
+
         //let _service = this;
         this.customerCollaboratorService.create(collaborator).then(
             (data: any) => {
@@ -95,21 +97,22 @@ export class FormCustomerCollaboratorComponent extends BaseComponent {
     }
 
 
-    /*SubmitButtonAction(): any {
-        if (this.collaboratorForm.dirty && this.collaboratorForm.valid) {
-            // this.user = this.userForm.value;
-            let collaborator: Collaborator = this.collaboratorForm.value;
-            this.customerCollaboratorService.collaboratorUpdate(collaborator).then(
-                (data: any) => {
-                    console.log("user updated : " + data);
-                    this.updateMessages("Change accepted !!", null);
-                }, (reason: string) => {
-                    console.log(reason);
-                    this.updateMessages(null, "Error updated !!");
-                }
-            );
-        }
-    }*/
+    fillCollaboratorInfo(accoundId: number): void {
+
+        let account: any; //new object declaration
+        account = { "accountId": "" + accoundId + "" };
+        let jAccount = <JSON>account;
+        //this.output.stringify(this.obj);
+
+        this.customerCollaboratorService.getAll(jAccount).then(
+            (data: any) => {
+                console.log(data);
+                this.fillFormGroup(data[0], this.collaboratorForm);
+            }, (reason: string) => {
+                console.log(reason);
+            }
+        );
+    }
 
     updateMessages(infoMessage: string, errorMessage: string) {
         this.infoMessage = null;

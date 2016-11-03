@@ -42,4 +42,11 @@ export class CustomerCollaboratorService extends RestService {
     getById(id: number): Promise<Collaborator> {
         return this.get("tp-main", "collaboratorGetById", {"id": id});
     }
+
+    //getAll
+    getAll(criteria: any): Promise<Collaborator> {
+
+        return this.post("tp-main", "collaboratorGetAll", criteria);
+    }
+
 }
