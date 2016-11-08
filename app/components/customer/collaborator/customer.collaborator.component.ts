@@ -31,6 +31,7 @@ export class FormCustomerCollaboratorComponent extends BaseComponent {
     infoMessage: string;
     errorMessage: string;
     usr: any;
+    private objCollaborator: string = "Collaborator";
 
     constructor(boot: BootstrapService,
                 public utilService: UtilService,
@@ -45,7 +46,6 @@ export class FormCustomerCollaboratorComponent extends BaseComponent {
 
                 this.usr = this.auth.getUserInfo();
                 if (this.usr) {
-
                     this.fillCollaboratorInfo(this.usr['accountId']);
                 }
 
@@ -70,33 +70,28 @@ export class FormCustomerCollaboratorComponent extends BaseComponent {
             this.collaborator.rating = 3;
             this.errorMessage = null
 
-
            // let usr: any = this.auth.getUserInfo();
             if (this.usr) {
                 this.collaborator.accountId = this.usr['accountId'];
             }
 
 
-            this.createCollaborator(this.collaborator);
+            let collaboratorSession = localStorage.getItem(this.objCollaborator);
+            if(collaboratorSession == null)
+                this.createCollaborator(this.collaborator);
+            else{
+                //let jsonStr = JSON.stringify(collaboratorSession);
+
+                this.updateCollaborator(this.collaborator);
+            }
+
+            
+
+
         }
     }
 
-    //create
-    createCollaborator(collaborator: Collaborator): void {
-
-        //let _service = this;
-        this.customerCollaboratorService.create(collaborator).then(
-            (data: any) => {
-                console.log("colalaborator create : " + data);
-                this.updateMessages("Change accepted !!", null);
-            }, (reason: string) => {
-                console.log(reason);
-                this.updateMessages(null, "Error updated !!");
-            }
-        );
-    }
-
-
+    //get
     fillCollaboratorInfo(accoundId: number): void {
 
         let account: any; //new object declaration
@@ -106,10 +101,50 @@ export class FormCustomerCollaboratorComponent extends BaseComponent {
 
         this.customerCollaboratorService.getAll(jAccount).then(
             (data: any) => {
-                console.log(data);
                 this.fillFormGroup(data[0], this.collaboratorForm);
+                let jsonStr = JSON.stringify(data[0]);
+                localStorage.setItem(this.objCollaborator,jsonStr);
+                //localStorage.getItem(this.infoKey);
+
             }, (reason: string) => {
                 console.log(reason);
+            }
+        );
+    }
+
+    //create
+    createCollaborator(collaborator: Collaborator): void {
+        //let _service = this;
+        this.customerCollaboratorService.create(collaborator).then(
+            (data: any) => {
+                localStorage.removeItem(this.objCollaborator);
+                //todo probar
+                this.collaboratorForm.reset();
+                alert("Change accepted !!");
+                //this.updateMessages("Change accepted !!", null);
+            }, (reason: string) => {
+                console.log(reason);
+                alert("Error creating !!");
+                //this.updateMessages(null, "Error updated !!");
+            }
+        );
+    }
+
+    //update
+    updateCollaborator(collaborator: Collaborator): void {
+        //let _service = this;
+        this.customerCollaboratorService.collaboratorUpdate(collaborator).then(
+            (data: any) => {
+                console.log("colalaborator update : " + data);
+                localStorage.removeItem(this.objCollaborator);
+                //todo probar
+                this.collaboratorForm.reset();
+                alert("Change accepted !!");
+                //this.updateMessages("Change accepted !!", null);
+            }, (reason: string) => {
+                console.log(reason);
+                alert("Error updated !!");
+                //this.updateMessages(null, "Error updated !!");
             }
         );
     }

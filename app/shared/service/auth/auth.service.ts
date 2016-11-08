@@ -18,7 +18,7 @@ export class AuthService extends RestService {
 			_class.post("tp-main", "login", model).then(
 				(jsonResult: any)=> {
 					let jsonStr = JSON.stringify(jsonResult);
-					localStorage.setItem(_class.infoKey, jsonStr);
+					localStorage.setItem(_class.infoKey, jsonStr );
 					resolve(jsonResult);
 				},
 				(reason: any) => {
