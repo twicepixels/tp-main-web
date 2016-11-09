@@ -62,7 +62,7 @@
                         <fieldset class="form-group">
                             <label for="rating">{{ 'RATING' | translate:lang }}</label>
                             <input formControlName="rating" type="range"  class="form-control input-lg" id="rating"
-                                   placeholder="Enter rating">
+                                   placeholder="Enter rating" min="0" max="5">
                             <form-ctrl-message [control]="collaboratorForm.controls.rating"></form-ctrl-message>
                         </fieldset>
 

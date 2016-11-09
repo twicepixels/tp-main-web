@@ -62,7 +62,7 @@ export class FormCustomerCollaboratorComponent extends BaseComponent {
             this.collaborator = this.collaboratorForm.value;
             this.collaborator.picture = 'foto';
             this.collaborator.authorized = false; // SE CREA COMO NO AUTORIZADO HASTA QUE SEA REVISADO
-            this.collaborator.rating = 3;
+            //this.collaborator.rating = 3;
             this.errorMessage = null
 
            // let usr: any = this.auth.getUserInfo();
@@ -96,17 +96,14 @@ export class FormCustomerCollaboratorComponent extends BaseComponent {
 
         this.customerCollaboratorService.getAll(jAccount).then(
             (data: any) => {
-                console.log(data[0]);
                 if(data[0] == null || data[0].length === 0)
                     localStorage.removeItem(this.objCollaborator);
                 else{
-                    console.log('else');
                     this.fillFormGroup(data[0], this.collaboratorForm);
                     let jsonStr = JSON.stringify(data[0]);
                     localStorage.setItem(this.objCollaborator,jsonStr);
                 }
             }, (reason: string) => {
-                console.log('no trajo');
                 console.log(reason);
             }
         );
@@ -117,7 +114,6 @@ export class FormCustomerCollaboratorComponent extends BaseComponent {
         //let _service = this;
         this.customerCollaboratorService.create(collaborator).then(
             (data: any) => {
-                console.log(this.usr['accountId']);
                 this.fillCollaboratorInfo(this.usr['accountId']);
                 //localStorage.removeItem(this.objCollaborator);
                 //this.collaboratorForm.reset();
@@ -136,7 +132,6 @@ export class FormCustomerCollaboratorComponent extends BaseComponent {
         //let _service = this;
         this.customerCollaboratorService.collaboratorUpdate(collaborator).then(
             (data: any) => {
-                console.log("colalaborator update : " + data);
                 //localStorage.removeItem(this.objCollaborator);
                 //this.collaboratorForm.reset();
                 alert("Change accepted !!");
