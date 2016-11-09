@@ -35,8 +35,8 @@ export class CustomerCollaboratorService extends RestService {
     }
 
     collaboratorUpdate(collaborator: Collaborator): Promise<Collaborator> {
-        console.log('service --> '+ collaborator.accountId);
-        return this.put("tp-main", "collaboratorUpdate", collaborator, {"id": collaborator.accountId});
+        console.log('service --> '+ collaborator.id);
+        return this.put("tp-main", "collaboratorUpdate", collaborator, {"id": collaborator.id});
     }
 
     //get

@@ -13,16 +13,10 @@ import { UtilService } from '../../../services/general/util.service';
 import { Collaborator } from '../../../services/customer/collaborator/collaborator';
 import { CollaboratorForm } from "../../../services/customer/collaborator/customer.collaborator.model";
 
-
-
-
-
 @Component({
     template: require('./customer.collaborator.component.html'),
     providers: [UtilService, CustomerCollaboratorService]
 })
-
-
 
 export class FormCustomerCollaboratorComponent extends BaseComponent {
     collaborator: Collaborator;
@@ -45,6 +39,7 @@ export class FormCustomerCollaboratorComponent extends BaseComponent {
                 this.countries = data;
 
                 this.usr = this.auth.getUserInfo();
+
                 if (this.usr) {
                     this.fillCollaboratorInfo(this.usr['accountId']);
                 }
@@ -76,12 +71,12 @@ export class FormCustomerCollaboratorComponent extends BaseComponent {
             }
 
 
-            let collaboratorSession = localStorage.getItem(this.objCollaborator);
+            let collaboratorStorage = localStorage.getItem(this.objCollaborator);
+            let collaboratorSession = JSON.parse(collaboratorStorage);
             if(collaboratorSession == null)
                 this.createCollaborator(this.collaborator);
             else{
-                //let jsonStr = JSON.stringify(collaboratorSession);
-
+                this.collaborator.id = collaboratorSession.id;
                 this.updateCollaborator(this.collaborator);
             }
 
@@ -107,6 +102,7 @@ export class FormCustomerCollaboratorComponent extends BaseComponent {
                 //localStorage.getItem(this.infoKey);
 
             }, (reason: string) => {
+                console.log('no trajo');
                 console.log(reason);
             }
         );
@@ -117,9 +113,8 @@ export class FormCustomerCollaboratorComponent extends BaseComponent {
         //let _service = this;
         this.customerCollaboratorService.create(collaborator).then(
             (data: any) => {
-                localStorage.removeItem(this.objCollaborator);
-                //todo probar
-                this.collaboratorForm.reset();
+                //localStorage.removeItem(this.objCollaborator);
+                //this.collaboratorForm.reset();
                 alert("Change accepted !!");
                 //this.updateMessages("Change accepted !!", null);
             }, (reason: string) => {
@@ -136,9 +131,8 @@ export class FormCustomerCollaboratorComponent extends BaseComponent {
         this.customerCollaboratorService.collaboratorUpdate(collaborator).then(
             (data: any) => {
                 console.log("colalaborator update : " + data);
-                localStorage.removeItem(this.objCollaborator);
-                //todo probar
-                this.collaboratorForm.reset();
+                //localStorage.removeItem(this.objCollaborator);
+                //this.collaboratorForm.reset();
                 alert("Change accepted !!");
                 //this.updateMessages("Change accepted !!", null);
             }, (reason: string) => {
