@@ -96,11 +96,15 @@ export class FormCustomerCollaboratorComponent extends BaseComponent {
 
         this.customerCollaboratorService.getAll(jAccount).then(
             (data: any) => {
-                this.fillFormGroup(data[0], this.collaboratorForm);
-                let jsonStr = JSON.stringify(data[0]);
-                localStorage.setItem(this.objCollaborator,jsonStr);
-                //localStorage.getItem(this.infoKey);
-
+                console.log(data[0]);
+                if(data[0] == null || data[0].length === 0)
+                    localStorage.removeItem(this.objCollaborator);
+                else{
+                    console.log('else');
+                    this.fillFormGroup(data[0], this.collaboratorForm);
+                    let jsonStr = JSON.stringify(data[0]);
+                    localStorage.setItem(this.objCollaborator,jsonStr);
+                }
             }, (reason: string) => {
                 console.log('no trajo');
                 console.log(reason);
@@ -113,6 +117,8 @@ export class FormCustomerCollaboratorComponent extends BaseComponent {
         //let _service = this;
         this.customerCollaboratorService.create(collaborator).then(
             (data: any) => {
+                console.log(this.usr['accountId']);
+                this.fillCollaboratorInfo(this.usr['accountId']);
                 //localStorage.removeItem(this.objCollaborator);
                 //this.collaboratorForm.reset();
                 alert("Change accepted !!");
