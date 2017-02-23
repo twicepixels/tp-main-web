@@ -19,7 +19,6 @@ export class RestService {
 
 	post(module: string, service: string, body?: any, params?: any): Promise<any> {
 		let _url = this.url(module, service, params);
-
 		return this.request(_url, "POST", body);
 	}
 

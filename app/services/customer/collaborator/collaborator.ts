@@ -11,7 +11,7 @@ export interface Collaborator {
     postalCode:string;
     rating:number;
     city:string;
-    picture:any;
+    picture:string;
     authorized:boolean;
     accountId:number;
     countryId:number;

@@ -14,7 +14,7 @@ export const CollaboratorForm: any = {
     rating: [''],
     city: [''],
     countryId: ['', Validators.required],
-    picture: [''],
+    files: [''],
     //authorized: ['', Validators.required],
     //accountId: ['', Validators.required],
     description: ['', Validators.required]

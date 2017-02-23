@@ -74,10 +74,41 @@
                         </fieldset>
 
                         <fieldset class="form-group">
-                            <label for="picture">{{ 'PICTURE' | translate:lang }}</label>
-                            <input formControlName="picture" type="image" class="form-control input-lg" id="picture"
-                                   placeholder="Enter picture">
-                            <form-ctrl-message [control]="collaboratorForm.controls.picture"></form-ctrl-message>
+                            <label for="files">{{ 'PICTURE' | translate:lang }}</label>
+
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <span class="glyphicon glyphicon-cloud-upload"></span>
+                                            <h2>File Uploader</h2>
+                                            <!--<div class="progress">
+                                                <div class="progress-bar" role="progressbar"></div>
+                                            </div>-->
+                                            <div class="progress">
+                                                <progress value="{{vProgress}}" max="100" id="progressBar" class="progressBar"></progress>
+                                            </div>
+                                            <button class="btn btn-lg upload-btn" id="imgFile" type="button" (click)="showImageBrowseDlg()">Upload File</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input #files id="files" type="file" name="uploads[]" (change)="changeFiles($event)">
+                            <!--<input formControlName="picture" type="file" class="form-control input-lg" id="picture"-->
+                                   <!--placeholder="Enter picture">-->
+                            <!--<form-ctrl-message [control]="collaboratorForm.controls.picture"></form-ctrl-message>-->
+                            <!--  <img id="picture"  [src]="data:image/JPEG;base64,{{picture}}">
+                            <img id="picture2"  [src]="{{ imageData }}" alt=""/>
+                            <img id="picture3"  [src]="'data:image/jpg;base64,'+picture" />
+                            <img id="picture4"  [src]="data:image/JPEG;base64,{{blob}}">
+                            <img id="picture6"  [src]="data:image/jpg;base64,{{picture}}">
+                            <img id="picture7" [src]="'data:image/JPG;base64,'+{{imageData}}">
+                             <img id="picture5" [src]='sanitizer.bypassSecurityTrustUrl(picture)'  >-->
+                            <img id="picture8" src="'data:image/JPG;base64,'+{{imageData}}">
+
+                            <img src="data:image/jpg;base64,{{imageData}}"/>
+
+
                         </fieldset>
 
                         <fieldset class="form-group">
